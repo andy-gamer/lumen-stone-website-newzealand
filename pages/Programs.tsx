@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Clock, ArrowRight, SlidersHorizontal, Users, Search, X, MapPin } from 'lucide-react';
@@ -85,41 +86,46 @@ const Programs: React.FC = () => {
         </div>
       </div>
 
-      {/* Filter Toolbar */}
-      <div className="sticky top-20 z-40 bg-brand-cream/80 backdrop-blur-xl border-b border-brand-sage/5 py-6">
-         <div className="container mx-auto px-6 lg:px-16 flex flex-wrap items-center gap-6">
-            <div className="flex items-center gap-2 text-brand-ink font-bold text-xs uppercase tracking-widest">
-               <SlidersHorizontal size={16} />
+      {/* Filter Toolbar - Robust Sticky for Mobile and Desktop */}
+      <div className="sticky top-20 md:top-24 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-sage/10 py-4 md:py-6 shadow-sm transition-all duration-300">
+         <div className="container mx-auto px-6 lg:px-16 flex flex-wrap items-center gap-4 md:gap-6">
+            <div className="flex items-center gap-2 text-brand-ink font-bold text-[10px] md:text-xs uppercase tracking-widest shrink-0">
+               <SlidersHorizontal size={14} className="md:w-4 md:h-4" />
                <span>篩選類別</span>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-nowrap md:flex-wrap gap-2 overflow-x-auto no-scrollbar py-2 -mx-2 px-2 md:mx-0 md:px-0 scroll-smooth">
                {TYPES.map(type => (
                  <button 
                   key={type}
                   onClick={() => handleFilterChange('type', type)}
-                  className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all ${filters.type === type ? 'bg-brand-sage text-white shadow-premium' : 'bg-white text-brand-sub hover:bg-brand-sage hover:text-white border border-brand-sage/10'}`}
+                  className={`px-5 md:px-6 py-2 rounded-full text-[10px] md:text-xs font-bold transition-all whitespace-nowrap ${filters.type === type ? 'bg-brand-sage text-white shadow-premium' : 'bg-white text-brand-sub hover:bg-brand-sage hover:text-white border border-brand-sage/10'}`}
                  >
                    {type}
                  </button>
                ))}
             </div>
             {searchTerm && (
-              <div className="ml-auto text-sm text-brand-sage font-medium">
+              <div className="ml-auto text-xs md:text-sm text-brand-sage font-medium whitespace-nowrap hidden sm:block">
                  找到 {filteredPrograms.length} 個結果
               </div>
             )}
          </div>
       </div>
 
-      {/* Program Grid - Enhanced Cards */}
+      {/* Program Grid - Enhanced Cards with Refined Hover and Parallax Zoom */}
       <div className="container mx-auto px-6 lg:px-16 py-20">
         {filteredPrograms.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {filteredPrograms.map(program => (
-              <Link to={`/programs/${program.id}`} key={program.id} className="group flex flex-col bg-white rounded-[48px] overflow-hidden shadow-elevated hover:shadow-premium transition-all duration-500 hover:-translate-y-3">
+              <Link to={`/programs/${program.id}`} key={program.id} className="group flex flex-col bg-white rounded-[48px] overflow-hidden shadow-zen hover:shadow-2xl transition-all duration-700 hover:scale-[1.03] transform-gpu border border-brand-sage/5">
                 <div className="relative h-80 overflow-hidden">
-                   <img src={program.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={program.title} />
-                   <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                   {/* Parallax-like Image Zoom and Slight Slide Effect */}
+                   <img 
+                    src={program.image} 
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-115 group-hover:-translate-y-2 ease-out transform-gpu" 
+                    alt={program.title} 
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                    
                    {/* Badges */}
                    <div className="absolute top-6 left-6 flex flex-col gap-2">
@@ -128,7 +134,7 @@ const Programs: React.FC = () => {
                       </span>
                    </div>
                    
-                   <div className="absolute bottom-6 right-6 glass-card px-5 py-2 rounded-2xl font-bold text-brand-ink text-sm shadow-lg">
+                   <div className="absolute bottom-6 right-6 glass-card px-5 py-2 rounded-2xl font-bold text-brand-ink text-sm shadow-lg group-hover:bg-brand-accent group-hover:text-white transition-colors duration-500">
                       {program.price}
                    </div>
                 </div>
@@ -137,7 +143,7 @@ const Programs: React.FC = () => {
                    <div className="flex justify-between items-start mb-4">
                       <span className="text-[11px] font-bold text-brand-accent uppercase tracking-[0.2em]">{program.type}</span>
                    </div>
-                   <h3 className="text-2xl font-serif font-bold text-brand-ink leading-tight mb-6 group-hover:text-brand-sage transition-colors">
+                   <h3 className="text-2xl font-serif font-bold text-brand-ink leading-tight mb-6 group-hover:text-brand-sage transition-colors duration-300">
                       {program.title}
                    </h3>
                    <p className="text-brand-sub text-sm font-light leading-relaxed line-clamp-2 mb-8">
@@ -155,8 +161,8 @@ const Programs: React.FC = () => {
                             {program.ageRange}
                          </div>
                       </div>
-                      <div className="w-10 h-10 rounded-full border border-brand-sage/20 flex items-center justify-center text-brand-sage group-hover:bg-brand-sage group-hover:text-white transition-all">
-                         <ArrowRight size={18} />
+                      <div className="w-12 h-12 rounded-full border border-brand-sage/20 flex items-center justify-center text-brand-sage group-hover:bg-brand-sage group-hover:text-white group-hover:border-brand-sage group-hover:translate-x-1 transition-all duration-500">
+                         <ArrowRight size={20} />
                       </div>
                    </div>
                 </div>
@@ -169,8 +175,8 @@ const Programs: React.FC = () => {
                 <Search size={40} />
              </div>
              <h3 className="text-2xl font-serif font-bold text-brand-ink mb-4">找不到符合關鍵字的課程</h3>
-             <p className="text-brand-sub mb-8">建議嘗試其他關鍵字，或是預約諮詢由我們為您推薦。</p>
-             <button onClick={() => setSearchTerm("")} className="text-brand-sage font-bold border-b-2 border-brand-sage pb-1">清除搜尋條件</button>
+             <p className="text-brand-sub mb-8 font-light">建議嘗試其他關鍵字，或是預約諮詢由我們為您推薦。</p>
+             <button onClick={() => setSearchTerm("")} className="text-brand-sage font-bold border-b-2 border-brand-sage/30 hover:border-brand-sage pb-1 transition-all">清除搜尋條件</button>
           </div>
         )}
       </div>

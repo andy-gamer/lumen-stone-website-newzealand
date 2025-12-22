@@ -12,8 +12,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
 
   const navLinks = [
-    { name: '紐西蘭指南', path: '/nz-guide' },
-    { name: '精選方案', path: '/programs' },
+    { name: '首頁', path: '/' },
+    { name: '選課指南', path: '/guide' },
+    { name: '遊學行程', path: '/programs' },
     { name: '學員故事', path: '/success' },
     { name: '關於點石', path: '/about' },
   ];
@@ -25,14 +26,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex justify-between items-center h-20 md:h-24">
             
-            {/* Logo Section - 整合 Logo 與文字 */}
+            {/* Logo Section */}
             <Link to="/" className="flex items-center gap-3 md:gap-4 group" onClick={() => setIsMenuOpen(false)}>
                <div className="relative shrink-0">
-                 {/* 品牌標誌：使用 Sparkles 模擬 Logo 圖片，具備藝術感框線 */}
                  <div className="w-10 h-10 md:w-14 md:h-14 bg-brand-sage text-white rounded-2xl flex items-center justify-center shadow-lg transform group-hover:rotate-6 transition-transform duration-500">
                     <Sparkles className="w-6 h-6 md:w-8 md:h-8" />
                  </div>
-                 {/* 裝飾性手繪感光點 */}
                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-accent rounded-full border-2 border-brand-cream"></div>
                </div>
                
@@ -48,7 +47,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center space-x-12">
+            <div className="hidden lg:flex items-center space-x-10">
               {navLinks.map(link => (
                 <Link 
                   key={link.path} 
@@ -114,10 +113,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h4 className="text-brand-accent text-[10px] tracking-[0.4em] font-bold uppercase mb-10 opacity-80">Directory</h4>
               <div className="space-y-4 text-sm font-light">
-                 <Link to="/nz-guide" className="block text-brand-light/60 hover:text-brand-accent transition-colors">紐西蘭指南與選課</Link>
-                 <Link to="/programs" className="block text-brand-light/60 hover:text-brand-accent transition-colors">精選方案</Link>
-                 <Link to="/success" className="block text-brand-light/60 hover:text-brand-accent transition-colors">學員故事</Link>
-                 <Link to="/about" className="block text-brand-light/60 hover:text-brand-accent transition-colors">品牌精神</Link>
+                 {navLinks.map(link => (
+                   <Link key={link.path} to={link.path} className="block text-brand-light/60 hover:text-brand-accent transition-colors">{link.name}</Link>
+                 ))}
               </div>
             </div>
             <div>
