@@ -20,19 +20,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-screen selection:bg-brand-sage selection:text-white">
+      {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 bg-brand-cream/80 backdrop-blur-xl border-b border-brand-sage/5">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex justify-between items-center h-20 md:h-24">
             
-            {/* Logo Section - 整合品牌識別與文字 */}
+            {/* Logo Section - 整合 Logo 與文字 */}
             <Link to="/" className="flex items-center gap-3 md:gap-4 group" onClick={() => setIsMenuOpen(false)}>
-               <div className="relative">
-                 {/* 品牌標誌圖片/圖示：具備響應式縮放 */}
+               <div className="relative shrink-0">
+                 {/* 品牌標誌：使用 Sparkles 模擬 Logo 圖片，具備藝術感框線 */}
                  <div className="w-10 h-10 md:w-14 md:h-14 bg-brand-sage text-white rounded-2xl flex items-center justify-center shadow-lg transform group-hover:rotate-6 transition-transform duration-500">
                     <Sparkles className="w-6 h-6 md:w-8 md:h-8" />
                  </div>
-                 {/* 裝飾性光點 */}
-                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-accent rounded-full border-2 border-brand-cream animate-pulse"></div>
+                 {/* 裝飾性手繪感光點 */}
+                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-accent rounded-full border-2 border-brand-cream"></div>
                </div>
                
                <div className="flex flex-col text-brand-ink">
@@ -64,7 +65,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-brand-ink hover:bg-brand-sage/5 rounded-xl transition-colors">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-brand-ink">
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -80,7 +81,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   to={link.path} 
                   onClick={() => setIsMenuOpen(false)} 
                   className="text-4xl font-serif text-brand-ink hover:text-brand-accent transition-colors"
-                  style={{ animationDelay: `${idx * 100}ms` }}
                 >
                   {link.name}
                 </Link>
@@ -95,10 +95,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <main className="flex-grow pt-20 md:pt-24">{children}</main>
 
+      {/* Footer */}
       <footer className="bg-brand-ink text-brand-cream py-24 relative overflow-hidden">
-        {/* 背景裝飾 */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-sage/10 rounded-full blur-[120px] pointer-events-none"></div>
-        
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20 border-b border-white/5 pb-20">
             <div className="md:col-span-2 space-y-8">
@@ -124,14 +123,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h4 className="text-brand-accent text-[10px] tracking-[0.4em] font-bold uppercase mb-10 opacity-80">Connect</h4>
               <div className="space-y-5 text-sm font-light">
-                 <p className="flex items-start gap-4 text-brand-light/60"><MapPin size={18} className="text-brand-accent mt-0.5 shrink-0"/> 台北市信義區信義路五段7號 (101旁)</p>
+                 <p className="flex items-start gap-4 text-brand-light/60"><MapPin size={18} className="text-brand-accent mt-0.5 shrink-0"/> 台北市信義區信義路五段7號</p>
                  <p className="flex items-center gap-4 text-brand-light/60"><Phone size={18} className="text-brand-accent shrink-0"/> 02-2345-6789</p>
                  <p className="flex items-center gap-4 text-brand-light/60"><Mail size={18} className="text-brand-accent shrink-0"/> info@lumenstone.edu</p>
               </div>
             </div>
           </div>
           <div className="text-[10px] tracking-[0.5em] text-center opacity-30 uppercase">
-             © 2024 Lumen Stone Education International. Designed for Dreamers.
+             © 2024 Lumen Stone Education International.
           </div>
         </div>
       </footer>

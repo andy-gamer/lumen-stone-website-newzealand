@@ -12,23 +12,25 @@
           extend: {
             colors: {
               brand: {
-                sage: '#2D5A47',   // 深森林綠
-                light: '#F4F7F5',  // 極淺綠
-                cream: '#FDF9F3',  // 溫暖紙張色
+                sage: '#2D5A47',   
+                light: '#F4F7F5',  
+                cream: '#FDF9F3',  
                 paper: '#FFFFFF',
-                accent: '#C5A059', // 金色 (與 Logo 呼應)
-                ink: '#1A2521',    // 墨綠黑
-                sub: '#71717A',    // 質感灰
+                accent: '#C5A059', 
+                ink: '#1A2521',    
+                sub: '#71717A',    
               }
             },
             fontFamily: {
               sans: ['Inter', '"Noto Sans TC"', 'sans-serif'],
               serif: ['"Noto Serif TC"', 'serif'],
+              hand: ['"Caveat"', 'cursive'], // 新增手寫感字體
             },
             boxShadow: {
               'premium': '0 30px 60px -12px rgba(45, 90, 71, 0.08)',
               'zen': '0 4px 24px rgba(0, 0, 0, 0.02)',
               'gold': '0 10px 30px -10px rgba(197, 160, 89, 0.3)',
+              'tape': '0 2px 4px rgba(0,0,0,0.05)',
             }
           },
         },
@@ -36,7 +38,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
       body { 
         font-family: 'Noto Sans TC', sans-serif; 
@@ -47,6 +49,8 @@
       h1, h2, h3, h4, .font-serif {
         font-family: 'Noto Serif TC', serif;
       }
+      .font-hand { font-family: 'Caveat', cursive; }
+      
       .underline-art {
         position: relative;
         display: inline-block;
@@ -71,23 +75,30 @@
         pointer-events: none;
         z-index: 9999;
       }
+      /* 手繪線條感 */
+      .sketch-svg {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: dash 3s linear forwards;
+      }
+      @keyframes dash { to { stroke-dashoffset: 0; } }
+      
+      .washi-tape {
+        background: rgba(197, 160, 89, 0.3);
+        backdrop-blur: 2px;
+        height: 25px;
+        width: 100px;
+        transform: rotate(-3deg);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      }
+      
       .custom-shape {
-        border-radius: 60% 40% 70% 30% / 50% 30% 70% 50%;
+        clip-path: polygon(2% 5%, 95% 2%, 98% 95%, 5% 98%);
       }
-      .fade-in-section {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .fade-in-section.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      /* 手繪感線條裝飾 */
-      .sketch-border {
-        border: 2px solid #C5A059;
-        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-      }
+      
+      /* 隱藏滾動條 */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
   <script type="importmap">
 {
