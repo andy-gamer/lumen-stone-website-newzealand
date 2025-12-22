@@ -49,14 +49,10 @@
         letter-spacing: -0.01em;
       }
       
-      /* 嚴謹的社論感底線 */
-      .editorial-underline {
-        position: relative;
-        display: inline-block;
+      .editorial-accent {
         color: #C5A059;
       }
 
-      /* 移除所有手寫與裝飾元素，保留乾淨的淡入 */
       .fade-in-section {
         opacity: 0;
         transform: translateY(15px);
@@ -73,6 +69,11 @@
       .section-padding {
         padding-top: clamp(6rem, 12vh, 12rem);
         padding-bottom: clamp(6rem, 12vh, 12rem);
+      }
+
+      /* 移除所有手寫、膠帶等裝飾，回歸簡潔線條 */
+      .editorial-border {
+        border-top: 1px solid rgba(45, 90, 71, 0.1);
       }
     </style>
   <script type="importmap">
