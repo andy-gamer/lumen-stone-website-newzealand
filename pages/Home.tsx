@@ -5,7 +5,7 @@ import {
   ArrowRight, CheckCircle, Shield, Users, 
   MapPin, Search, Plane, GraduationCap, MessageSquare, 
   Heart, Sparkles, Compass, Wind, Quote, Star, BookOpen, ExternalLink,
-  ChevronRight, ClipboardCheck, School, SearchCode, Info
+  ChevronRight, ClipboardCheck, School, SearchCode, Info, Target, Calendar, Fingerprint, Award
 } from 'lucide-react';
 
 const FadeInSection: React.FC<{ children: ReactNode; delay?: string }> = ({ children, delay = '0s' }) => {
@@ -73,7 +73,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Philosophy: Grid layout with iconography */}
+      {/* Philosophy */}
       <section className="py-24 bg-white border-y border-brand-sage/5">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Program Entry: Immersive Cards & Comparison */}
+      {/* Section 3: Study Options Overview with Visual Infographic */}
       <section className="py-32">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-20 max-w-2xl mx-auto">
@@ -108,7 +108,6 @@ const Home: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
-             {/* Cards for each path... (Same as previous) */}
              <div className="group relative rounded-[40px] overflow-hidden aspect-[3/4] shadow-zen">
                 <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Study Abroad" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 via-brand-ink/20 to-transparent"></div>
@@ -146,46 +145,53 @@ const Home: React.FC = () => {
              </div>
           </div>
 
-          {/* New: Visual Comparison Table */}
           <FadeInSection>
             <div className="bg-white rounded-[40px] p-8 md:p-12 shadow-zen border border-brand-sage/5 overflow-x-auto">
               <h3 className="text-2xl font-serif font-bold text-brand-ink mb-10 text-center">方案核心差異對照</h3>
-              <table className="w-full min-w-[600px] text-left">
-                <thead>
-                  <tr className="border-b border-brand-sage/10">
-                    <th className="py-6 font-serif text-brand-sub font-medium">比較維度</th>
-                    <th className="py-6 font-serif text-brand-ink font-bold">長期留學</th>
-                    <th className="py-6 font-serif text-brand-ink font-bold">短期遊學</th>
-                    <th className="py-6 font-serif text-brand-ink font-bold">微留學插班</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm">
-                  <tr className="border-b border-brand-sage/5 hover:bg-brand-cream/30 transition-colors">
-                    <td className="py-6 font-bold text-brand-ink/70">主要目標</td>
-                    <td className="py-6">取得正式學位 / 升學銜接</td>
-                    <td className="py-6">語言能力提升 / 文化體驗</td>
-                    <td className="py-6">在地校園融入 / 潛力測試</td>
-                  </tr>
-                  <tr className="border-b border-brand-sage/5 hover:bg-brand-cream/30 transition-colors">
-                    <td className="py-6 font-bold text-brand-ink/70">建議時長</td>
-                    <td className="py-6">1 年以上 (長期紮根)</td>
-                    <td className="py-6">2 週 - 3 個月 (精實充電)</td>
-                    <td className="py-6">4 週 - 10 週 (深度插班)</td>
-                  </tr>
-                  <tr className="border-b border-brand-sage/5 hover:bg-brand-cream/30 transition-colors">
-                    <td className="py-6 font-bold text-brand-ink/70">簽證類型</td>
-                    <td className="py-6">正式學生簽證 (Student Visa)</td>
-                    <td className="py-6">免簽 (NZeTA) / 觀光簽證</td>
-                    <td className="py-6">免簽 (NZeTA) / 觀光簽證</td>
-                  </tr>
-                  <tr className="hover:bg-brand-cream/30 transition-colors">
-                    <td className="py-6 font-bold text-brand-ink/70">入學要求</td>
-                    <td className="py-6">學術成績評估 / 英語門檻</td>
-                    <td className="py-6">分級測驗 (隨時入學)</td>
-                    <td className="py-6">基本英文溝通 (中小學)</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="grid grid-cols-4 gap-4 min-w-[800px]">
+                {/* Header Row */}
+                <div className="py-6 font-serif text-brand-sub font-medium border-b border-brand-sage/10 flex items-center gap-2">
+                   比較維度
+                </div>
+                <div className="py-6 font-serif text-brand-ink font-bold border-b border-brand-sage/10 text-center bg-brand-ink/5 rounded-t-2xl">
+                   長期留學
+                </div>
+                <div className="py-6 font-serif text-brand-ink font-bold border-b border-brand-sage/10 text-center bg-brand-accent/5 rounded-t-2xl">
+                   短期遊學
+                </div>
+                <div className="py-6 font-serif text-brand-ink font-bold border-b border-brand-sage/10 text-center bg-brand-sage/5 rounded-t-2xl">
+                   微留學插班
+                </div>
+
+                {/* Rows with Icons */}
+                <div className="py-6 font-bold text-brand-ink/70 flex items-center gap-2">
+                   <Target size={16} className="text-brand-accent"/> 主要目標
+                </div>
+                <div className="py-6 text-center text-sm">取得正式學位 / 升學銜接</div>
+                <div className="py-6 text-center text-sm">語言能力提升 / 文化體驗</div>
+                <div className="py-6 text-center text-sm">在地校園融入 / 潛力測試</div>
+
+                <div className="py-6 font-bold text-brand-ink/70 flex items-center gap-2 border-t border-brand-sage/5">
+                   <Calendar size={16} className="text-brand-accent"/> 建議時長
+                </div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">1 年以上 (長期紮根)</div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">2 週 - 3 個月 (精實充電)</div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">4 週 - 10 週 (深度插班)</div>
+
+                <div className="py-6 font-bold text-brand-ink/70 flex items-center gap-2 border-t border-brand-sage/5">
+                   <Fingerprint size={16} className="text-brand-accent"/> 簽證類型
+                </div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">學生簽證 (Student Visa)</div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">免簽 (NZeTA) / 觀光簽</div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">免簽 (NZeTA) / 觀光簽</div>
+
+                <div className="py-6 font-bold text-brand-ink/70 flex items-center gap-2 border-t border-brand-sage/5">
+                   <Award size={16} className="text-brand-accent"/> 入學要求
+                </div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5 font-medium">學術評估 / 英語門檻</div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">分級測驗 (隨時入學)</div>
+                <div className="py-6 text-center text-sm border-t border-brand-sage/5">基本英文溝通能力</div>
+              </div>
             </div>
           </FadeInSection>
         </div>
@@ -231,7 +237,6 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* New Section: Choosing NZ Process */}
           <FadeInSection>
             <div className="bg-white rounded-[60px] p-12 md:p-20 shadow-zen">
               <div className="max-w-3xl mx-auto text-center mb-16">
@@ -240,7 +245,6 @@ const Home: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-                {/* Visual Connector (Line) for desktop */}
                 <div className="hidden md:block absolute top-1/4 left-10 right-10 h-[1px] bg-brand-sage/20 z-0"></div>
 
                 {[
@@ -251,7 +255,6 @@ const Home: React.FC = () => {
                 ].map((step, idx) => (
                   <div key={idx} className="relative z-10 flex flex-col items-center text-center space-y-6">
                     <div className={`w-16 h-16 rounded-full flex items-center justify-center bg-white border-2 border-${step.color}/30 text-${step.color} shadow-sm group hover:scale-110 transition-transform`}>
-                      {/* Fix: Use React.cloneElement with generic <any> to allow 'size' prop to be passed to cloned element */}
                       {React.cloneElement(step.icon as React.ReactElement<any>, { size: 28 })}
                     </div>
                     <div className="space-y-3">
@@ -267,26 +270,60 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonial: Authentic Feedback */}
+      {/* Section 5: Student Stories (Testimonials) - Added more testimonials */}
       <section className="py-32 bg-white">
         <div className="container mx-auto px-6 lg:px-12 text-center">
-          <Quote className="text-brand-sage/10 mx-auto mb-10" size={100} />
-          <div className="max-w-4xl mx-auto">
-             <p className="text-3xl md:text-4xl font-serif text-brand-ink leading-snug italic mb-12">
-               「我從沒想過我的孩子能在短短四周內，從不敢開口到主動用英文跟 Buddy 介紹台灣的零食。點石的安排非常細膩，讓我們在紐西蘭感受到了家一般的溫暖。」
-             </p>
-             <div className="flex items-center justify-center gap-6">
-                <img src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?auto=format&fit=crop&w=200&q=80" className="w-16 h-16 rounded-full object-cover border-2 border-brand-sage/20" alt="Parent Reviewer" />
-                <div className="text-left">
-                   <h4 className="font-bold text-brand-ink">陳媽媽</h4>
-                   <p className="text-xs text-brand-sub tracking-widest uppercase mt-1">奧克蘭微留學 / 親子陪讀</p>
-                </div>
-             </div>
-          </div>
+          <FadeInSection>
+            <Quote className="text-brand-sage/10 mx-auto mb-10" size={100} />
+            <h2 className="text-4xl font-serif font-bold text-brand-ink mb-16">聽聽學員們怎麼說</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+               {/* Testimonial 1: Micro Study */}
+               <div className="bg-brand-cream p-10 rounded-[40px] text-left relative flex flex-col justify-between hover:shadow-zen transition-shadow">
+                  <p className="text-lg font-serif text-brand-ink leading-relaxed italic mb-8">
+                    「我從沒想過我的孩子能在短短四周內，從不敢開口到主動用英文跟 Buddy 介紹台灣的零食。點石的安排非常細膩，讓我們在紐西蘭感受到了家一般的溫暖。」
+                  </p>
+                  <div className="flex items-center gap-4">
+                     <img src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?auto=format&fit=crop&w=200&q=80" className="w-14 h-14 rounded-full object-cover border-2 border-brand-sage/20 shadow-sm" alt="Parent Reviewer" />
+                     <div className="text-left">
+                        <h4 className="font-bold text-brand-ink">陳媽媽</h4>
+                        <p className="text-[10px] text-brand-sub tracking-widest uppercase font-bold">奧克蘭微留學 / 親子陪讀</p>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Testimonial 2: Study Abroad */}
+               <div className="bg-brand-cream p-10 rounded-[40px] text-left relative flex flex-col justify-between hover:shadow-zen transition-shadow border-t-4 border-brand-accent/20">
+                  <p className="text-lg font-serif text-brand-ink leading-relaxed italic mb-8">
+                    「在紐西蘭的高中生活讓我學會了獨立思考。NCEA 學制讓我可以根據興趣選課，攝影與戶外領導課程是我最喜歡的部分。顧問 Sarah 幫我申請到理想的學校，讓我的留學之路非常順暢。」
+                  </p>
+                  <div className="flex items-center gap-4">
+                     <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=200&q=80" className="w-14 h-14 rounded-full object-cover border-2 border-brand-accent/20 shadow-sm" alt="Student Kevin" />
+                     <div className="text-left">
+                        <h4 className="font-bold text-brand-ink">Kevin Huang</h4>
+                        <p className="text-[10px] text-brand-sub tracking-widest uppercase font-bold">基督城長期留學 / Year 12</p>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Testimonial 3: Language School */}
+               <div className="bg-brand-cream p-10 rounded-[40px] text-left relative flex flex-col justify-between hover:shadow-zen transition-shadow">
+                  <p className="text-lg font-serif text-brand-ink leading-relaxed italic mb-8">
+                    「第一週到奧克蘭語言學校時很緊張，但老師非常幽默，隨時鼓勵我們開口。點石在當地的支援很即時，連我找銀行開戶這種小事都很有耐心地指引我，讓我很安心。」
+                  </p>
+                  <div className="flex items-center gap-4">
+                     <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80" className="w-14 h-14 rounded-full object-cover border-2 border-brand-sage/20 shadow-sm" alt="Student Alice" />
+                     <div className="text-left">
+                        <h4 className="font-bold text-brand-ink">Alice Chen</h4>
+                        <p className="text-[10px] text-brand-sub tracking-widest uppercase font-bold">奧克蘭語言學校 / 8週進修</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+          </FadeInSection>
         </div>
       </section>
 
-      {/* Final CTA: Handwritten Style */}
+      {/* Section 6: Final CTA with Prominent Animated Gradient Button */}
       <section className="py-40 bg-brand-ink text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 p-20 opacity-10">
            <Plane size={300} strokeWidth={0.5} />
@@ -300,10 +337,14 @@ const Home: React.FC = () => {
              我們提供 15 分鐘的免費諮詢，幫您釐清目標。
            </p>
            <div className="flex flex-col md:flex-row gap-6 justify-center">
-              <Link to="/booking" className="px-12 py-6 bg-brand-sage text-white font-bold rounded-full hover:bg-white hover:text-brand-ink transition-all shadow-xl tracking-widest">
-                 立即預約諮詢
+              <Link 
+                to="/booking" 
+                className="px-16 py-7 bg-gradient-to-r from-brand-accent to-[#C68766] text-white font-bold rounded-full shadow-hand-drawn hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 tracking-widest text-base flex items-center gap-3 mx-auto md:mx-0 group"
+              >
+                 <span>預約 15 分鐘免費諮詢</span>
+                 <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform"/>
               </Link>
-              <Link to="/guide" className="px-12 py-6 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-all tracking-widest">
+              <Link to="/guide" className="px-12 py-7 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-all tracking-widest text-base">
                  探索選課指南
               </Link>
            </div>
