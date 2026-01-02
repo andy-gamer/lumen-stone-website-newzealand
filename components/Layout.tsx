@@ -46,7 +46,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </Link>
 
             <div className="hidden lg:flex items-center space-x-8">
-              {/* 如何選課 Dropdown */}
               <div 
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('guide')}
@@ -61,7 +60,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </div>
               </div>
 
-              {/* 課程列表 Dropdown */}
               <div 
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('programs')}
@@ -79,6 +77,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </div>
               </div>
 
+              <Link to="/articles" className="text-[10px] tracking-[0.2em] uppercase font-bold transition-all hover:text-brand-accent text-brand-ink/60">文章導覽</Link>
+
               <Link to="/booking" className="px-8 py-3 bg-brand-ink text-white text-[10px] font-extrabold tracking-[0.2em] uppercase rounded-full hover:bg-brand-accent transition-all">
                 Contact
               </Link>
@@ -93,17 +93,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {isMenuOpen && (
           <div className="lg:hidden fixed inset-0 z-40 bg-brand-cream pt-32 flex flex-col items-center overflow-y-auto">
             <div className="flex flex-col items-center space-y-8 pb-20">
-              <span className="text-[9px] font-black tracking-[0.4em] uppercase text-brand-accent">如何選課？</span>
               <Link to="/guide" onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-ink">選課指南</Link>
               <Link to="/education" onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-ink">紐西蘭學制</Link>
-              
               <div className="h-[1px] w-20 bg-brand-border"></div>
-              
-              <span className="text-[9px] font-black tracking-[0.4em] uppercase text-brand-accent">課程列表</span>
-              <Link to="/programs?type=Study Abroad" onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-ink">留學</Link>
-              <Link to="/programs?type=Language School" onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-ink">遊學</Link>
-              <Link to="/programs?type=Micro Study" onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-ink">微留學</Link>
-
+              <Link to="/programs" onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-ink">課程列表</Link>
+              <Link to="/articles" onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-ink">文章導覽</Link>
               <Link to="/booking" onClick={() => setIsMenuOpen(false)} className="px-12 py-4 bg-brand-ink text-white rounded-full font-bold">CONTACT</Link>
             </div>
           </div>
@@ -127,8 +121,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h4 className="text-brand-secondary text-[10px] tracking-[0.4em] uppercase font-bold mb-6">Explore</h4>
               <ul className="space-y-3 text-xs">
+                <li><Link to="/articles" className="hover:text-white transition-colors">文章導覽</Link></li>
                 <li><Link to="/guide" className="hover:text-white transition-colors">選課指南</Link></li>
-                <li><Link to="/education" className="hover:text-white transition-colors">紐西蘭學制</Link></li>
                 <li><Link to="/programs" className="hover:text-white transition-colors">課程列表</Link></li>
               </ul>
             </div>

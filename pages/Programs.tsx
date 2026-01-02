@@ -1,7 +1,11 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Clock, MapPin, Tag, ChevronDown, Users, X, DollarSign, Check, ArrowUpRight, Info } from 'lucide-react';
+import { 
+  Clock, MapPin, Tag, ChevronDown, Users, X, DollarSign, 
+  Check, ArrowUpRight, Info, Eye, CheckCircle, Sparkles, 
+  Globe, Calendar, Shield, Maximize2, ChevronLeft, ChevronRight
+} from 'lucide-react';
 import { DataService } from '../services/db';
 import { Program, ProgramType } from '../types';
 
@@ -9,6 +13,7 @@ const Programs: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [programs, setPrograms] = useState<Program[]>([]);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [searchParams] = useSearchParams();
 
   const [filters, setFilters] = useState({
@@ -62,7 +67,6 @@ const Programs: React.FC = () => {
 
   const filteredPrograms = useMemo(() => {
     return programs.filter(program => {
-      // 擴展 type 篩選邏輯，支援「大分類」
       if (filters.type) {
           if (filters.type === "Study Abroad" && program.type !== ProgramType.STUDY_ABROAD) return false;
           if (filters.type === "Language School" && 
@@ -120,8 +124,99 @@ const Programs: React.FC = () => {
     );
   };
 
+  const QuickViewModal = ({ program, onClose }: { program: Program; onClose: () => void }) => {
+    const [imgIdx, setImgIdx] = useState(0);
+    const gallery = program.gallery || [program.image];
+
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 lg:p-12">
+        <div className="absolute inset-0 bg-brand-ink/90 backdrop-blur-xl animate-fade-in" onClick={onClose}></div>
+        
+        <div className="relative w-full max-w-6xl bg-brand-cream rounded-[40px] shadow-heavy overflow-hidden flex flex-col lg:flex-row animate-scale-up max-h-[90vh]">
+          <button onClick={onClose} className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-brand-accent transition-all">
+            <X size={24} />
+          </button>
+
+          {/* Left: Image Gallery */}
+          <div className="lg:w-1/2 relative bg-brand-ink h-[300px] lg:h-auto overflow-hidden">
+             <img src={gallery[imgIdx]} className="w-full h-full object-cover animate-fade-in" alt={program.title} />
+             {gallery.length > 1 && (
+               <>
+                 <button onClick={() => setImgIdx((imgIdx - 1 + gallery.length) % gallery.length)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-brand-accent transition-all">
+                   <ChevronLeft size={20} />
+                 </button>
+                 <button onClick={() => setImgIdx((imgIdx + 1) % gallery.length)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-brand-accent transition-all">
+                   <ChevronRight size={20} />
+                 </button>
+               </>
+             )}
+             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+                {gallery.map((_, i) => (
+                  <div key={i} className={`h-1 rounded-full transition-all ${i === imgIdx ? 'w-8 bg-brand-secondary' : 'w-2 bg-white/30'}`}></div>
+                ))}
+             </div>
+          </div>
+
+          {/* Right: Content */}
+          <div className="lg:w-1/2 p-8 lg:p-16 overflow-y-auto">
+            <div className="space-y-8">
+              <div>
+                <span className="text-brand-accent font-black text-[9px] uppercase tracking-[0.4em] block mb-4">Quick View</span>
+                <h2 className="text-3xl lg:text-4xl font-serif font-black text-brand-ink leading-tight mb-4">{program.title}</h2>
+                <div className="flex flex-wrap gap-4 text-[10px] font-bold text-brand-sub uppercase tracking-widest">
+                  <span className="flex items-center gap-1.5"><MapPin size={14} className="text-brand-accent"/> {program.city}</span>
+                  <span className="flex items-center gap-1.5"><Clock size={14} className="text-brand-accent"/> {program.duration}</span>
+                  <span className="flex items-center gap-1.5"><Users size={14} className="text-brand-accent"/> {program.ageRange}</span>
+                </div>
+              </div>
+
+              <div className="h-[1px] bg-brand-border"></div>
+
+              <div>
+                <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-ink/40 mb-4">Description</h4>
+                <p className="text-sm text-brand-sub leading-loose font-light">{program.description}</p>
+              </div>
+
+              <div>
+                 <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-ink/40 mb-4">Program Highlights</h4>
+                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   {program.highlights?.slice(0, 4).map((h, i) => (
+                     <li key={i} className="flex items-center gap-3 text-xs text-brand-ink font-bold">
+                        <CheckCircle size={16} className="text-brand-accent shrink-0" />
+                        {h}
+                     </li>
+                   ))}
+                 </ul>
+              </div>
+
+              <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                   <p className="text-[9px] font-black text-brand-sub uppercase tracking-widest mb-1">Estimated Tuition</p>
+                   <p className="text-2xl font-serif font-black text-brand-accent">{program.price}</p>
+                </div>
+                <div className="flex gap-4 w-full sm:w-auto">
+                  <Link to={`/programs/${program.id}`} className="flex-1 sm:flex-none px-8 py-4 bg-brand-ink text-white text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-brand-accent transition-all text-center">
+                    Full Details
+                  </Link>
+                  <Link to="/booking" state={{ interestedProgram: program.title }} className="flex-1 sm:flex-none px-8 py-4 bg-brand-secondary text-brand-primary text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-white transition-all text-center">
+                    Book Now
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="bg-brand-cream min-h-screen pt-44">
+      {/* Quick View Modal */}
+      {selectedProgram && (
+        <QuickViewModal program={selectedProgram} onClose={() => setSelectedProgram(null)} />
+      )}
+
       <div className="container mx-auto px-6 lg:px-12 mb-20">
         <div className="text-center max-w-3xl mx-auto space-y-6">
           <span className="text-brand-accent font-bold tracking-[0.5em] uppercase text-[10px] block mb-4">Curated Programs</span>
@@ -166,7 +261,9 @@ const Programs: React.FC = () => {
         ) : filteredPrograms.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {filteredPrograms.map(program => (
-              <Link to={`/programs/${program.id}`} key={program.id} className="group bg-white rounded-xl overflow-hidden border border-brand-border hover:shadow-heavy transition-all duration-500 hover:-translate-y-2 flex flex-col h-full relative">
+              <div key={program.id} className="group bg-white rounded-xl overflow-hidden border border-brand-border hover:shadow-heavy transition-all duration-500 flex flex-col h-full relative">
+                
+                {/* Image Area */}
                 <div className="aspect-[16/10] overflow-hidden relative">
                   <img src={program.image} className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" alt={program.title} />
                   
@@ -174,31 +271,48 @@ const Programs: React.FC = () => {
                     {program.type}
                   </div>
 
+                  {/* Tooltip & Actions Overlay */}
                   <div className="absolute inset-0 bg-brand-ink/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-8 text-center z-20">
                     <Info size={24} className="text-brand-secondary mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75" />
-                    <p className="text-white text-sm font-light leading-relaxed transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                    <p className="text-white text-xs font-light leading-relaxed mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100 px-4">
                       {program.description.length > 100 ? `${program.description.substring(0, 100)}...` : program.description}
                     </p>
+                    
+                    <div className="flex gap-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-150">
+                       <button 
+                        onClick={() => setSelectedProgram(program)}
+                        className="px-6 py-2.5 bg-brand-secondary text-brand-primary text-[9px] font-black uppercase tracking-widest rounded hover:bg-white transition-all flex items-center gap-2"
+                       >
+                         <Eye size={12} /> Quick View
+                       </button>
+                       <Link 
+                        to={`/programs/${program.id}`}
+                        className="px-6 py-2.5 bg-white/10 text-white border border-white/20 text-[9px] font-black uppercase tracking-widest rounded hover:bg-white/20 transition-all"
+                       >
+                         View Details
+                       </Link>
+                    </div>
                   </div>
                 </div>
 
+                {/* Content Area */}
                 <div className="p-10 flex-grow flex flex-col space-y-6">
                   <div className="flex items-center justify-between text-brand-sub text-[10px] font-bold uppercase tracking-widest">
                     <span className="flex items-center gap-1.5"><MapPin size={14} className="text-brand-accent"/> {program.city}</span>
                     <span className="flex items-center gap-1.5"><Clock size={14} className="text-brand-accent"/> {program.duration}</span>
                   </div>
-                  <h3 className="text-2xl font-serif font-black text-brand-ink group-hover:text-brand-accent transition-colors leading-snug">
+                  <h3 className="text-2xl font-serif font-black text-brand-ink leading-snug">
                     {program.title}
                   </h3>
                   <div className="text-brand-accent font-black text-2xl tracking-tight mt-auto">
                     {program.price}
                   </div>
                   <div className="pt-8 border-t border-brand-border flex items-center justify-between">
-                     <span className="text-[10px] font-bold tracking-[0.2em] text-brand-sub group-hover:text-brand-ink uppercase">View Program</span>
+                     <Link to={`/programs/${program.id}`} className="text-[10px] font-bold tracking-[0.2em] text-brand-sub hover:text-brand-accent uppercase transition-colors">Learn More</Link>
                      <ArrowUpRight size={20} className="text-brand-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         ) : (

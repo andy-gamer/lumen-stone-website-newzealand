@@ -1,3 +1,4 @@
+
 export interface Program {
   id: string;
   title: string;
@@ -10,7 +11,7 @@ export interface Program {
   tags: string[];
   type: ProgramType;
   image: string;
-  gallery?: string[]; // Optional array of additional images
+  gallery?: string[];
   description: string;
   highlights: string[];
   language: string;
@@ -23,7 +24,30 @@ export enum ProgramType {
   STUDY_ABROAD = "Study Abroad",
   CULTURAL_TRIP = "Cultural Trip",
   PARENT_CHILD = "Parent-Child",
-  MICRO_STUDY = "Micro Study" // 新增微留學類型
+  MICRO_STUDY = "Micro Study"
+}
+
+export interface NewsItem {
+  id: string;
+  date: string;
+  category: '公告' | '講座' | '優惠' | '重要';
+  title: string;
+  summary: string;
+  content?: string;
+  image?: string;
+}
+
+export interface Article {
+  id: string;
+  title: string;
+  summary: string;
+  category: '趨勢分析' | '學員心得' | '生活指南' | '攻略';
+  tags: string[];
+  publishDate: string;
+  readTime: string;
+  image: string;
+  content: string;
+  author?: string;
 }
 
 export interface TeamMember {

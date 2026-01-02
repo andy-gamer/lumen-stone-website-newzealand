@@ -1,137 +1,311 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ArrowRight, Globe, BookOpen, Plane, Check, Star, GraduationCap, Clock, Search, FileText, MessageCircle, Quote, ChevronLeft, ChevronRight, ArrowUpRight, Users
+  ArrowRight, Globe, BookOpen, Plane, Check, Star, GraduationCap, Clock, Search, FileText, MessageCircle, Quote, ChevronLeft, ChevronRight, ArrowUpRight, Users, Bell, Calendar, X, ExternalLink, ShieldCheck, Sun, Heart, Award
 } from 'lucide-react';
+import { DataService } from '../services/db';
+import { NewsItem } from '../types';
 
 const Home: React.FC = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const newsRef = useRef<HTMLDivElement>(null);
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+  const [activeNewsIdx, setActiveNewsIdx] = useState(0);
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+  useEffect(() => {
+    DataService.getNews().then(data => setNews(data.slice(0, 3)));
+  }, []);
+
+  const handleNewsScroll = (direction: 'left' | 'right') => {
+    if (newsRef.current) {
+      const { scrollLeft, clientWidth } = newsRef.current;
+      const step = clientWidth * 0.85; 
+      const scrollTo = direction === 'left' ? scrollLeft - step : scrollLeft + step;
+      newsRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+      
+      const newIdx = direction === 'left' ? Math.max(0, activeNewsIdx - 1) : Math.min(news.length - 1, activeNewsIdx + 1);
+      setActiveNewsIdx(newIdx);
     }
+  };
+
+  const NewsModal = ({ item, onClose }: { item: NewsItem; onClose: () => void }) => {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+        <div className="absolute inset-0 bg-brand-ink/80 backdrop-blur-md animate-fade-in" onClick={onClose}></div>
+        <div className="relative w-full max-w-4xl bg-brand-cream rounded-3xl shadow-heavy overflow-hidden animate-scale-up max-h-[90vh] flex flex-col">
+          <button onClick={onClose} className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center hover:bg-brand-ink transition-all shadow-lg">
+            <X size={24} />
+          </button>
+          <div className="overflow-y-auto">
+            <div className="relative h-64 md:h-[400px]">
+               <img src={item.image} className="w-full h-full object-cover" alt={item.title} />
+               <div className="absolute inset-0 bg-gradient-to-t from-brand-cream via-transparent to-transparent"></div>
+            </div>
+            <div className="p-8 md:p-16 -mt-20 relative z-10">
+               <div className="flex items-center gap-4 mb-8">
+                  <span className="px-4 py-1.5 bg-brand-primary text-white text-[9px] font-black uppercase tracking-widest rounded-sm">
+                    {item.category}
+                  </span>
+                  <span className="text-brand-accent font-black text-[10px] tracking-widest">{item.date}</span>
+               </div>
+               <h2 className="text-3xl md:text-5xl font-serif font-black text-brand-ink leading-tight mb-8">
+                  {item.title}
+               </h2>
+               <div className="prose prose-stone max-w-none text-brand-sub leading-loose font-light whitespace-pre-line">
+                  {item.content || item.summary}
+               </div>
+               <div className="mt-16 pt-10 border-t border-brand-border flex flex-col md:flex-row gap-6 items-center justify-between">
+                  <Link to="/booking" onClick={onClose} className="w-full md:w-auto px-12 py-5 bg-brand-primary text-white rounded-xl font-black text-[11px] uppercase tracking-[0.2em] hover:bg-brand-ink transition-all flex items-center justify-center gap-3 shadow-xl">
+                     預約顧問說明 <ArrowRight size={18} />
+                  </Link>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <div className="bg-brand-cream selection:bg-brand-primary selection:text-white">
-      
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      {selectedNews && <NewsModal item={selectedNews} onClose={() => setSelectedNews(null)} />}
+
+      {/* 1. HERO SECTION - Mobile: Image First, Desktop: Text First */}
+      <section className="relative h-auto lg:min-h-[70vh] flex items-center pt-28 pb-12 md:pt-44 md:pb-20 overflow-hidden bg-brand-cream">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+          {/* Use flex-col (Image first on mobile) and lg:flex-row-reverse (Text first on desktop) */}
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16">
             
-            <div className="w-full lg:w-[45%] z-10 space-y-12 animate-fade-in">
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                   <span className="w-8 h-[1px] bg-brand-primary"></span>
-                   <span className="text-brand-primary font-black tracking-[0.4em] uppercase text-[9px] block">Lumen Stone International</span>
+            {/* Hero Image - Appears first on mobile */}
+            <div className="w-full lg:w-[50%] relative animate-fade-in">
+               <div className="relative aspect-[16/10] lg:aspect-[4/3] w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-heavy group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+                    alt="International Students" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/40 to-transparent"></div>
+               </div>
+               {/* Floating Batch - Desktop Only */}
+               <div className="absolute -bottom-6 -left-6 bg-brand-secondary text-brand-primary p-6 rounded-2xl shadow-xl hidden lg:block animate-bounce-slow">
+                  <GraduationCap size={32} />
+               </div>
+            </div>
+
+            {/* Hero Text - Appears below image on mobile */}
+            <div className="w-full lg:w-[50%] z-10 space-y-8 animate-fade-in text-center lg:text-left">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center lg:justify-start gap-3">
+                   <div className="w-6 h-[2px] bg-brand-primary"></div>
+                   <span className="text-brand-primary font-black tracking-[0.4em] uppercase text-[9px]">Lumen Stone International</span>
                 </div>
-                <h1 className="text-6xl md:text-8xl font-serif font-black leading-[0.95] text-brand-ink tracking-tighter">
+                <h1 className="text-5xl md:text-7xl xl:text-8xl font-serif font-black leading-[1.05] text-brand-ink tracking-tighter">
                   啟發孩子<br/>
                   看見<span className="italic text-brand-primary">世界的寬廣</span>
                 </h1>
-                <p className="text-brand-sub text-lg md:text-xl font-light leading-relaxed max-w-lg">
+                <p className="text-brand-sub text-base md:text-lg font-light leading-relaxed max-w-lg mx-auto lg:mx-0">
                   我們不只是留學代辦，更是教育的策展人。透過點石精選的紐西蘭校園，讓學習不再侷限於課本。
                 </p>
               </div>
-
-              <div className="flex flex-wrap gap-5 pt-4">
-                <Link to="/programs" className="px-12 py-5 bg-brand-primary text-white font-black rounded-lg hover:bg-brand-accent transition-all tracking-[0.3em] text-[10px] uppercase shadow-heavy text-center min-w-[180px]">
-                  方案探索
+              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
+                <Link to="/programs" className="px-10 py-5 bg-brand-primary text-white font-black rounded-xl hover:bg-brand-ink transition-all tracking-[0.2em] text-[11px] uppercase shadow-heavy flex items-center justify-center gap-3 group">
+                  方案探索 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
                 </Link>
-                <Link to="/guide" className="px-12 py-5 bg-white border border-brand-primary/10 text-brand-primary font-black rounded-lg hover:bg-brand-primary hover:text-white transition-all tracking-[0.3em] text-[10px] uppercase text-center min-w-[180px]">
+                <Link to="/guide" className="px-10 py-5 bg-white border-2 border-brand-primary text-brand-primary font-black rounded-xl hover:bg-brand-primary hover:text-white transition-all tracking-[0.2em] text-[11px] uppercase flex items-center justify-center shadow-sm">
                   選課指南
                 </Link>
               </div>
             </div>
 
-            <div className="w-full lg:w-[55%] relative">
-               <div className="relative aspect-[4/3] w-full">
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-heavy group">
-                    <img 
-                      src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=1200&q=80" 
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                      alt="New Zealand Nature Education" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/40 to-transparent"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. ADVANTAGE SECTION - High Contrast brand-primary */}
+      <section className="py-24 md:py-28 bg-brand-primary text-brand-cream relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-accent/20 rounded-full blur-[120px] -z-0"></div>
+        
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="w-full lg:w-[45%] order-1">
+              <div className="relative">
+                <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80" 
+                    className="w-full h-full object-cover grayscale-[10%]" 
+                    alt="NZ Education" 
+                  />
+                </div>
+                <div className="absolute -bottom-6 -right-4 md:-right-8 max-w-[200px] md:max-w-[300px] bg-white p-6 md:p-8 rounded-2xl shadow-heavy border border-brand-border animate-float">
+                   <div className="flex gap-1 text-brand-accent mb-3">
+                      {[1,2,3,4,5].map(i => <Star key={i} size={10} fill="currentColor"/>)}
+                   </div>
+                   <p className="text-xs md:text-sm font-serif font-black text-brand-ink leading-relaxed">
+                     「在紐西蘭，老師問的是：<br/>
+                     <span className="italic text-brand-accent">『你想成為什麼樣的人？』</span>」
+                   </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full lg:w-[55%] space-y-10 order-2">
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                   <div className="w-8 h-[1px] bg-brand-secondary"></div>
+                   <span className="text-brand-secondary font-black tracking-[0.4em] uppercase text-[10px]">THE NEW ZEALAND WAY</span>
+                </div>
+                <h2 className="text-4xl md:text-6xl font-serif font-black leading-tight tracking-tighter">
+                  紐西蘭教育：<br/>
+                  <span className="italic text-brand-secondary">成就無限可能的起點</span>
+                </h2>
+                <p className="text-brand-cream/70 text-base md:text-lg font-light leading-relaxed max-w-xl border-l-2 border-brand-accent/40 pl-6">
+                  超越傳統競爭，我們更在乎孩子的獨特性與對生命的探索力。
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+                {[
+                  { icon: <Award className="text-brand-secondary" size={20} />, title: "啟發式教學", desc: "引導孩子發現熱愛，而非填鴨知識。" },
+                  { icon: <ShieldCheck className="text-brand-secondary" size={20} />, title: "安全友善", desc: "全球治安首選，讓學習更專注。" },
+                  { icon: <GraduationCap className="text-brand-secondary" size={20} />, title: "頂尖學制", desc: "學歷通行全球，接軌一流名校。" },
+                  { icon: <Sun className="text-brand-secondary" size={20} />, title: "大自然教室", desc: "在山海間學習生命力與韌性。" }
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white/5 p-6 rounded-2xl border border-white/5 space-y-3 hover:bg-white/10 transition-all">
+                    <div className="flex items-center gap-4">
+                       <div className="w-10 h-10 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary">
+                          {item.icon}
+                       </div>
+                       <h4 className="text-lg font-serif font-bold text-white">{item.title}</h4>
+                    </div>
+                    <p className="text-xs text-brand-cream/40 leading-loose">{item.desc}</p>
                   </div>
-                  <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-brand-secondary rounded-full flex items-center justify-center p-8 shadow-heavy animate-bounce-slow border-4 border-brand-cream">
-                     <img src="https://pub-eab9e45abd56499794188fcd886beee3.r2.dev/logo/logo.png" className="w-full h-full object-contain grayscale brightness-0 opacity-40" alt="Logo Icon" />
-                  </div>
-               </div>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                 <Link to="/education" className="group relative inline-flex w-full md:w-auto items-center justify-center gap-6 px-12 py-5 bg-brand-secondary text-brand-primary rounded-xl font-black text-[11px] tracking-[0.4em] uppercase transition-all shadow-xl hover:scale-105">
+                    探索紐西蘭學制 <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                 </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. OUR PHILOSOPHY */}
-      <section className="py-24 bg-brand-cream">
+      {/* LATEST NEWS SECTION - Mobile Navigation Buttons */}
+      <section className="py-20 md:py-28 bg-brand-cream border-t border-brand-border overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 border-y border-brand-primary/10 py-20">
-            <div className="md:w-1/3">
-              <span className="text-brand-primary font-black tracking-[0.4em] uppercase text-[9px] mb-3 block">PHILOSOPHY</span>
-              <h2 className="text-4xl font-serif font-black text-brand-ink leading-tight">
-                教育是打磨心靈<br/><span className="italic text-brand-primary">的永恆過程</span>
-              </h2>
-            </div>
-            <div className="md:w-2/3 border-l border-brand-primary/10 pl-0 md:pl-16">
-              <p className="text-brand-sub text-lg leading-loose font-light italic opacity-80">
-                「點石」象徵著我們的核心使命：將每一位充滿潛力的學生視為未經雕琢的原石，透過最精準的教育媒合與最具溫度的專業諮詢，在最適合的環境中雕琢出璀璨的光芒。
-              </p>
-            </div>
-          </div>
+           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-12">
+              <div className="space-y-4 text-center md:text-left">
+                 <span className="text-brand-primary font-black tracking-[0.4em] uppercase text-[9px] block">Insights & Updates</span>
+                 <h2 className="text-4xl md:text-5xl font-serif font-black text-brand-ink tracking-tighter">最新消息</h2>
+              </div>
+              
+              <div className="flex items-center justify-center gap-4">
+                 <button 
+                  onClick={() => handleNewsScroll('left')}
+                  className="w-14 h-14 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all"
+                 >
+                    <ChevronLeft size={24} />
+                 </button>
+                 <button 
+                  onClick={() => handleNewsScroll('right')}
+                  className="w-14 h-14 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all"
+                 >
+                    <ChevronRight size={24} />
+                 </button>
+              </div>
+           </div>
+           
+           <div 
+            ref={newsRef}
+            className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible scrollbar-hide snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4"
+           >
+              {news.map((item, idx) => (
+                <div 
+                  key={item.id} 
+                  onClick={() => setSelectedNews(item)} 
+                  className="min-w-[85vw] md:min-w-0 snap-center group cursor-pointer bg-white rounded-2xl p-7 shadow-zen border border-brand-border/40 hover:border-brand-primary/30 transition-all duration-300"
+                >
+                   <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-7">
+                      <img src={item.image} className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt={item.title} />
+                      <div className="absolute top-4 right-4 bg-brand-primary text-white px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest shadow-md">
+                         {item.category}
+                      </div>
+                   </div>
+                   <div className="space-y-4">
+                      <div className="flex items-center gap-4 text-brand-accent font-black text-[9px] uppercase tracking-[0.2em]">
+                         <span>{item.date}</span>
+                         <div className="h-[1px] flex-grow bg-brand-border/60"></div>
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-serif font-black text-brand-ink group-hover:text-brand-primary transition-colors leading-tight line-clamp-2">
+                         {item.title}
+                      </h3>
+                      <p className="text-brand-sub text-sm font-light leading-relaxed line-clamp-2 opacity-80">
+                         {item.summary}
+                      </p>
+                      <div className="pt-4 flex items-center gap-2 text-brand-primary font-black text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                         閱讀完整內容 <ArrowRight size={14} />
+                      </div>
+                   </div>
+                </div>
+              ))}
+           </div>
+           
+           {/* Pagination Dots for Mobile */}
+           <div className="flex justify-center gap-1.5 mt-8 md:hidden">
+              {news.map((_, i) => (
+                <div key={i} className={`h-1 rounded-full transition-all duration-300 ${activeNewsIdx === i ? 'w-6 bg-brand-primary' : 'w-2 bg-brand-border'}`}></div>
+              ))}
+           </div>
         </div>
       </section>
 
       {/* 3. PROGRAM CATEGORIES */}
-      <section className="py-32 bg-white">
+      <section className="py-24 md:py-32 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center mb-24">
-             <span className="text-brand-primary font-bold tracking-[0.5em] uppercase text-[10px] block mb-4">COMPARE PATHWAYS</span>
-             <h2 className="text-5xl font-serif font-black text-brand-ink">選擇最契合的教育樣貌</h2>
+          <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
+             <span className="text-brand-primary font-black tracking-[0.5em] uppercase text-[10px] block mb-4">COMPARE PATHWAYS</span>
+             <h2 className="text-4xl md:text-5xl font-serif font-black text-brand-ink tracking-tighter">選擇最契合的教育樣貌</h2>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {[
-              { title: "長期留學", type: "Study Abroad", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80", duration: "1 - 4 學年", target: "欲銜接紐西蘭學制或學位者", value: "深度體驗學位體系、建立全球職涯基礎。", icon: <GraduationCap size={24}/> },
-              { title: "密集遊學", type: "Language Tour", img: "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?w=800&q=80", duration: "4 週 - 半年", target: "學生寒暑假或職場轉銜空檔者", value: "密集口說訓練、文化探索、打工度假前哨。", icon: <Globe size={24}/> },
-              { title: "微留學", type: "Micro Study", img: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80", duration: "2 週 - 4 週", target: "國中小親子家庭、低齡學生", value: "插班公立小學、Kiwi 學伴制度、親子共同探索。", icon: <Users size={24}/> }
+              { title: "長期留學", type: "Study Abroad", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80", duration: "1 - 4 學年", value: "深度體驗學位體系、建立全球職涯基礎。", icon: <GraduationCap size={24}/> },
+              { title: "密集遊學", type: "Language Tour", img: "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?w=800&q=80", duration: "4 週 - 半年", value: "密集口說訓練、文化探索、打工度假前哨。", icon: <Globe size={24}/> },
+              { title: "微留學", type: "Micro Study", img: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80", duration: "2 週 - 4 週", value: "插班公立小學、Kiwi 學伴制度、親子共同探索。", icon: <Users size={24}/> }
             ].map((item, idx) => (
-              <div key={idx} className="group bg-brand-cream rounded-xl overflow-hidden shadow-zen border border-brand-border flex flex-col hover:border-brand-primary/40 transition-all duration-500">
+              <div key={idx} className="group bg-brand-cream rounded-2xl overflow-hidden shadow-zen border border-brand-border flex flex-col hover:border-brand-primary/40 transition-all duration-500 hover:-translate-y-2">
                 <div className="relative h-64 overflow-hidden">
-                  <img src={item.img} className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" alt={item.title} />
+                  <img src={item.img} className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700" alt={item.title} />
                   <div className="absolute inset-0 bg-brand-primary/10"></div>
                 </div>
-                <div className="p-10 flex-grow flex flex-col space-y-8">
+                <div className="p-10 flex-grow flex flex-col space-y-7">
                   <div>
-                    <h3 className="text-2xl font-serif font-black text-brand-ink mb-2">{item.title}</h3>
-                    <p className="text-[10px] text-brand-primary font-bold uppercase tracking-widest">{item.type}</p>
+                    <h3 className="text-3xl font-serif font-black text-brand-ink mb-2">{item.title}</h3>
+                    <p className="text-[10px] text-brand-primary font-black uppercase tracking-widest">{item.type}</p>
                   </div>
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <div className="flex items-start gap-4">
-                      <Clock className="w-4 h-4 text-brand-primary mt-1 shrink-0" />
+                      <Clock className="w-5 h-5 text-brand-primary mt-1 shrink-0" />
                       <div>
-                        <p className="text-[10px] font-black text-brand-ink/30 uppercase tracking-widest mb-1">時長 Duration</p>
-                        <p className="text-sm font-bold text-brand-ink">{item.duration}</p>
+                        <p className="text-[9px] font-black text-brand-ink/30 uppercase tracking-widest mb-1">Duration</p>
+                        <p className="text-base font-bold text-brand-ink">{item.duration}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <Check className="w-4 h-4 text-brand-primary mt-1 shrink-0" />
+                      <Check className="w-5 h-5 text-brand-primary mt-1 shrink-0" />
                       <div>
-                        <p className="text-[10px] font-black text-brand-ink/30 uppercase tracking-widest mb-1">價值 Value</p>
+                        <p className="text-[9px] font-black text-brand-ink/30 uppercase tracking-widest mb-1">Core Value</p>
                         <p className="text-sm text-brand-sub leading-loose font-light">{item.value}</p>
                       </div>
                     </div>
                   </div>
                   <div className="pt-8 border-t border-brand-border flex items-center justify-between mt-auto">
-                    <Link to="/programs" className="flex items-center gap-2 text-brand-ink font-black text-[10px] uppercase tracking-widest hover:text-brand-primary transition-all group/btn">
-                      查看細節 <ArrowUpRight size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                    <Link to="/programs" className="flex items-center gap-2 text-brand-primary font-black text-[11px] uppercase tracking-widest group-hover:gap-4 transition-all">
+                      瀏覽完整細節 <ArrowUpRight size={16} />
                     </Link>
-                    <span className="opacity-10 text-brand-primary">{item.icon}</span>
                   </div>
                 </div>
               </div>
@@ -140,174 +314,72 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. SERVICE SOP - MOVED UP and Updated to Brand Primary */}
-      <section className="py-40 bg-brand-primary text-white">
-        <div className="container mx-auto px-6 lg:px-12">
+      {/* 4. SERVICE SOP - Vertical Line for Mobile */}
+      <section className="py-24 md:py-32 bg-brand-primary text-white relative">
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
           <div className="text-center mb-24">
-             <h2 className="text-5xl font-serif font-black mb-6">服務流程</h2>
+             <h2 className="text-4xl md:text-5xl font-serif font-black mb-4">服務流程</h2>
              <span className="text-brand-secondary tracking-[0.5em] uppercase text-[10px] font-black opacity-60">SIMPLE 5 STEPS TO THE WORLD</span>
           </div>
 
-          <div className="relative max-w-6xl mx-auto">
-            <div className="absolute top-[48px] left-[10%] w-[80%] h-[1px] bg-white/10 hidden lg:block z-0"></div>
+          <div className="max-w-4xl mx-auto relative">
+            {/* Desktop Horizontal Line */}
+            <div className="absolute top-[40px] left-[10%] w-[80%] h-[1px] bg-white/10 hidden lg:block z-0"></div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 lg:gap-12 relative z-10">
+            {/* Mobile Vertical Path Line */}
+            <div className="absolute left-[39px] top-8 bottom-8 w-[1px] bg-white/10 lg:hidden border-l-2 border-brand-secondary/30 border-dashed"></div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-10">
               {[
-                { id: "01", icon: <MessageCircle size={24} />, title: "需求諮詢", desc: "深度訪談與目標設定" },
-                { id: "02", icon: <Search size={24} />, title: "精準配對", desc: "精選最適合的環境" },
-                { id: "03", icon: <FileText size={24} />, title: "報名代辦", desc: "行政文件與簽證支援" },
-                { id: "04", icon: <BookOpen size={24} />, title: "行前特訓", desc: "LPP 語言與心理準備" },
-                { id: "05", icon: <Plane size={24} />, title: "抵達安置", desc: "落地與全程生活支援" }
+                { id: "01", icon: <MessageCircle size={28} />, title: "需求諮詢", desc: "深度訪談目標與預算設定" },
+                { id: "02", icon: <Search size={28} />, title: "精準配對", desc: "精選最適合環境與學制" },
+                { id: "03", icon: <FileText size={28} />, title: "報名代辦", desc: "全程文件與簽證支援" },
+                { id: "04", icon: <BookOpen size={28} />, title: "行前特訓", desc: "獨家 LPP 語言心理準備" },
+                { id: "05", icon: <Plane size={28} />, title: "落地安置", desc: "落地與全程生活關懷支援" }
               ].map((step, i) => (
-                <div key={i} className="flex flex-col items-center group text-center">
-                  <div className="relative mb-10 transition-transform duration-500 group-hover:scale-110">
-                    <div className="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-secondary group-hover:bg-brand-secondary group-hover:text-brand-primary transition-all duration-500 shadow-sm">
+                <div key={i} className="flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center group gap-8 lg:gap-0">
+                  <div className="relative shrink-0 mb-0 lg:mb-10">
+                    <div className="w-20 h-20 rounded-full bg-brand-primary border border-white/20 flex items-center justify-center text-brand-secondary group-hover:bg-brand-secondary group-hover:text-brand-primary transition-all duration-500 shadow-xl group-hover:scale-110">
                       {step.icon}
                     </div>
-                    <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-brand-accent text-white rounded-full flex items-center justify-center text-[10px] font-black border-2 border-brand-primary">
+                    <div className="absolute -top-1 -right-1 w-7 h-7 bg-brand-accent text-white rounded-full flex items-center justify-center text-[10px] font-black border-2 border-brand-primary">
                       {step.id}
                     </div>
                   </div>
-                  <h4 className="text-xl font-serif font-black text-white mb-3">{step.title}</h4>
-                  <p className="text-xs text-white/60 font-medium leading-relaxed max-w-[140px]">{step.desc}</p>
+                  <div className="space-y-3 lg:pt-0 pt-3">
+                    <h4 className="text-xl md:text-2xl font-serif font-bold text-white group-hover:text-brand-secondary transition-colors">{step.title}</h4>
+                    <p className="text-sm text-white/50 leading-relaxed max-w-[180px] lg:mx-auto font-light">{step.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 5. TESTIMONIALS - MOVED DOWN */}
-      <section className="py-40 bg-brand-cream/50 relative overflow-hidden">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row gap-20">
-            
-            {/* Left Content (Static) */}
-            <div className="lg:w-1/3 lg:sticky lg:top-40 h-fit space-y-12">
-              <div className="space-y-6">
-                <span className="text-brand-primary font-black tracking-[0.4em] uppercase text-[9px] block">STUDENT VOICES</span>
-                <h2 className="text-5xl font-serif font-black text-brand-ink leading-tight">
-                  來自世界的<br/><span className="italic text-brand-primary">真實回聲</span>
-                </h2>
-                <div className="w-12 h-[1px] bg-brand-primary"></div>
-                <p className="text-brand-sub text-lg leading-loose font-light max-w-sm">
-                  回想啟程的那一刻，心中依然充滿感動。聽聽那些曾在異國土地上茁壯的靈魂，如何描述這段改變一生的旅程。
-                </p>
-              </div>
-              
-              <div className="flex gap-4">
-                <button 
-                  onClick={() => scroll('left')}
-                  className="w-14 h-14 rounded-full border border-brand-primary/20 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all shadow-sm"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button 
-                  onClick={() => scroll('right')}
-                  className="w-14 h-14 rounded-full border border-brand-primary/20 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all shadow-sm"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-            </div>
-
-            {/* Right Scrollable Cards */}
-            <div className="lg:w-2/3">
-              <div 
-                ref={scrollRef}
-                className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              >
-                {[
-                  {
-                    name: "卓郁雅 (CG)",
-                    location: "菲律賓宿霧",
-                    title: "在短時間內看到自己的改變",
-                    tags: ["菲律賓遊學", "密集英文"],
-                    content: "在挑選代辦時，上網看了很多資料，最後選擇了「點石」。回覆速度超快、資訊也完整，特別是宿霧的教學環境超乎想像，讓我從不敢開口到現在能流暢與外師討論時事。",
-                    img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
-                  },
-                  {
-                    name: "鄭雅之 (IB)",
-                    location: "澳洲布里斯本",
-                    title: "把這段美好的經歷分享給大家",
-                    tags: ["澳洲遊學", "咖啡課程"],
-                    content: "當初遊學的初衷是英文能力很差，但想追求更好的未來。在點石的建議下，我選擇了結合實作的課程，不僅英文進步了，還拿到了當地的咖啡師證照。",
-                    img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
-                  },
-                  {
-                    name: "陳佳穎 (CES)",
-                    location: "英國愛丁堡",
-                    title: "完成了我的心願，有機會一定要再回來",
-                    tags: ["英國留學", "文化藝術"],
-                    content: "本人非常嚮往愛丁堡，再加上每次與不同國家的人談話後，深知自己英文的不足。點石顧問幫我對接了專業語言學校，還安排了非常有質感的寄宿家庭，讓我徹底融入當地文化。",
-                    img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80"
-                  },
-                   {
-                    name: "林小弟 (Age 10)",
-                    location: "紐西蘭奧克蘭",
-                    title: "我最好的朋友是 KiWi 傑克",
-                    tags: ["微留學", "親子共學"],
-                    content: "剛開始很緊張，但學伴傑克帶我一起踢足球。紐西蘭的學校下午三點就放學，我們可以去公園抓昆蟲，那裡的草地真的好大好美，我不想回台灣了！",
-                    img: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=800&q=80"
-                  }
-                ].map((testi, i) => (
-                  <div key={i} className="min-w-[85vw] md:min-w-[450px] snap-center bg-white rounded-xl overflow-hidden shadow-zen border border-brand-border flex flex-col group hover:shadow-heavy transition-all duration-500">
-                    <div className="relative h-64 overflow-hidden">
-                      <img src={testi.img} className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" alt={testi.name} />
-                      <div className="absolute top-6 left-6 flex flex-wrap gap-2">
-                        {testi.tags.map(tag => (
-                          <span key={tag} className="text-[9px] font-black uppercase tracking-widest text-white bg-brand-primary/40 backdrop-blur-md px-3 py-1 rounded-sm">{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="p-10 space-y-6 flex-grow flex flex-col">
-                      <Quote size={32} className="text-brand-primary opacity-10" />
-                      <h4 className="text-xl font-serif font-black text-brand-ink leading-snug">「{testi.title}」</h4>
-                      <p className="text-sm text-brand-sub leading-loose font-light italic flex-grow">
-                        {testi.content}
-                      </p>
-                      <div className="pt-8 mt-8 border-t border-brand-border flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-brand-cream border border-brand-primary/10 flex items-center justify-center font-serif font-bold text-brand-primary overflow-hidden">
-                           <img src={`https://i.pravatar.cc/150?u=${testi.name}`} className="w-full h-full object-cover grayscale" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-black text-brand-ink">{testi.name}</p>
-                          <p className="text-[9px] text-brand-primary/60 uppercase tracking-widest font-bold">{testi.location}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          
+          <div className="mt-24 text-center">
+             <Link to="/booking" className="inline-flex items-center gap-6 px-14 py-6 bg-brand-secondary text-brand-primary rounded-xl font-black text-[12px] tracking-[0.4em] uppercase hover:bg-white transition-all shadow-heavy active:scale-95">
+                啟動您的遊學計畫 <ArrowRight size={20} />
+             </Link>
           </div>
         </div>
       </section>
 
-      {/* 6. FINAL CTA */}
-      <section className="py-48 bg-brand-primary text-brand-cream relative overflow-hidden">
-         <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <img 
-              src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1920&q=80" 
-              className="w-full h-full object-cover grayscale" 
-              alt="Nature Background" 
-            />
-         </div>
-         <div className="container mx-auto px-6 text-center relative z-10">
-            <div className="max-w-4xl mx-auto space-y-16">
+      {/* FINAL CTA - High Contrast & Magician-style rounded */}
+      <section className="py-40 bg-white text-brand-ink relative overflow-hidden">
+         <div className="container mx-auto px-6 text-center">
+            <div className="max-w-4xl mx-auto space-y-12">
+               <span className="text-brand-primary font-black tracking-[0.6em] uppercase text-[10px] block">BEYOND BOUNDARIES</span>
                <h2 className="text-6xl md:text-9xl font-serif font-black leading-none tracking-tighter">
-                 Explore<br/><span className="text-brand-secondary italic">Your Future</span>
+                 Explore<br/><span className="text-brand-primary italic">Your Future</span>
                </h2>
-               <div className="flex justify-center">
-                 <Link to="/booking" className="inline-flex items-center gap-10 px-16 py-8 font-black rounded-lg transition-all text-[11px] tracking-[0.5em] uppercase bg-brand-secondary text-brand-primary hover:scale-105 shadow-heavy">
-                    預約一對一諮詢 <ArrowRight size={28} />
+               <div className="flex justify-center pt-8">
+                 <Link to="/booking" className="inline-flex items-center gap-8 px-16 py-8 bg-brand-primary text-white font-black rounded-xl transition-all text-[14px] tracking-[0.4em] uppercase hover:bg-brand-ink shadow-2xl hover:scale-105 active:scale-95">
+                    預約一對一諮詢 <ArrowRight size={32} />
                  </Link>
                </div>
+               <p className="text-brand-sub text-sm font-light mt-12 opacity-50">專業顧問將於 24 小時內與您聯繫</p>
             </div>
          </div>
       </section>
-
     </div>
   );
 };

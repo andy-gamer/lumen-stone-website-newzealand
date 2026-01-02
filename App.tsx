@@ -7,6 +7,9 @@ import Guide from './pages/Guide';
 import EducationSystem from './pages/EducationSystem';
 import Programs from './pages/Programs';
 import ProgramDetail from './pages/ProgramDetail';
+import News from './pages/News';
+import Articles from './pages/Articles';
+import ArticleDetail from './pages/ArticleDetail';
 import LPP from './pages/LPP';
 import Booking from './pages/Booking';
 import { About, Team, FAQ, Media, Contact, Legal } from './pages/InfoPages';
@@ -29,6 +32,9 @@ const App: React.FC = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles/:id" element={<ArticleDetail />} />
           <Route path="/guide" element={<Guide />} />
           <Route path="/education" element={<EducationSystem />} />
           <Route path="/programs" element={<Programs />} />
