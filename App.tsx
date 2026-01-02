@@ -14,13 +14,18 @@ import LPP from './pages/LPP';
 import Booking from './pages/Booking';
 import { About, Team, FAQ, Media, Contact, Legal } from './pages/InfoPages';
 
-// Corrected ScrollToTop component using useLocation hook
+// ScrollToTop component ensuring window scrolls to 0,0 on route change
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    // Immediate scroll to top on path or query change
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+  }, [pathname, search]);
 
   return null;
 };
