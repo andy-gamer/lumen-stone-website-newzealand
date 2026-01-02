@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW" data-theme="studio">
   <head>
@@ -11,13 +12,13 @@
           extend: {
             colors: {
               brand: {
-                primary: '#1B2E21', // 深森林綠 (作為點綴與文字)
+                primary: '#1B2E21', // 深森林綠
                 secondary: '#E5D8C6', // 奶油金
-                accent: '#8B7355', // 古銅棕 (高級感的來源)
-                cream: '#F9F7F2', // 主背景色：極淺奶油色，提升明亮度
-                ink: '#1A1A1A', // 主文字色與深色背景色
+                accent: '#8B7355', // 古銅棕
+                cream: '#F9F7F2', // 主背景色
+                ink: '#1A1A1A', // 主文字色
                 sub: '#666666', // 次要文字
-                border: '#EAE5DF', // 輕微的邊框色
+                border: '#EAE5DF', // 邊框色
               }
             },
             fontFamily: {
@@ -48,9 +49,15 @@
         overflow-x: hidden;
       }
 
-      .writing-vertical {
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
       }
 
       @keyframes float {

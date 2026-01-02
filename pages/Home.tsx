@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ArrowRight, Globe, BookOpen, Plane, Check, Star, GraduationCap, Clock, Search, FileText, MessageCircle, Quote, ChevronLeft, ChevronRight, ArrowUpRight, Users, Bell, Calendar, X, ExternalLink, ShieldCheck, Sun, Heart, Award
+  ArrowRight, Globe, BookOpen, Plane, Check, Star, GraduationCap, Clock, Search, FileText, MessageCircle, ChevronLeft, ChevronRight, ArrowUpRight, Users, X, ExternalLink, ShieldCheck, Sun, Award
 } from 'lucide-react';
 import { DataService } from '../services/db';
 import { NewsItem } from '../types';
@@ -20,10 +20,12 @@ const Home: React.FC = () => {
   const handleNewsScroll = (direction: 'left' | 'right') => {
     if (newsRef.current) {
       const { scrollLeft, clientWidth } = newsRef.current;
-      const step = clientWidth * 0.85; 
+      const step = clientWidth * 0.9; 
       const scrollTo = direction === 'left' ? scrollLeft - step : scrollLeft + step;
+      
       newsRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
       
+      // Update active index based on scroll position (approximate)
       const newIdx = direction === 'left' ? Math.max(0, activeNewsIdx - 1) : Math.min(news.length - 1, activeNewsIdx + 1);
       setActiveNewsIdx(newIdx);
     }
@@ -33,7 +35,7 @@ const Home: React.FC = () => {
     return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
         <div className="absolute inset-0 bg-brand-ink/80 backdrop-blur-md animate-fade-in" onClick={onClose}></div>
-        <div className="relative w-full max-w-4xl bg-brand-cream rounded-3xl shadow-heavy overflow-hidden animate-scale-up max-h-[90vh] flex flex-col">
+        <div className="relative w-full max-w-4xl bg-brand-cream rounded-2xl shadow-heavy overflow-hidden animate-scale-up max-h-[90vh] flex flex-col">
           <button onClick={onClose} className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center hover:bg-brand-ink transition-all shadow-lg">
             <X size={24} />
           </button>
@@ -72,18 +74,17 @@ const Home: React.FC = () => {
       {selectedNews && <NewsModal item={selectedNews} onClose={() => setSelectedNews(null)} />}
 
       {/* 1. HERO SECTION - Mobile: Image First, Desktop: Text First */}
-      <section className="relative h-auto lg:min-h-[70vh] flex items-center pt-28 pb-12 md:pt-44 md:pb-20 overflow-hidden bg-brand-cream">
+      <section className="relative h-auto lg:min-h-[75vh] flex items-center pt-28 pb-12 md:pt-44 md:pb-20 overflow-hidden bg-brand-cream">
         <div className="container mx-auto px-6 lg:px-12">
-          {/* Use flex-col (Image first on mobile) and lg:flex-row-reverse (Text first on desktop) */}
           <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16">
             
             {/* Hero Image - Appears first on mobile */}
             <div className="w-full lg:w-[50%] relative animate-fade-in">
                <div className="relative aspect-[16/10] lg:aspect-[4/3] w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-heavy group">
                   <img 
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" 
+                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80" 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
-                    alt="International Students" 
+                    alt="International Students Exploring" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/40 to-transparent"></div>
                </div>
@@ -93,7 +94,7 @@ const Home: React.FC = () => {
                </div>
             </div>
 
-            {/* Hero Text - Appears below image on mobile */}
+            {/* Hero Text */}
             <div className="w-full lg:w-[50%] z-10 space-y-8 animate-fade-in text-center lg:text-left">
               <div className="space-y-4">
                 <div className="flex items-center justify-center lg:justify-start gap-3">
@@ -109,10 +110,10 @@ const Home: React.FC = () => {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
-                <Link to="/programs" className="px-10 py-5 bg-brand-primary text-white font-black rounded-xl hover:bg-brand-ink transition-all tracking-[0.2em] text-[11px] uppercase shadow-heavy flex items-center justify-center gap-3 group">
+                <Link to="/programs" className="px-12 py-5 bg-brand-primary text-white font-black rounded-xl hover:bg-brand-ink transition-all tracking-[0.2em] text-[11px] uppercase shadow-heavy flex items-center justify-center gap-3 group">
                   方案探索 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
                 </Link>
-                <Link to="/guide" className="px-10 py-5 bg-white border-2 border-brand-primary text-brand-primary font-black rounded-xl hover:bg-brand-primary hover:text-white transition-all tracking-[0.2em] text-[11px] uppercase flex items-center justify-center shadow-sm">
+                <Link to="/guide" className="px-12 py-5 bg-white border-2 border-brand-primary text-brand-primary font-black rounded-xl hover:bg-brand-primary hover:text-white transition-all tracking-[0.2em] text-[11px] uppercase flex items-center justify-center shadow-sm">
                   選課指南
                 </Link>
               </div>
@@ -122,7 +123,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. ADVANTAGE SECTION - High Contrast brand-primary */}
+      {/* 2. ADVANTAGE SECTION */}
       <section className="py-24 md:py-28 bg-brand-primary text-brand-cream relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-accent/20 rounded-full blur-[120px] -z-0"></div>
         
@@ -130,7 +131,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             <div className="w-full lg:w-[45%] order-1">
               <div className="relative">
-                <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
                   <img 
                     src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80" 
                     className="w-full h-full object-cover grayscale-[10%]" 
@@ -193,7 +194,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* LATEST NEWS SECTION - Mobile Navigation Buttons */}
+      {/* LATEST NEWS SECTION - No Scrollbar, Button Navigation */}
       <section className="py-20 md:py-28 bg-brand-cream border-t border-brand-border overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12">
            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-12">
@@ -205,19 +206,20 @@ const Home: React.FC = () => {
               <div className="flex items-center justify-center gap-4">
                  <button 
                   onClick={() => handleNewsScroll('left')}
-                  className="w-14 h-14 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all"
+                  className="w-14 h-14 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all z-10"
                  >
                     <ChevronLeft size={24} />
                  </button>
                  <button 
                   onClick={() => handleNewsScroll('right')}
-                  className="w-14 h-14 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all"
+                  className="w-14 h-14 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all z-10"
                  >
                     <ChevronRight size={24} />
                  </button>
               </div>
            </div>
            
+           {/* scrollbar-hide ensures no ugly scrollbar */}
            <div 
             ref={newsRef}
             className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible scrollbar-hide snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4"
@@ -253,7 +255,6 @@ const Home: React.FC = () => {
               ))}
            </div>
            
-           {/* Pagination Dots for Mobile */}
            <div className="flex justify-center gap-1.5 mt-8 md:hidden">
               {news.map((_, i) => (
                 <div key={i} className={`h-1 rounded-full transition-all duration-300 ${activeNewsIdx === i ? 'w-6 bg-brand-primary' : 'w-2 bg-brand-border'}`}></div>
@@ -262,19 +263,46 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. PROGRAM CATEGORIES */}
+      {/* 3. PROGRAM CATEGORIES - Updated Title and Info */}
       <section className="py-24 md:py-32 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
-             <span className="text-brand-primary font-black tracking-[0.5em] uppercase text-[10px] block mb-4">COMPARE PATHWAYS</span>
-             <h2 className="text-4xl md:text-5xl font-serif font-black text-brand-ink tracking-tighter">選擇最契合的教育樣貌</h2>
+             <span className="text-brand-primary font-black tracking-[0.5em] uppercase text-[10px] block mb-4">EDUCATION CURATION</span>
+             <h2 className="text-4xl md:text-6xl font-serif font-black text-brand-ink tracking-tighter">為您規劃最理想的起點</h2>
+             <p className="mt-6 text-brand-sub text-lg font-light max-w-2xl mx-auto">
+               我們將繁雜的資訊系統化，針對不同學習目標，提供具備深度與溫度的專業建議。
+             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {[
-              { title: "長期留學", type: "Study Abroad", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80", duration: "1 - 4 學年", value: "深度體驗學位體系、建立全球職涯基礎。", icon: <GraduationCap size={24}/> },
-              { title: "密集遊學", type: "Language Tour", img: "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?w=800&q=80", duration: "4 週 - 半年", value: "密集口說訓練、文化探索、打工度假前哨。", icon: <Globe size={24}/> },
-              { title: "微留學", type: "Micro Study", img: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80", duration: "2 週 - 4 週", value: "插班公立小學、Kiwi 學伴制度、親子共同探索。", icon: <Users size={24}/> }
+              { 
+                title: "長期留學", 
+                type: "Study Abroad", 
+                img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80", 
+                duration: "1 - 4 學年", 
+                value: "完整 NCEA/IB 學制銜接，奧克蘭八大名校定向培養。",
+                bullets: ["學歷通行全球頂尖大學", "專業職涯發展與升學諮詢", "落地生活與住宿安置支援"],
+                icon: <GraduationCap size={24}/> 
+              },
+              { 
+                title: "密集遊學", 
+                type: "Language Tour", 
+                img: "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?w=800&q=80", 
+                duration: "4 週 - 半年", 
+                value: "密集口說實戰，結合戶外探險與世界各地的朋友交流。",
+                bullets: ["全英語浸潤式學習環境", "皇后鎮冒險與城市文化探索", "強化雅思/托福應試能力"],
+                icon: <Globe size={24}/> 
+              },
+              { 
+                title: "微留學", 
+                type: "Micro Study", 
+                img: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80", 
+                duration: "2 週 - 4 週", 
+                value: "插班紐西蘭公立學校，專屬 Buddy 學伴制度領航。",
+                bullets: ["與當地 Kiwi 學生同步上課", "深入在地寄宿家庭文化", "親子共讀與彈性旅遊安排"],
+                icon: <Users size={24}/> 
+              }
             ].map((item, idx) => (
               <div key={idx} className="group bg-brand-cream rounded-2xl overflow-hidden shadow-zen border border-brand-border flex flex-col hover:border-brand-primary/40 transition-all duration-500 hover:-translate-y-2">
                 <div className="relative h-64 overflow-hidden">
@@ -286,7 +314,7 @@ const Home: React.FC = () => {
                     <h3 className="text-3xl font-serif font-black text-brand-ink mb-2">{item.title}</h3>
                     <p className="text-[10px] text-brand-primary font-black uppercase tracking-widest">{item.type}</p>
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     <div className="flex items-start gap-4">
                       <Clock className="w-5 h-5 text-brand-primary mt-1 shrink-0" />
                       <div>
@@ -294,12 +322,16 @@ const Home: React.FC = () => {
                         <p className="text-base font-bold text-brand-ink">{item.duration}</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <Check className="w-5 h-5 text-brand-primary mt-1 shrink-0" />
-                      <div>
-                        <p className="text-[9px] font-black text-brand-ink/30 uppercase tracking-widest mb-1">Core Value</p>
-                        <p className="text-sm text-brand-sub leading-loose font-light">{item.value}</p>
-                      </div>
+                    <div className="flex flex-col gap-3">
+                       <p className="text-sm text-brand-ink/80 leading-relaxed font-bold">{item.value}</p>
+                       <ul className="space-y-2">
+                         {item.bullets.map((b, bi) => (
+                           <li key={bi} className="flex items-center gap-3 text-xs text-brand-sub font-light">
+                             <Check size={14} className="text-brand-primary shrink-0" />
+                             {b}
+                           </li>
+                         ))}
+                       </ul>
                     </div>
                   </div>
                   <div className="pt-8 border-t border-brand-border flex items-center justify-between mt-auto">
@@ -314,7 +346,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. SERVICE SOP - Vertical Line for Mobile */}
+      {/* 4. SERVICE SOP */}
       <section className="py-24 md:py-32 bg-brand-primary text-white relative">
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
           <div className="text-center mb-24">
@@ -363,7 +395,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* FINAL CTA - High Contrast & Magician-style rounded */}
+      {/* FINAL CTA */}
       <section className="py-40 bg-white text-brand-ink relative overflow-hidden">
          <div className="container mx-auto px-6 text-center">
             <div className="max-w-4xl mx-auto space-y-12">
