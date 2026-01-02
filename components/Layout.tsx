@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Camera, MapPin, Phone, Mail } from 'lucide-react';
-import html2canvas from 'html2canvas';
+import { Menu, X, MapPin, Phone, Mail } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,126 +8,117 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => location.pathname === path;
-
-  const handleScreenshot = async () => {
-    const element = document.body;
-    try {
-        const canvas = await html2canvas(element, { useCORS: true, scale: 1 });
-        const data = canvas.toDataURL('image/jpeg', 0.8);
-        const link = document.createElement('a');
-        link.href = data;
-        link.download = `lumen-stone-${Date.now()}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } catch (err) {
-        console.error("Screenshot failed", err);
-    }
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
-    { name: '如何選擇', path: '/guide' },
-    { name: '留學', path: '/programs?type=Study Abroad' },
-    { name: '遊學', path: '/programs?type=Language School' },
-    { name: '微留學', path: '/programs?type=Micro Study' },
-    { name: '紐西蘭生活', path: '/nz-au' },
-    { name: '成功案例', path: '/success' },
+    { name: '選課指南', path: '/guide' },
+    { name: '遊學行', path: '/programs' },
+    { name: '紐西蘭百科', path: '/nz-au' },
+    { name: '學員見證', path: '/success' },
+    { name: '全站地圖', path: '/sitemap' },
   ];
 
+  const logoUrl = "https://pub-eab9e45abd56499794188fcd886beee3.r2.dev/logo/logo.png";
+
+  const navbarClasses = scrolled 
+    ? 'bg-brand-cream/80 backdrop-blur-lg text-brand-primary shadow-sm h-20' 
+    : 'bg-transparent text-brand-primary h-28';
+
   return (
-    <div className="flex flex-col min-h-screen bg-brand-cream selection:bg-brand-sage selection:text-white">
+    <div className="flex flex-col min-h-screen bg-brand-cream text-brand-ink font-sans">
+      
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-brand-cream/90 backdrop-blur-md border-b border-brand-sage/10">
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 flex items-center ${navbarClasses}`}>
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex justify-between items-center h-20 md:h-24">
+          <div className="flex justify-between items-center">
             
-            {/* Logo */}
-            <Link to="/" className="flex flex-col group" onClick={() => setIsMenuOpen(false)}>
-               <div className="flex items-center gap-2">
-                 <span className="text-xl md:text-2xl font-serif font-bold text-brand-ink tracking-tight">點石遊學國際</span>
-                 <div className="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+            <Link to="/" className="flex items-center gap-4 group" onClick={() => setIsMenuOpen(false)}>
+               <div className={`transition-all duration-500 ${scrolled ? 'h-12 w-12' : 'h-16 w-16'} group-hover:scale-110 grayscale brightness-0`}>
+                  <img src={logoUrl} alt="Lumen Stone Logo" className="w-full h-full object-contain" />
                </div>
-               <span className="text-[10px] tracking-[0.3em] uppercase text-brand-sage font-medium">Lumen Stone Education</span>
+               <div className="flex flex-col">
+                 <span className={`font-serif font-black tracking-tighter transition-all ${scrolled ? 'text-lg' : 'text-xl'}`}>點石遊學國際</span>
+                 <span className="text-[7px] tracking-[0.4em] uppercase font-bold opacity-40">Lumen Stone Education</span>
+               </div>
             </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-10">
               {navLinks.map(link => (
                 <Link 
                   key={link.path} 
                   to={link.path} 
-                  className={`text-sm tracking-widest font-medium transition-all ${location.pathname + location.search === link.path ? 'text-brand-sage font-bold border-b-2 border-brand-sage' : 'text-brand-sub hover:text-brand-sage'}`}
+                  className={`text-[10px] tracking-[0.2em] uppercase font-bold transition-all hover:text-brand-accent ${
+                    location.pathname === link.path ? 'text-brand-accent' : 'text-brand-primary/70'
+                  }`}
                 >
                   {link.name}
                 </Link>
               ))}
-              <Link to="/booking" className="px-6 py-2.5 bg-brand-sage text-white text-xs tracking-widest hover:bg-brand-ink transition-all rounded-full shadow-hand-drawn">
-                免費諮詢
+              <Link to="/booking" className="px-8 py-3 bg-brand-primary text-white text-[10px] font-extrabold tracking-[0.2em] uppercase rounded-full hover:bg-brand-accent transition-all">
+                Contact
               </Link>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-brand-ink">
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-brand-primary">
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden fixed inset-0 bg-brand-cream z-40 pt-24 animate-fade-in flex flex-col items-center">
+          <div className="lg:hidden fixed inset-0 z-40 bg-brand-cream pt-32 flex flex-col items-center">
             <div className="flex flex-col items-center space-y-8">
               {navLinks.map(link => (
-                <Link key={link.path} to={link.path} onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif text-brand-ink">{link.name}</Link>
+                <Link key={link.path} to={link.path} onClick={() => setIsMenuOpen(false)} className="text-3xl font-serif font-bold text-brand-primary">{link.name}</Link>
               ))}
-              <Link to="/booking" onClick={() => setIsMenuOpen(false)} className="px-10 py-3 bg-brand-sage text-white rounded-full">免費諮詢</Link>
+              <Link to="/booking" onClick={() => setIsMenuOpen(false)} className="px-12 py-4 bg-brand-primary text-white rounded-full font-bold">CONTACT</Link>
             </div>
           </div>
         )}
       </nav>
 
-      <main className="flex-grow pt-20 md:pt-24">{children}</main>
+      <main className="flex-grow">{children}</main>
 
-      {/* Footer */}
-      <footer className="bg-brand-ink text-brand-cream py-20 mt-20">
+      <footer className="py-24 bg-brand-primary text-brand-cream/60">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div className="md:col-span-2">
-              <h2 className="text-3xl font-serif font-bold mb-6">點石遊學國際</h2>
-              <p className="text-brand-light/60 text-sm leading-loose max-w-sm mb-8">
-                讓出國不是壓力，而是剛剛好的開始。我們陪伴第一次出境的你，從釐清方向到安心抵達。
-              </p>
-              <div className="flex gap-4">
-                 <div className="w-10 h-10 rounded-full bg-brand-paper/10 flex items-center justify-center hover:bg-brand-sage transition-colors cursor-pointer"><Mail size={18}/></div>
-                 <div className="w-10 h-10 rounded-full bg-brand-paper/10 flex items-center justify-center hover:bg-brand-sage transition-colors cursor-pointer"><Phone size={18}/></div>
-              </div>
+            <div className="md:col-span-2 space-y-6">
+               <div className="flex items-center gap-4">
+                  <img src={logoUrl} className="w-12 h-12 object-contain invert opacity-50" />
+                  <h2 className="text-2xl font-serif font-bold text-white">點石遊學國際</h2>
+               </div>
+               <p className="text-sm max-w-sm leading-relaxed">
+                 專注於紐西蘭精緻教育。在自然中尋找教育的真諦。<br/>
+                 不同於傳統代辦的流水線，我們雕琢每一顆原石。
+               </p>
             </div>
             <div>
-              <h4 className="text-brand-accent text-xs tracking-[0.2em] uppercase mb-8">服務項目</h4>
-              <div className="space-y-4 text-sm opacity-70">
-                 <Link to="/guide" className="block hover:text-brand-sage">如何選擇</Link>
-                 <Link to="/programs" className="block hover:text-brand-sage">留學方案</Link>
-                 <Link to="/programs" className="block hover:text-brand-sage">遊學方案</Link>
-                 <Link to="/programs" className="block hover:text-brand-sage">微留學體驗</Link>
-              </div>
+              <h4 className="text-brand-secondary text-[10px] tracking-[0.4em] uppercase font-bold mb-6">Explore</h4>
+              <ul className="space-y-3 text-xs">
+                <li><Link to="/guide" className="hover:text-white transition-colors">選課指南</Link></li>
+                <li><Link to="/programs" className="hover:text-white transition-colors">遊學方案</Link></li>
+                <li><Link to="/sitemap" className="hover:text-white transition-colors">全站地圖</Link></li>
+              </ul>
             </div>
             <div>
-              <h4 className="text-brand-accent text-xs tracking-[0.2em] uppercase mb-8">聯絡我們</h4>
-              <div className="space-y-4 text-sm opacity-70">
-                 <p className="flex items-center gap-3"><MapPin size={16}/> 台北市信義區信義路五段7號</p>
-                 <p className="flex items-center gap-3"><Phone size={16}/> 02-2345-6789</p>
-                 <p className="flex items-center gap-3"><Mail size={16}/> info@lumenstone.edu</p>
-              </div>
+              <h4 className="text-brand-secondary text-[10px] tracking-[0.4em] uppercase font-bold mb-6">Contact</h4>
+              <ul className="space-y-3 text-xs">
+                <li className="flex items-center gap-2"><MapPin size={14}/> 台北市信義區信義路五段</li>
+                <li className="flex items-center gap-2"><Mail size={14}/> info@lumenstone.edu</li>
+              </ul>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 opacity-30 text-[10px] tracking-widest">
-             <p>© 2024 Lumen Stone International Study Abroad.</p>
-             <button onClick={handleScreenshot} className="mt-4 md:mt-0 flex items-center gap-2 hover:opacity-100 transition-opacity">
-                <Camera size={12} /> 存為筆記
-             </button>
+          <div className="pt-8 border-t border-white/5 text-[9px] tracking-[0.4em] uppercase text-center md:text-left">
+             © 2024 Lumen Stone Education. All rights reserved.
           </div>
         </div>
       </footer>

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { HashRouter as Router, Routes, Route, ScrollRestoration } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Guide from './pages/Guide';
@@ -9,6 +9,7 @@ import ProgramDetail from './pages/ProgramDetail';
 import LPP from './pages/LPP';
 import Booking from './pages/Booking';
 import NzAuZone from './pages/NzAuZone';
+import Sitemap from './pages/Sitemap';
 import { About, Team, SuccessStories, FAQ, Media, Contact, Legal } from './pages/InfoPages';
 
 // ScrollToTop component to handle scroll restoration on route change
@@ -25,7 +26,7 @@ const ScrollToTop = () => {
 const App: React.FC = () => {
   return (
     <Router>
-      <ScrollToTop /> {/* Manual scroll handling for HashRouter if needed, or rely on ScrollRestoration in newer routers, but manual effect is safer for generic React usage */}
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -42,6 +43,7 @@ const App: React.FC = () => {
           <Route path="/media" element={<Media />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/legal" element={<Legal />} />
+          <Route path="/sitemap" element={<Sitemap />} />
         </Routes>
       </Layout>
     </Router>

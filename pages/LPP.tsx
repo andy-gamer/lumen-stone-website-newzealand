@@ -1,79 +1,89 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Video, Mic, FileText, Coffee, Check } from 'lucide-react';
+import { Video, Mic, FileText, Coffee, Check, Sparkles, ArrowRight } from 'lucide-react';
 
 const LPP: React.FC = () => {
   return (
-    <div>
+    <div className="bg-brand-cream min-h-screen">
       {/* LPP Hero */}
-      <section className="bg-gradient-to-r from-indigo-900 to-brand-800 text-white py-24 text-center">
-        <div className="container mx-auto px-4">
-          <span className="bg-yellow-400 text-indigo-900 font-bold px-3 py-1 rounded-full uppercase text-sm tracking-wider mb-6 inline-block">獨家服務</span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Language Prep Program</h1>
-          <p className="text-xl md:text-2xl text-indigo-200 max-w-2xl mx-auto">
-            別讓語言成為你看見世界的障礙。<br/>出國前的暖身，讓你落地第一天就敢開口。
+      <section className="bg-brand-sage text-white py-32 text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/notebook.png')]"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <span className="bg-brand-accent text-white font-bold px-4 py-1 rounded-full uppercase text-[10px] tracking-[0.3em] mb-8 inline-block">Exclusive Service</span>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-8">Language Prep Program</h1>
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-loose font-light">
+            別讓語言成為你看見世界的障礙。<br/>點石獨家「行前語言暖身」，讓你落地第一天就敢開口交流。
           </p>
         </div>
       </section>
 
       {/* Features */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-slate-900">為什麼你需要 LPP？</h2>
-            <p className="text-slate-600 text-lg leading-relaxed">
-              許多學生到了國外，因為害怕犯錯而不敢開口，浪費了寶貴的前兩週適應期。
-              LPP (Language Prep Program) 是 GlobalStep 獨創的行前語言特訓，
-              透過 1 對 1 線上家教，模擬真實遊學情境，先幫你打好強心針。
+      <section className="container mx-auto px-6 lg:px-12 py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="space-y-10">
+            <div className="inline-block border-l-4 border-brand-accent pl-6">
+                <span className="text-brand-accent font-bold tracking-widest text-xs uppercase block mb-2">Confidence Builder</span>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-ink">為什麼你需要 LPP？</h2>
+            </div>
+            <p className="text-brand-sub text-lg leading-loose font-light">
+              許多學生剛到紐西蘭時，因為害怕犯錯而不敢開口，白白浪費了寶貴的前兩週適應期。
+              LPP 是點石獨創的「心理與語言特訓」，透過 1 對 1 線上家教模擬真實場景，幫您打好強心針。
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
-                { icon: <Mic size={24} />, title: "生存會話", desc: "點餐、問路、買票，模擬真實場景。" },
-                { icon: <Video size={24} />, title: "海關模擬", desc: "全英文應對海關提問，通關不緊張。" },
-                { icon: <FileText size={24} />, title: "分級測驗準備", desc: "熟悉入學考題型，分到理想班級。" },
-                { icon: <Coffee size={24} />, title: "社交破冰", desc: "學會自我介紹與開啟話題的技巧。" }
+                { icon: <Mic size={24} />, title: "生存會話", desc: "點餐、購物、搭車，實戰模擬。" },
+                { icon: <Video size={24} />, title: "海關模擬", desc: "應對提問，自信通關不緊張。" },
+                { icon: <FileText size={24} />, title: "分級測驗", desc: "熟悉題型，進入理想程度班級。" },
+                { icon: <Coffee size={24} />, title: "社交破冰", desc: "學會如何主動向 Kiwi 同學介紹自己。" }
               ].map((item, i) => (
-                <div key={i} className="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                  <div className="text-brand-600 mb-3">{item.icon}</div>
-                  <h4 className="font-bold text-slate-900 mb-1">{item.title}</h4>
-                  <p className="text-sm text-slate-500">{item.desc}</p>
+                <div key={i} className="bg-white p-8 rounded-[32px] border border-brand-sage/5 shadow-zen group hover:border-brand-sage/20 transition-all">
+                  <div className="text-brand-sage mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
+                  <h4 className="font-bold text-brand-ink mb-2">{item.title}</h4>
+                  <p className="text-xs text-brand-sub leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="relative">
-            <img src="https://picsum.photos/seed/tutoring/800/800" alt="Online Tutoring" className="rounded-3xl shadow-2xl" />
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg max-w-xs">
-              <p className="text-brand-600 font-bold text-xl mb-1">100%</p>
-              <p className="text-slate-600 text-sm">學員回饋：「上完 LPP，第一天到學校就不怕跟外國同學講話了！」</p>
+            <div className="rounded-[60px] overflow-hidden shadow-2xl border-8 border-white aspect-square">
+               <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1000&q=80" alt="Online Tutoring" className="w-full h-full object-cover" />
+            </div>
+            <div className="absolute -bottom-8 -left-8 bg-brand-ink p-10 rounded-[40px] shadow-xl max-w-xs text-white">
+              <p className="text-brand-accent font-bold text-3xl mb-2 flex items-center gap-2">
+                <Sparkles size={24} /> 100%
+              </p>
+              <p className="text-white/60 text-sm leading-loose">學員一致好評：「上完 LPP，第一天走進教室就不怕跟同學聊天了！」</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Pricing / Packages */}
-      <section className="bg-slate-50 py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12">課程方案</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <section className="bg-white py-32 border-y border-brand-sage/5">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-ink mb-16">課程方案</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { title: "輕量體驗", hours: "4 小時", price: "NT$ 3,600", target: "適合只需基礎行前提點" },
-              { title: "標準特訓", hours: "10 小時", price: "NT$ 8,500", target: "適合希望能順暢溝通者", popular: true },
-              { title: "密集衝刺", hours: "20 小時", price: "NT$ 16,000", target: "適合零基礎或需雅思準備" }
+              { title: "輕量體驗", hours: "4 小時", price: "NT$ 3,600", target: "適合已有基礎的提點" },
+              { title: "標準特訓", hours: "10 小時", price: "NT$ 8,500", target: "最推薦！全方位口說強化", popular: true },
+              { title: "密集衝刺", hours: "20 小時", price: "NT$ 16,000", target: "適合零基礎或需雅思考試者" }
             ].map((plan, i) => (
-              <div key={i} className={`bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all relative ${plan.popular ? 'border-2 border-brand-500 transform scale-105 z-10' : 'border border-slate-200'}`}>
-                {plan.popular && <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-500 text-white px-4 py-1 rounded-full text-xs font-bold tracking-wide">MOST POPULAR</span>}
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.title}</h3>
-                <p className="text-slate-500 text-sm mb-6">{plan.target}</p>
-                <div className="text-4xl font-bold text-brand-600 mb-2">{plan.price}</div>
-                <div className="text-slate-400 font-medium mb-8">包含 {plan.hours} 1對1教學</div>
-                <ul className="text-left space-y-3 mb-8 text-sm text-slate-600">
-                  <li className="flex items-center gap-2"><Check className="text-green-500" size={16} /> 專屬教材電子檔</li>
-                  <li className="flex items-center gap-2"><Check className="text-green-500" size={16} /> 時間彈性預約</li>
-                  <li className="flex items-center gap-2"><Check className="text-green-500" size={16} /> 課後學習報告</li>
-                </ul>
-                <Link to="/booking" className={`block w-full py-3 rounded-full font-bold transition-colors ${plan.popular ? 'bg-brand-600 text-white hover:bg-brand-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
-                  預約評估
+              <div key={i} className={`bg-brand-cream p-12 rounded-[50px] transition-all relative group flex flex-col justify-between ${plan.popular ? 'border-2 border-brand-accent shadow-2xl scale-105 z-10' : 'border border-brand-sage/10'}`}>
+                {plan.popular && <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-accent text-white px-6 py-1.5 rounded-full text-[10px] font-bold tracking-[0.3em] uppercase">Recommended</span>}
+                <div>
+                    <h3 className="text-2xl font-serif font-bold text-brand-ink mb-4">{plan.title}</h3>
+                    <p className="text-brand-sub text-sm mb-10 font-light">{plan.target}</p>
+                    <div className="text-4xl font-serif font-bold text-brand-ink mb-2">{plan.price}</div>
+                    <div className="text-brand-sage font-bold text-xs tracking-widest uppercase mb-10">包含 {plan.hours} 線上家教</div>
+                    <ul className="text-left space-y-4 mb-12 text-sm text-brand-sub">
+                    <li className="flex items-center gap-3"><Check className="text-brand-accent" size={16} /> 專屬互動教材電子檔</li>
+                    <li className="flex items-center gap-3"><Check className="text-brand-accent" size={16} /> 時間彈性，自由預約</li>
+                    <li className="flex items-center gap-3"><Check className="text-brand-accent" size={16} /> 課程進度分析報告</li>
+                    </ul>
+                </div>
+                <Link to="/booking" className={`block w-full py-4 rounded-full font-bold transition-all tracking-widest text-sm ${plan.popular ? 'bg-brand-accent text-white hover:bg-brand-ink shadow-lg' : 'bg-white text-brand-ink hover:bg-brand-sage hover:text-white border border-brand-sage/20'}`}>
+                  立即預約評估
                 </Link>
               </div>
             ))}

@@ -10,6 +10,7 @@ export interface Program {
   tags: string[];
   type: ProgramType;
   image: string;
+  gallery?: string[]; // Optional array of additional images
   description: string;
   highlights: string[];
   language: string;

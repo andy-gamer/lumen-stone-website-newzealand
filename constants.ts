@@ -1,4 +1,3 @@
-
 import { Program, ProgramType, TeamMember, Testimonial, FAQItem } from './types';
 
 export const PROGRAMS: Program[] = [
@@ -15,6 +14,11 @@ export const PROGRAMS: Program[] = [
     type: ProgramType.SUMMER_CAMP,
     language: "English",
     image: "https://images.unsplash.com/photo-1578530332818-6ba472e67b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1578530332818-6ba472e67b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    ],
     description: "體驗紐西蘭最純淨的啟發式教育，孩子將直接進入當地公立小學班級，與Kiwi同學共同學習、玩耍，快速建立英語自信。",
     highlights: ["100%當地學生比例", "專屬Buddy學伴帶領", "戶外探險課程", "家長友善陪讀環境"]
   },
@@ -31,6 +35,11 @@ export const PROGRAMS: Program[] = [
     type: ProgramType.CULTURAL_TRIP,
     language: "English",
     image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1589802829985-817e51171b92?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    ],
     description: "在世界冒險之都皇后鎮，早上進行密集英語訓練，下午挑戰高空彈跳、噴射快艇與冰川健行。",
     highlights: ["世界級壯麗風景", "跨國友誼交流", "冒險運動主題", "口說能力大幅提升"]
   },
@@ -47,6 +56,10 @@ export const PROGRAMS: Program[] = [
     type: ProgramType.STUDY_ABROAD,
     language: "English",
     image: "https://images.unsplash.com/photo-1507699622177-38889b58527d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1507699622177-38889b58527d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    ],
     description: "基督城擁有悠久的英式教育傳統，我們精選多所學術表現優異的高中，協助學生銜接紐西蘭 NCEA 系統，目標直指八大名校。",
     highlights: ["完善國際生照顧體系", "優質寄宿家庭安排", "學科選擇多元", "受全球認可學歷"]
   },
@@ -63,6 +76,10 @@ export const PROGRAMS: Program[] = [
     type: ProgramType.STUDY_ABROAD,
     language: "English",
     image: "https://images.unsplash.com/photo-1498243639652-fca49f3f40d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1498243639652-fca49f3f40d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    ],
     description: "協助申請紐西蘭第一學府：奧克蘭大學。針對成績未達標者，提供快捷預科與大一銜接課程，畢業後可獲 3 年工作簽證。",
     highlights: ["八大名校專業諮詢", "PSW 工作簽證指導", "高含金量學歷", "就業力分析"]
   },
@@ -79,6 +96,10 @@ export const PROGRAMS: Program[] = [
     type: ProgramType.LANGUAGE_SCHOOL,
     language: "English",
     image: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    ],
     description: "在魔戒特效家鄉——威靈頓，學習英語並體驗世界頂尖的數位媒體與影視設計氛圍。",
     highlights: ["參訪 Weta Workshop", "結合設計工作坊", "濃厚藝術人文息", "城市便利生活"]
   },
@@ -95,6 +116,10 @@ export const PROGRAMS: Program[] = [
     type: ProgramType.PARENT_CHILD,
     language: "English",
     image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    ],
     description: "家長與孩子共同探索毛利文化之鄉。孩子入讀當地學校，家長參加成人英文班或體驗豐富的地熱溫泉與原住民文化之旅。",
     highlights: ["傳統毛利舞蹈體驗", "大自然地理教室", "親子友善住宿", "放鬆舒壓環境"]
   }
