@@ -11,13 +11,13 @@
           extend: {
             colors: {
               brand: {
-                primary: '#1B2E21', // 深森林綠
+                primary: '#1B2E21', // 深森林綠 (作為點綴與文字)
                 secondary: '#E5D8C6', // 奶油金
-                accent: '#8B7355', // 古銅棕（取代部分亮綠，更沉穩）
-                lime: '#D9E021', // 螢光黃綠（點綴用）
-                cream: '#F5F2ED', // 主背景色：溫暖奶油白
-                ink: '#2A2A2A', // 主文字色：深灰黑
-                sub: '#7A7A7A', // 次要文字
+                accent: '#8B7355', // 古銅棕 (高級感的來源)
+                cream: '#F9F7F2', // 主背景色：極淺奶油色，提升明亮度
+                ink: '#1A1A1A', // 主文字色與深色背景色
+                sub: '#666666', // 次要文字
+                border: '#EAE5DF', // 輕微的邊框色
               }
             },
             fontFamily: {
@@ -25,8 +25,8 @@
               serif: ['"Noto Serif TC"', 'serif'],
             },
             boxShadow: {
-              'zen': '0 20px 50px rgba(0,0,0,0.05)',
-              'heavy': '0 30px 60px rgba(0,0,0,0.12)',
+              'zen': '0 10px 40px rgba(0,0,0,0.04)',
+              'heavy': '0 20px 50px rgba(0,0,0,0.08)',
             }
           },
         },
@@ -37,9 +37,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
       :root[data-theme="studio"] {
-        --brand-cream: #F5F2ED;
+        --brand-cream: #F9F7F2;
         --brand-primary: #1B2E21;
-        --brand-ink: #2A2A2A;
+        --brand-ink: #1A1A1A;
       }
 
       body { 
@@ -58,25 +58,18 @@
         50% { transform: translateY(-15px); }
       }
       .float-animation { animation: float 6s ease-in-out infinite; }
-      
-      .sop-dot-line {
-        background-image: linear-gradient(to right, #D1D1D1 33%, rgba(255,255,255,0) 0%);
-        background-position: bottom;
-        background-size: 8px 1px;
-        background-repeat: repeat-x;
-      }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "firebase/": "https://esm.sh/firebase@^12.7.0/",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "vite": "https://esm.sh/vite@^7.3.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "firebase/": "https://esm.sh/firebase@^12.7.0/"
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>

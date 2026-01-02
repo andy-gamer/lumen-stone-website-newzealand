@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   CheckCircle, ArrowRight, RefreshCcw, 
   Compass, Sparkles, BookOpen, Plane, 
-  ChevronRight, Smile, MapPin, ClipboardList
+  MapPin, ClipboardList
 } from 'lucide-react';
 
 const Guide: React.FC = () => {
@@ -29,7 +29,7 @@ const Guide: React.FC = () => {
       id: 2,
       question: "預計停留的時間長短？",
       sub: "時間決定了您適合「留學」還是「遊學」",
-      icon: <Plane className="text-brand-sage" size={24} />,
+      icon: <Plane className="text-brand-accent" size={24} />,
       options: [
         { title: "超過半年 (長期規劃)", desc: "適合深度文化融入與學術發展" },
         { title: "1 - 3 個月 (精實體驗)", desc: "適合寒暑假或職場空檔充電" },
@@ -53,7 +53,7 @@ const Guide: React.FC = () => {
       id: 4,
       question: "目前最擔心的部分是？",
       sub: "讓我們知道如何提供更精確的協助",
-      icon: <ClipboardList className="text-brand-sage" size={24} />,
+      icon: <ClipboardList className="text-brand-accent" size={24} />,
       options: [
         { title: "語言程度跟不上", desc: "希望能有額外的 ESL 支援" },
         { title: "當地住宿安排", desc: "高品質寄宿家庭或學生公寓" },
@@ -65,7 +65,6 @@ const Guide: React.FC = () => {
 
   const handleSelect = (option: string) => { 
     setAnswers({ ...answers, [step]: option }); 
-    // 自動進入下一題，提供流暢體驗
     setTimeout(() => {
         if (step < questions.length - 1) {
             setStep(step + 1);
@@ -108,124 +107,101 @@ const Guide: React.FC = () => {
   const recommendation = getRecommendation();
 
   return (
-    <div className="min-h-screen bg-brand-cream py-24 flex items-center">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <div className="bg-white p-8 md:p-20 rounded-[60px] shadow-zen border border-brand-sage/10 relative overflow-hidden">
-           
-           {/* Background Decoration */}
-           <div className="absolute top-0 right-0 p-12 opacity-5">
-              <Compass size={120} className="text-brand-sage animate-spin-slow" />
-           </div>
+    <div className="min-h-screen bg-brand-cream font-sans pt-24">
+      <section className="py-20 flex items-center">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="bg-white p-12 md:p-24 rounded-xl shadow-heavy border border-brand-border relative overflow-hidden">
+            
+            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+                <Compass size={200} className="text-brand-accent animate-spin-slow" />
+            </div>
 
-           {step < questions.length ? (
-             <div className="animate-fade-in relative z-10">
-                {/* Progress Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
-                   <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-brand-sage/10 text-brand-sage flex items-center justify-center font-bold">
-                         {step + 1}
-                      </div>
-                      <div>
-                         <span className="text-brand-sage font-bold text-[10px] tracking-[0.4em] uppercase block">Analysis Progress</span>
-                         <h3 className="text-brand-ink font-bold">Step {step + 1} of {questions.length}</h3>
-                      </div>
-                   </div>
-                   {/* Visual Progress Bar */}
-                   <div className="flex gap-2 h-1 w-32">
-                      {questions.map((_, i) => (
-                        <div key={i} className={`flex-1 rounded-full transition-all duration-500 ${i <= step ? 'bg-brand-sage' : 'bg-stone-100'}`}></div>
-                      ))}
-                   </div>
-                </div>
+            {step < questions.length ? (
+              <div className="animate-fade-in relative z-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-10 mb-20">
+                    <div className="flex items-center gap-6">
+                        <div className="w-16 h-16 rounded-xl bg-brand-cream text-brand-accent flex items-center justify-center font-serif text-2xl font-black shadow-sm border border-brand-border">
+                          {step + 1}
+                        </div>
+                        <div>
+                          <span className="text-brand-accent font-black text-[10px] tracking-[0.4em] uppercase block mb-1">Interactive Quiz</span>
+                          <h3 className="text-brand-ink font-serif font-black text-xl">選課指南 {step + 1} / {questions.length}</h3>
+                        </div>
+                    </div>
+                  </div>
 
-                {/* Question */}
-                <div className="mb-12">
-                   <h2 className="text-3xl md:text-5xl font-serif font-bold text-brand-ink mb-6 leading-tight">
-                      {questions[step].question}
-                   </h2>
-                   <p className="text-brand-sub font-light text-lg">
-                      {questions[step].sub}
-                   </p>
-                </div>
-                
-                {/* Options Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                   {questions[step].options.map((opt, oIdx) => (
-                      <button 
-                        key={oIdx} 
-                        onClick={() => handleSelect(opt.title)} 
-                        className={`text-left p-8 rounded-[32px] border-2 transition-all duration-300 group flex flex-col justify-between h-full ${answers[step] === opt.title ? 'bg-brand-sage border-brand-sage text-white shadow-xl translate-y-[-4px]' : 'bg-white border-stone-100 hover:border-brand-sage/30 hover:shadow-md'}`}
-                      >
-                         <div className="mb-6">
-                            <span className={`text-lg font-bold block mb-1 ${answers[step] === opt.title ? 'text-white' : 'text-brand-ink'}`}>
-                                {opt.title}
-                            </span>
-                            <p className={`text-xs font-light leading-relaxed ${answers[step] === opt.title ? 'text-white/70' : 'text-brand-sub'}`}>
-                                {opt.desc}
-                            </p>
-                         </div>
-                         <div className={`w-8 h-8 rounded-full border flex items-center justify-center self-end transition-colors ${answers[step] === opt.title ? 'bg-white border-white text-brand-sage' : 'border-stone-200 text-transparent'}`}>
-                            <CheckCircle size={16} />
-                         </div>
-                      </button>
-                   ))}
-                </div>
-                
-                {/* Footer Nav */}
-                <div className="mt-16 pt-8 border-t border-stone-50 flex justify-between items-center">
-                   <button 
-                     onClick={() => setStep(Math.max(0, step - 1))} 
-                     disabled={step === 0}
-                     className={`text-brand-sub hover:text-brand-sage text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-0`}
-                   >
-                      <RefreshCcw size={16} /> Back to Previous
-                   </button>
-                   <span className="text-[10px] text-brand-sub font-bold uppercase tracking-widest opacity-40">Lumen Stone Education</span>
-                </div>
-             </div>
-           ) : (
-             <div className="text-center animate-fade-in relative z-10 py-10">
-                <div className="inline-block p-6 rounded-full bg-brand-sage/10 text-brand-sage mb-8">
-                   <Sparkles size={48} className="animate-pulse" />
-                </div>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-ink mb-6">為您量身打造的建議</h2>
-                <div className="max-w-xl mx-auto mb-12">
-                   <div className="bg-brand-cream p-10 rounded-[40px] border border-brand-sage/10 relative">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-accent text-white text-[10px] px-4 py-1 rounded-full font-bold tracking-widest">
-                         RECOMMENDED PATH
-                      </div>
-                      <h3 className="text-2xl font-serif font-bold text-brand-ink mb-4">{recommendation.title}</h3>
-                      <p className="text-brand-sub leading-loose font-light">
-                        {recommendation.desc}
-                      </p>
-                   </div>
-                </div>
-                
-                <div className="flex flex-col md:flex-row gap-4 justify-center">
-                   <button 
-                    onClick={() => navigate('/booking', { state: { interestedProgram: recommendation.title } })} 
-                    className="px-12 py-6 bg-brand-sage text-white rounded-full font-bold shadow-hand-drawn hover:bg-brand-ink transition-all flex items-center justify-center gap-3 group"
-                   >
-                      立即預約詳細諮詢 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                   </button>
-                   <button 
-                    onClick={() => navigate(`/programs?type=${recommendation.type}`)} 
-                    className="px-12 py-6 bg-white border border-brand-sage/20 text-brand-sage rounded-full font-bold hover:bg-brand-sage/5 transition-all"
-                   >
-                      {recommendation.cta}
-                   </button>
-                </div>
-                
-                <button 
-                  onClick={() => { setStep(0); setAnswers({}); }} 
-                  className="mt-12 text-brand-sub flex items-center gap-2 mx-auto hover:text-brand-sage transition-colors text-xs font-bold uppercase tracking-widest"
-                >
-                  <RefreshCcw size={14}/> Restart Analysis
-                </button>
-             </div>
-           )}
+                  <div className="mb-16">
+                    <h2 className="text-4xl md:text-6xl font-serif font-black text-brand-ink mb-8 leading-tight tracking-tighter">
+                        {questions[step].question}
+                    </h2>
+                    <p className="text-brand-sub font-light text-xl leading-relaxed">
+                        {questions[step].sub}
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {questions[step].options.map((opt, oIdx) => (
+                        <button 
+                          key={oIdx} 
+                          onClick={() => handleSelect(opt.title)} 
+                          className={`text-left p-10 rounded-xl border transition-all duration-500 group flex flex-col justify-between h-full relative overflow-hidden ${answers[step] === opt.title ? 'bg-brand-ink border-brand-ink text-white shadow-xl -translate-y-2' : 'bg-white border-brand-border hover:border-brand-accent/50 hover:shadow-md'}`}
+                        >
+                          <div className="relative z-10">
+                              <span className={`text-xl font-serif font-black block mb-2 ${answers[step] === opt.title ? 'text-brand-secondary' : 'text-brand-ink'}`}>
+                                  {opt.title}
+                              </span>
+                              <p className={`text-sm font-light leading-loose ${answers[step] === opt.title ? 'text-white/70' : 'text-brand-sub'}`}>
+                                  {opt.desc}
+                              </p>
+                          </div>
+                          <div className={`mt-8 self-end transition-all ${answers[step] === opt.title ? 'text-brand-secondary scale-125' : 'text-brand-ink/10 group-hover:text-brand-accent/30'}`}>
+                              <CheckCircle size={28} />
+                          </div>
+                        </button>
+                    ))}
+                  </div>
+              </div>
+            ) : (
+              <div className="text-center animate-fade-in relative z-10 py-10">
+                  <div className="inline-block p-10 rounded-full bg-brand-cream text-brand-accent mb-12 shadow-sm border border-brand-border">
+                    <Sparkles size={60} className="animate-pulse" />
+                  </div>
+                  <h2 className="text-5xl md:text-7xl font-serif font-black text-brand-ink mb-10 tracking-tighter">為您量身打造的建議</h2>
+                  <div className="max-w-xl mx-auto mb-16">
+                    <div className="bg-brand-cream p-12 rounded-xl border border-brand-border relative shadow-sm">
+                        <h3 className="text-3xl font-serif font-black text-brand-ink mb-6">{recommendation.title}</h3>
+                        <p className="text-brand-sub text-lg leading-loose font-light italic">
+                          {recommendation.desc}
+                        </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col md:flex-row gap-6 justify-center">
+                    <button 
+                      onClick={() => navigate('/booking', { state: { interestedProgram: recommendation.title } })} 
+                      className="px-14 py-6 bg-brand-ink text-white rounded-lg font-black shadow-heavy hover:bg-brand-accent transition-all flex items-center justify-center gap-4 group uppercase text-[10px] tracking-widest"
+                    >
+                        立即預約諮詢 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                    <button 
+                      onClick={() => navigate(`/programs?type=${recommendation.type}`)} 
+                      className="px-14 py-6 bg-white border border-brand-ink/10 text-brand-ink rounded-lg font-black hover:bg-brand-ink hover:text-white transition-all uppercase text-[10px] tracking-widest"
+                    >
+                        {recommendation.cta}
+                    </button>
+                  </div>
+                  
+                  <button 
+                    onClick={() => { setStep(0); setAnswers({}); }} 
+                    className="mt-16 text-brand-sub flex items-center gap-3 mx-auto hover:text-brand-accent transition-colors text-[10px] font-black uppercase tracking-[0.4em]"
+                  >
+                    <RefreshCcw size={16}/> 重新測驗
+                  </button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
