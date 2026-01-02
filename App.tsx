@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Guide from './pages/Guide';
@@ -14,11 +14,11 @@ import LPP from './pages/LPP';
 import Booking from './pages/Booking';
 import { About, Team, FAQ, Media, Contact, Legal } from './pages/InfoPages';
 
-// ScrollToTop component to handle scroll restoration on route change
+// Corrected ScrollToTop component using useLocation hook
 const ScrollToTop = () => {
-  const { pathname } = React.useMemo(() => window.location, []);
+  const { pathname } = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
