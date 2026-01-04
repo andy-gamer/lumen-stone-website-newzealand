@@ -4,20 +4,11 @@ import { Program, ProgramType, TeamMember, Testimonial, FAQItem, NewsItem, Artic
 export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "n1",
-    date: "2024.06.01",
+    date: "2025.05.21",
     category: "公告",
     title: "點石遊學官方網站正式上線！",
-    summary: "歡迎關注我們的 LINE 官方帳號 (@647loexf)，獲取即時一對一諮詢服務。",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
-    content: "點石遊學國際官方網站正式與大家見面了！為了提供更即時的服務，我們同步開通了 LINE 官方帳號，歡迎點擊下方連結 or 搜尋 ID: @647loexf 加入我們。"
-  },
-  {
-    id: "n2",
-    date: "2024.05.20",
-    category: "講座",
-    title: "2024 紐西蘭公立中小學微留學說明會",
-    summary: "想了解孩子如何無縫銜接紐西蘭教育？資深顧問將分享最新插班名額。",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80"
+    summary: "歡迎關注我們的 LINE 官方帳號 (@647loexf)，獲取即時一對一諮詢服務。我們致力於為每一位學員提供最專業的紐西蘭教育規劃。",
+    content: "點石遊學國際官方網站正式與大家見面了！為了提供更即時的服務，我們同步開通了 LINE 官方帳號，歡迎點擊頁面上的 LINE 圖標或搜尋 ID: @647loexf 加入我們。透過官網，您可以更直觀地了解我們的選課指南、學制百科以及精選方案。"
   }
 ];
 

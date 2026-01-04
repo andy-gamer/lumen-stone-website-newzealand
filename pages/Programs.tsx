@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { 
   Clock, MapPin, Tag, ChevronDown, Users, X, 
   Check, ArrowUpRight, Eye, Info, Filter, Search,
-  BookOpen, Calendar
+  BookOpen, Calendar, Banknote, Bookmark
 } from 'lucide-react';
 import { DataService } from '../services/db';
 import { Program, ProgramType } from '../types';
@@ -163,70 +163,93 @@ const Programs: React.FC = () => {
           </aside>
 
           {/* Program List */}
-          <div className="lg:w-3/4 flex flex-col gap-6">
+          <div className="lg:w-3/4 flex flex-col gap-10">
             {isLoading ? (
                <div className="py-40 flex justify-center">
                   <div className="w-10 h-10 border-2 border-brand-accent/20 border-t-brand-accent rounded-full animate-spin"></div>
                </div>
             ) : filteredPrograms.length > 0 ? (
               filteredPrograms.map(program => (
-                <div key={program.id} className="group bg-white rounded-2xl overflow-hidden border border-brand-border hover:shadow-heavy transition-all duration-500 flex flex-col md:flex-row h-full">
-                  {/* Card Image */}
-                  <div className="md:w-2/5 relative overflow-hidden aspect-[16/10] md:aspect-auto h-full">
-                    <img src={program.image} className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" alt={program.title} />
-                    <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                      <div className="bg-brand-primary/90 backdrop-blur-md text-white px-3 py-1 rounded text-[8px] font-black uppercase tracking-widest shadow-md">
-                          {program.type}
-                      </div>
+                <div key={program.id} className="group bg-white rounded-[32px] overflow-hidden border border-brand-border hover:shadow-heavy transition-all duration-500 flex flex-col lg:flex-row shadow-zen">
+                  
+                  {/* Card Image Area */}
+                  <div className="lg:w-[35%] relative overflow-hidden aspect-[16/10] lg:aspect-auto">
+                    <img src={program.image} className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" alt={program.title} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/40 to-transparent"></div>
+                    
+                    {/* Badge Overlay */}
+                    <div className="absolute top-6 left-6 flex flex-col gap-2">
+                      <span className="bg-brand-primary/90 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest shadow-lg inline-flex items-center gap-2">
+                        <Bookmark size={10} fill="currentColor" /> {program.type}
+                      </span>
+                      <span className="bg-brand-gold text-brand-ink px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest shadow-lg inline-flex items-center gap-2">
+                        <Banknote size={10} /> {program.price}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Card Content */}
-                  <div className="p-6 md:p-8 md:w-3/5 flex flex-col">
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[8px] font-black text-brand-accent uppercase mb-3 tracking-[0.2em]">
-                      <span className="flex items-center gap-1.5"><MapPin size={12}/> {program.city}</span>
-                      <span className="flex items-center gap-1.5"><Users size={12}/> {program.ageRange.split(' ')[0]} 級別</span>
-                      <span className="flex items-center gap-1.5"><Clock size={12}/> {program.duration}</span>
-                    </div>
+                  {/* Card Content Area */}
+                  <div className="p-8 lg:p-10 lg:w-[65%] flex flex-col">
                     
-                    <h3 className="text-base md:text-xl font-serif font-black text-brand-ink group-hover:text-brand-primary transition-colors mb-3 leading-snug">
-                      {program.title}
-                    </h3>
+                    {/* Meta Section */}
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-6">
+                      <div className="flex items-center gap-2 text-brand-accent">
+                        <MapPin size={14} />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">{program.city}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-brand-accent">
+                        <Clock size={14} />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">{program.duration}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-brand-accent">
+                        <Users size={14} />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">{program.ageRange}</span>
+                      </div>
+                    </div>
 
-                    <p className="text-[12px] text-brand-sub font-light leading-relaxed mb-6 line-clamp-2 md:line-clamp-2">
-                      {program.description}
-                    </p>
+                    {/* Title & Desc */}
+                    <div className="mb-8">
+                      <h3 className="text-xl lg:text-2xl font-serif font-black text-brand-ink group-hover:text-brand-primary transition-colors mb-4 leading-tight">
+                        {program.title}
+                      </h3>
+                      <p className="text-[13px] text-brand-sub font-light leading-relaxed line-clamp-2">
+                        {program.description}
+                      </p>
+                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 mb-6">
-                       {program.highlights.slice(0, 2).map((h, i) => (
-                         <div key={i} className="flex items-start gap-2.5 text-[10px] text-brand-sub leading-relaxed font-light">
-                            <Check size={12} className="text-brand-accent mt-0.5 shrink-0" />
-                            <span>{h}</span>
+                    {/* Highlights Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-8 pb-8 border-b border-brand-border/60">
+                       {program.highlights.slice(0, 3).map((h, i) => (
+                         <div key={i} className="flex items-start gap-3 text-[11px] text-brand-ink/80 leading-relaxed font-medium">
+                            <div className="mt-0.5 w-4 h-4 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
+                               <Check size={10} />
+                            </div>
+                            <span className="line-clamp-1">{h}</span>
                          </div>
                        ))}
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5 mb-8">
-                       {program.subjects?.map((sub, i) => (
-                         <span key={i} className="text-[7px] font-black text-brand-primary bg-brand-primary/5 px-2 py-1 rounded-md uppercase tracking-widest border border-brand-primary/10">
-                           {sub}
-                         </span>
-                       ))}
-                       {program.tags?.slice(0, 2).map((tag, i) => (
-                         <span key={i} className="text-[7px] font-black text-brand-sub/40 bg-brand-cream px-2 py-1 rounded-md uppercase tracking-widest">
-                           #{tag}
-                         </span>
-                       ))}
+                    {/* Tags & Footer */}
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-auto">
+                       <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                          {program.subjects?.map((sub, i) => (
+                            <span key={i} className="text-[8px] font-black text-brand-primary bg-brand-primary/5 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-primary/10">
+                              {sub}
+                            </span>
+                          ))}
+                          {program.tags?.slice(0, 3).map((tag, i) => (
+                            <span key={i} className="text-[8px] font-black text-brand-accent/60 bg-brand-cream px-3 py-1.5 rounded-full uppercase tracking-widest">
+                              #{tag}
+                            </span>
+                          ))}
+                       </div>
+                       
+                       <Link to={`/programs/${program.id}`} className="shrink-0 group/btn relative inline-flex items-center gap-3 px-8 py-3 bg-brand-ink text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all hover:bg-brand-primary shadow-lg overflow-hidden">
+                          <span className="relative z-10">詳細資訊</span>
+                          <ArrowUpRight size={14} className="relative z-10 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                       </Link>
                     </div>
 
-                    <div className="pt-6 border-t border-brand-border flex items-center justify-between mt-auto">
-                       <Link to={`/programs/${program.id}`} className="text-[9px] font-black tracking-[0.3em] text-brand-ink hover:text-brand-accent uppercase transition-all flex items-center gap-2">
-                          View Details <ArrowUpRight size={14} />
-                       </Link>
-                       <div className="flex items-center gap-1.5 text-[9px] font-black text-brand-accent uppercase tracking-widest bg-brand-accent/5 px-2.5 py-1 rounded">
-                          <Info size={12} /> 諮詢熱點
-                       </div>
-                    </div>
                   </div>
                 </div>
               ))

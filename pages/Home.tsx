@@ -14,7 +14,7 @@ const Home: React.FC = () => {
   const [activeNewsIdx, setActiveNewsIdx] = useState(0);
 
   useEffect(() => {
-    DataService.getNews().then(data => setNews(data.slice(0, 3)));
+    DataService.getNews().then(data => setNews(data));
   }, []);
 
   const handleNewsScroll = (direction: 'left' | 'right') => {
@@ -39,11 +39,15 @@ const Home: React.FC = () => {
             <X size={24} />
           </button>
           <div className="overflow-y-auto">
-            <div className="relative h-64 md:h-[400px]">
-               <img src={item.image} className="w-full h-full object-cover" alt={item.title} />
-               <div className="absolute inset-0 bg-gradient-to-t from-brand-cream via-transparent to-transparent"></div>
-            </div>
-            <div className="p-8 md:p-16 -mt-20 relative z-10">
+            {item.image ? (
+              <div className="relative h-64 md:h-[400px]">
+                <img src={item.image} className="w-full h-full object-cover" alt={item.title} />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-cream via-transparent to-transparent"></div>
+              </div>
+            ) : (
+              <div className="h-32 bg-brand-primary/10"></div>
+            )}
+            <div className={`p-8 md:p-16 ${item.image ? '-mt-20' : ''} relative z-10`}>
                <div className="flex items-center gap-4 mb-8">
                   <span className="px-3 py-1 bg-brand-primary text-white text-[9px] font-black uppercase tracking-widest rounded-md">
                     {item.category}
@@ -58,7 +62,7 @@ const Home: React.FC = () => {
                </div>
                <div className="mt-10 pt-6 border-t border-brand-border flex flex-col md:flex-row gap-6 items-center justify-between">
                   <Link to="/booking" onClick={onClose} className="w-full md:w-auto px-8 py-3 bg-brand-primary text-white rounded-lg font-black text-[12px] uppercase tracking-[0.1em] hover:bg-brand-ink transition-all flex items-center justify-center gap-3 shadow-xl">
-                     預開顧問說明 <ArrowRight size={16} />
+                     預約顧問諮詢 <ArrowRight size={16} />
                   </Link>
                </div>
             </div>
@@ -119,7 +123,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* EARLY BIRD BANNER - 縮小後的醒目區塊 */}
+      {/* EARLY BIRD BANNER - 黃色醒目區塊 */}
       <section className="container mx-auto px-6 lg:px-12 mb-20">
          <div className="early-bird-shimmer relative rounded-2xl md:rounded-[40px] p-4 md:p-6 shadow-heavy overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border border-brand-gold/30">
             <div className="flex items-center gap-4 md:gap-6 relative z-10">
@@ -143,77 +147,6 @@ const Home: React.FC = () => {
          </div>
       </section>
 
-      {/* 2. ADVANTAGE SECTION */}
-      <section className="py-24 md:py-32 bg-brand-primary text-brand-cream relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-accent/20 rounded-full blur-[120px] -z-0"></div>
-        
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-            <div className="w-full lg:w-[45%] order-1">
-              <div className="relative">
-                <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
-                  <img 
-                    src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80" 
-                    className="w-full h-full object-cover grayscale-[10%]" 
-                    alt="NZ Education" 
-                  />
-                </div>
-                <div className="absolute -bottom-8 -right-4 md:-right-8 max-w-[180px] md:max-w-[280px] bg-white p-6 rounded-2xl shadow-heavy border border-brand-border animate-float">
-                   <div className="flex gap-1 text-brand-accent mb-3">
-                      {[1,2,3,4,5].map(i => <Star key={i} size={11} fill="currentColor"/>)}
-                   </div>
-                   <p className="text-[12px] md:text-sm font-serif font-black text-brand-ink leading-relaxed">
-                     「在紐西蘭，老師問的是：<br/>
-                     <span className="italic text-brand-accent">『你想成為什麼樣的人？』</span>」
-                   </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full lg:w-[55%] space-y-10 order-2">
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                   <div className="w-10 h-[1px] bg-brand-secondary"></div>
-                   <span className="text-brand-secondary font-black tracking-[0.4em] uppercase text-[10px]">THE NEW ZEALAND WAY</span>
-                </div>
-                <h2 className="text-3xl md:text-5xl font-serif font-black leading-tight tracking-tighter">
-                  紐西蘭教育：<br/>
-                  <span className="italic text-brand-secondary">成就無限可能的起點</span>
-                </h2>
-                <p className="text-brand-cream/70 text-[16px] md:text-lg font-light leading-relaxed max-w-xl border-l-2 border-brand-accent/40 pl-8">
-                  超越傳統競爭，我們更在乎孩子的獨特性與對生命的探索力。
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {[
-                  { icon: <Award className="text-brand-secondary" size={20} />, title: "啟發式教學", desc: "引導孩子發現熱愛，而非填鴨知識。" },
-                  { icon: <ShieldCheck className="text-brand-secondary" size={20} />, title: "安全友善", desc: "全球治安首選，讓學習更專注。" },
-                  { icon: <GraduationCap className="text-brand-secondary" size={20} />, title: "頂尖學制", desc: "學歷通行全球，接軌一流名校。" },
-                  { icon: <Sun className="text-brand-secondary" size={20} />, title: "大自然教室", desc: "在山海間學習生命力與韌性。" }
-                ].map((item, idx) => (
-                  <div key={idx} className="bg-white/5 p-6 rounded-2xl border border-white/5 space-y-3 hover:bg-white/10 transition-all">
-                    <div className="flex items-center gap-3">
-                       <div className="w-8 h-8 rounded-lg bg-brand-secondary/10 flex items-center justify-center text-brand-secondary">
-                          {item.icon}
-                       </div>
-                       <h4 className="text-base font-serif font-bold text-white">{item.title}</h4>
-                    </div>
-                    <p className="text-[12px] text-brand-cream/50 leading-loose">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-2">
-                 <Link to="/education" className="group relative inline-flex w-full md:w-auto items-center justify-center gap-3 px-8 py-3.5 bg-brand-secondary text-brand-primary rounded-lg font-black text-[12px] tracking-[0.1em] uppercase transition-all shadow-xl hover:bg-white">
-                    探索紐西蘭學制 <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
-                 </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* LATEST NEWS SECTION */}
       <section className="py-24 md:py-32 bg-brand-cream border-t border-brand-border overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12">
@@ -223,7 +156,7 @@ const Home: React.FC = () => {
                  <h2 className="text-4xl md:text-6xl font-serif font-black text-brand-ink tracking-tighter">最新消息</h2>
               </div>
               
-              <div className="flex items-center justify-center gap-4">
+              <div className={`flex items-center justify-center gap-4 ${news.length <= 1 ? 'hidden' : ''}`}>
                  <button 
                   onClick={() => handleNewsScroll('left')}
                   className="w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all z-10"
@@ -247,32 +180,101 @@ const Home: React.FC = () => {
                 <div 
                   key={item.id} 
                   onClick={() => setSelectedNews(item)} 
-                  className="min-w-[85vw] md:min-w-0 snap-center group cursor-pointer bg-white rounded-2xl p-8 shadow-zen border border-brand-border/40 hover:border-brand-primary/30 transition-all duration-300"
+                  className={`min-w-[85vw] md:min-w-0 snap-center group cursor-pointer bg-white rounded-2xl p-8 shadow-zen border border-brand-border/40 hover:border-brand-primary/30 transition-all duration-300 flex flex-col justify-between ${news.length === 1 ? 'md:col-span-1 max-w-md' : ''}`}
                 >
-                   <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-8">
-                      <img src={item.image} className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt={item.title} />
-                      <div className="absolute top-5 right-5 bg-brand-primary text-white px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest shadow-md">
-                         {item.category}
-                      </div>
+                   <div>
+                     {item.image && (
+                       <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-8">
+                          <img src={item.image} className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt={item.title} />
+                       </div>
+                     )}
+                     <div className="space-y-4">
+                        <div className="flex items-center gap-4 text-brand-accent font-black text-[10px] uppercase tracking-[0.2em]">
+                           <span>{item.date}</span>
+                           <div className="h-[1px] flex-grow bg-brand-border/60"></div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                           <span className="bg-brand-primary text-white text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded">
+                              {item.category}
+                           </span>
+                        </div>
+                        <h3 className="text-xl font-serif font-black text-brand-ink group-hover:text-brand-primary transition-colors leading-tight line-clamp-2">
+                           {item.title}
+                        </h3>
+                        <p className="text-brand-sub text-sm font-light leading-relaxed line-clamp-3 opacity-80">
+                           {item.summary}
+                        </p>
+                     </div>
                    </div>
-                   <div className="space-y-4">
-                      <div className="flex items-center gap-4 text-brand-accent font-black text-[10px] uppercase tracking-[0.2em]">
-                         <span>{item.date}</span>
-                         <div className="h-[1px] flex-grow bg-brand-border/60"></div>
-                      </div>
-                      <h3 className="text-xl font-serif font-black text-brand-ink group-hover:text-brand-primary transition-colors leading-tight line-clamp-2">
-                         {item.title}
-                      </h3>
-                      <p className="text-brand-sub text-sm font-light leading-relaxed line-clamp-2 opacity-80">
-                         {item.summary}
-                      </p>
-                      <div className="pt-2 flex items-center gap-2 text-brand-primary font-black text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                         閱讀完整內容 <ArrowRight size={14} />
-                      </div>
+                   <div className="pt-6 flex items-center gap-2 text-brand-primary font-black text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                      閱讀完整內容 <ArrowRight size={14} />
                    </div>
                 </div>
               ))}
            </div>
+        </div>
+      </section>
+
+      {/* 2. ADVANTAGE SECTION (其餘區塊保持不變...) */}
+      <section className="py-24 md:py-32 bg-brand-primary text-brand-cream relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-accent/20 rounded-full blur-[120px] -z-0"></div>
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            <div className="w-full lg:w-[45%] order-1">
+              <div className="relative">
+                <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+                  <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80" className="w-full h-full object-cover grayscale-[10%]" alt="NZ Education" />
+                </div>
+                <div className="absolute -bottom-8 -right-4 md:-right-8 max-w-[180px] md:max-w-[280px] bg-white p-6 rounded-2xl shadow-heavy border border-brand-border animate-float">
+                   <div className="flex gap-1 text-brand-accent mb-3">
+                      {[1,2,3,4,5].map(i => <Star key={i} size={11} fill="currentColor"/>)}
+                   </div>
+                   <p className="text-[12px] md:text-sm font-serif font-black text-brand-ink leading-relaxed">
+                     「在紐西蘭，老師問的是：<br/>
+                     <span className="italic text-brand-accent">『你想成為什麼樣的人？』</span>」
+                   </p>
+                </div>
+              </div>
+            </div>
+            <div className="w-full lg:w-[55%] space-y-10 order-2">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                   <div className="w-10 h-[1px] bg-brand-secondary"></div>
+                   <span className="text-brand-secondary font-black tracking-[0.4em] uppercase text-[10px]">THE NEW ZEALAND WAY</span>
+                </div>
+                <h2 className="text-3xl md:text-5xl font-serif font-black leading-tight tracking-tighter">
+                  紐西蘭教育：<br/>
+                  <span className="italic text-brand-secondary">成就無限可能的起點</span>
+                </h2>
+                <p className="text-brand-cream/70 text-[16px] md:text-lg font-light leading-relaxed max-w-xl border-l-2 border-brand-accent/40 pl-8">
+                  超越傳統競爭，我們更在乎孩子的獨特性與對生命的探索力。
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {[
+                  { icon: <Award className="text-brand-secondary" size={20} />, title: "啟發式教學", desc: "引導孩子發現熱愛，而非填鴨知識。" },
+                  { icon: <ShieldCheck className="text-brand-secondary" size={20} />, title: "安全友善", desc: "全球治安首選，讓學習更專注。" },
+                  { icon: <GraduationCap className="text-brand-secondary" size={20} />, title: "頂尖學制", desc: "學歷通行全球，接軌一流名校。" },
+                  { icon: <Sun className="text-brand-secondary" size={20} />, title: "大自然教室", desc: "在山海間學習生命力與韌性。" }
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white/5 p-6 rounded-2xl border border-white/5 space-y-3 hover:bg-white/10 transition-all">
+                    <div className="flex items-center gap-3">
+                       <div className="w-8 h-8 rounded-lg bg-brand-secondary/10 flex items-center justify-center text-brand-secondary">
+                          {item.icon}
+                       </div>
+                       <h4 className="text-base font-serif font-bold text-white">{item.title}</h4>
+                    </div>
+                    <p className="text-[12px] text-brand-cream/50 leading-loose">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="pt-2">
+                 <Link to="/education" className="group relative inline-flex w-full md:w-auto items-center justify-center gap-3 px-8 py-3.5 bg-brand-secondary text-brand-primary rounded-lg font-black text-[12px] tracking-[0.1em] uppercase transition-all shadow-xl hover:bg-white">
+                    探索紐西蘭學制 <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                 </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -286,7 +288,6 @@ const Home: React.FC = () => {
                我們將繁雜的資訊系統化，針對不同學習目標，提供具備深度與溫度的專業建議。
              </p>
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {[
               { 
@@ -366,11 +367,9 @@ const Home: React.FC = () => {
              <h2 className="text-4xl md:text-6xl font-serif font-black mb-6">服務流程</h2>
              <span className="text-brand-secondary tracking-[0.5em] uppercase text-[10px] font-black opacity-60">SIMPLE 5 STEPS TO THE WORLD</span>
           </div>
-
           <div className="max-w-5xl mx-auto relative">
             <div className="absolute top-[35px] left-[10%] w-[80%] h-[1px] bg-white/10 hidden lg:block z-0"></div>
             <div className="absolute left-[34px] top-12 bottom-12 w-[1px] bg-white/10 lg:hidden border-l border-brand-secondary/30 border-dashed"></div>
-
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-10">
               {[
                 { id: "01", icon: <MessageCircle size={24} />, title: "需求諮詢", desc: "深度訪談目標與預算設定" },
@@ -396,7 +395,6 @@ const Home: React.FC = () => {
               ))}
             </div>
           </div>
-          
           <div className="mt-32 text-center">
              <Link to="/booking" className="inline-flex items-center gap-4 px-10 py-4 bg-brand-secondary text-brand-primary rounded-lg font-black text-[12px] tracking-[0.1em] uppercase hover:bg-white transition-all shadow-heavy active:scale-95">
                 啟動您的遊學計畫 <ArrowRight size={18} />
@@ -405,20 +403,13 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* FINAL CTA - Inspirational Imagery with Refined Overlay */}
+      {/* FINAL CTA */}
       <section className="relative py-48 md:py-64 flex items-center justify-center overflow-hidden">
-         {/* Background Layer */}
          <div className="absolute inset-0 z-0">
-            <img 
-              src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80" 
-              className="w-full h-full object-cover scale-105" 
-              alt="Inspirational Mountains" 
-            />
-            {/* Deep Ink Mask with gradient and blur */}
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80" className="w-full h-full object-cover scale-105" alt="Inspirational Mountains" />
             <div className="absolute inset-0 bg-brand-ink/85 backdrop-blur-[2px]"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-brand-ink/40 via-transparent to-brand-ink/90"></div>
          </div>
-
          <div className="container mx-auto px-6 text-center relative z-10">
             <div className="max-w-4xl mx-auto space-y-12">
                <span className="text-brand-secondary/70 font-black tracking-[0.8em] uppercase text-[10px] block">BEYOND BOUNDARIES</span>
