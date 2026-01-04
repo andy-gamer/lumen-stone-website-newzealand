@@ -19,13 +19,9 @@ export interface Program {
 }
 
 export enum ProgramType {
-  SUMMER_CAMP = "Summer Camp",
-  WINTER_CAMP = "Winter Camp",
-  LANGUAGE_SCHOOL = "Language School",
-  STUDY_ABROAD = "Study Abroad",
-  CULTURAL_TRIP = "Cultural Trip",
-  PARENT_CHILD = "Parent-Child",
-  MICRO_STUDY = "Micro Study"
+  LONG_TERM = "長期留學",
+  SHORT_TERM = "短期遊學",
+  MICRO_STUDY = "微留學"
 }
 
 export interface NewsItem {

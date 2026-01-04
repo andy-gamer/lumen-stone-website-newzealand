@@ -29,6 +29,21 @@
             boxShadow: {
               'zen': '0 10px 40px rgba(0,0,0,0.04)',
               'heavy': '0 20px 50px rgba(0,0,0,0.08)',
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'slide-in-right': 'slideInRight 0.8s ease-out forwards',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(30px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              slideInRight: {
+                '0%': { opacity: '0', transform: 'translateX(30px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' },
+              }
             }
           },
         },
@@ -48,24 +63,32 @@
         background-color: var(--brand-cream);
         color: var(--brand-ink);
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
       }
 
-      /* Hide scrollbar for Chrome, Safari and Opera */
+      /* Scroll Reveal Animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       .scrollbar-hide::-webkit-scrollbar {
         display: none;
       }
-
-      /* Hide scrollbar for IE, Edge and Firefox */
       .scrollbar-hide {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
 
       @keyframes float {
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-15px); }
       }
-      .float-animation { animation: float 6s ease-in-out infinite; }
       
       .early-bird-shimmer {
         background: linear-gradient(90deg, #FFD700 0%, #FFF3B0 50%, #FFD700 100%);
@@ -77,18 +100,23 @@
         0% { background-position: -200% 0; }
         100% { background-position: 200% 0; }
       }
+
+      /* Mobile optimization for smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "firebase/": "https://esm.sh/firebase@^12.7.0/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "firebase/": "https://esm.sh/firebase@^12.7.0/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
     "vite": "https://esm.sh/vite@^7.3.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
   }
 }
 </script>
@@ -96,5 +124,28 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
+    <script>
+      // Global Scroll Observer for reveal animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, observerOptions);
+
+      // We'll need to observe elements dynamically as React renders them
+      const observeElements = () => {
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      };
+
+      // Poll slightly to ensure React has rendered
+      setInterval(observeElements, 1000);
+    </script>
   </body>
 </html>

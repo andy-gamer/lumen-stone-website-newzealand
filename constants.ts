@@ -28,7 +28,7 @@ export const ARTICLES: Article[] = [
 
 export const PROGRAMS: Program[] = [
   {
-    id: "nz-northcote",
+    id: "nz-long-term-1",
     title: "Northcote College 諾思科特中學",
     country: "New Zealand",
     city: "奧克蘭北岸 (North Shore)",
@@ -37,7 +37,7 @@ export const PROGRAMS: Program[] = [
     price: "洽詢顧問",
     priceRangeNumeric: 400000,
     tags: ["1877年建校", "3%超低華人比例", "純淨英語語境"],
-    type: ProgramType.STUDY_ABROAD,
+    type: ProgramType.LONG_TERM,
     language: "English",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&q=80",
     description: "創立於 1877 年，奧克蘭北岸歷史最悠久的公立中學。以極低的華人留學生比例（僅 3%）著稱。擁有 147 年悠久歷史，校風穩健傳統，特別在藝術、音樂與商科領域擁有極高聲譽。",
@@ -45,59 +45,25 @@ export const PROGRAMS: Program[] = [
     subjects: ["藝術/音樂", "商科/經濟"]
   },
   {
-    id: "nz-acg-group",
-    title: "ACG Schools 頂尖私立學術集團",
+    id: "nz-short-term-1",
+    title: "奧克蘭海洋探索夏季遊學營",
     country: "New Zealand",
-    city: "奧克蘭 / 陶朗加",
-    ageRange: "5-18 歲 (Year 1-13)",
-    duration: "1 year+",
+    city: "奧克蘭",
+    ageRange: "10-17 歲",
+    duration: "2 weeks",
     price: "洽詢顧問",
-    priceRangeNumeric: 900000,
-    tags: ["100% A-Level通過率", "劍橋CIE系統", "全球百大名校跳板"],
-    type: ProgramType.STUDY_ABROAD,
-    language: "English",
-    image: "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?w=1200&q=80",
-    description: "紐西蘭最大的優質私立教育集團。旗下包含 Parnell、Strathallan、Sunderland 與 Tauranga 校區。採用劍橋大學國際考試系統 (CIE)，A-Level 通過率維持 100%，並多次榮獲劍橋國際卓越獎項。",
-    highlights: ["100% A-Level 考取通過率", "劍橋 CIE 全球第一/紐西蘭第一成就獎", "小學至高中一站式精進教育", "高達 $75,000 的創始人獎學金計劃"],
-    subjects: ["科學/數位", "商科/經濟"]
-  },
-  {
-    id: "nz-western-springs",
-    title: "Western Springs College 西泉中學",
-    country: "New Zealand",
-    city: "奧克蘭中區 (Central)",
-    ageRange: "13-17 歲 (Year 9-13)",
-    duration: "1 academic year",
-    price: "洽詢顧問",
-    priceRangeNumeric: 450000,
-    tags: ["無校服自由校風", "NCEA卓越成績", "獲獎現代建築"],
-    type: ProgramType.STUDY_ABROAD,
-    language: "English",
-    image: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=1200&q=80",
-    description: "奧克蘭享譽盛名的頂尖公立中學。以自由開放的校風著稱，學生無需穿著校服。NCEA 統考成績連續多年位居全國前列，擁有現代化開放式教學空間與專業的藝術傳媒教室。",
-    highlights: ["全國 NCEA 指標性優異公立校", "獨特『無校服』傳統，尊重學生自主性", "資深華人教育主任 Joanne Qiao 親自駐校", "全方位現代化課程：電影、傳媒、設計、數位技術"],
-    subjects: ["傳媒/設計", "藝術/音樂", "科學/數位"]
-  },
-  {
-    id: "nz-long-bay",
-    title: "Long Bay College 朗貝中學",
-    country: "New Zealand",
-    city: "奧克蘭北岸海灣區",
-    ageRange: "13-18 歲 (Year 9-13)",
-    duration: "1 semester",
-    price: "洽詢顧問",
-    priceRangeNumeric: 380000,
-    tags: ["海灣環境", "獨家海洋運動", "Care Create Excel"],
-    type: ProgramType.STUDY_ABROAD,
+    priceRangeNumeric: 120000,
+    tags: ["寒暑假限定", "英語實戰", "戶外探索"],
+    type: ProgramType.SHORT_TERM,
     language: "English",
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
-    description: "位於奧克蘭最美海灣區，鄰近自然保護區。校訓 Care, Create, Excel 體現在其卓越的藝術與戶外教育中。提供獨特的帆船、立槳 (SUP)、衝浪等海洋探險課程。",
-    highlights: ["鄰近海灘的頂級自然校園環境", "頂尖攝影、視覺設計與表演藝術中心", "豐富的戶外運動：帆船、皮划艇、山地車", "專業國際生安置團隊，極致的生活關懷"],
-    subjects: ["傳媒/設計", "藝術/音樂", "戶外教育"]
+    description: "結合英語課程與紐西蘭獨特的海洋戶外活動。學生將在帆船、衝浪與生態探索中學習生活英語，是開啟國際視野的最佳短期方案。",
+    highlights: ["專業教練陪同水上活動", "沉浸式主題工作坊", "寄宿家庭真實文化體驗"],
+    subjects: ["戶外教育", "生活英語"]
   },
   {
-    id: "nz-micro-study",
-    title: "紐西蘭全真課堂微留學體驗營",
+    id: "nz-micro-study-1",
+    title: "紐西蘭全真課堂插班微留學",
     country: "New Zealand",
     city: "奧克蘭 / 基督城",
     ageRange: "5-18 歲 (Year 1-13)",
@@ -108,8 +74,8 @@ export const PROGRAMS: Program[] = [
     type: ProgramType.MICRO_STUDY,
     language: "English",
     image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80",
-    description: "孩子直接進入紐西蘭公立學校班級，與當地同學同步上課。體驗正式海外學籍與成績單。課程包含特邀奧運冠軍指導的水上救生訓練，並為陪讀家長提供興趣或語言課程。",
-    highlights: ["領取官方結業成績單，建立海外正式學籍", "一對一學伴制度 (Buddy)，快速融入生活", "獨家水上安全培訓課程 (Olympic Coach)", "家長可同步安排高爾夫、烘焙或語言課程"],
+    description: "孩子直接進入紐西蘭公立學校班級，與當地同學同步上課。體驗正式海外學籍與成績單。課程包含特邀奧運冠軍指導的水上救生訓練。",
+    highlights: ["領取官方結業成績單", "一對一學伴制度 (Buddy)", "家長可同步安排高爾夫或烘焙課程"],
     subjects: ["全真插班", "戶外教育"]
   }
 ];
@@ -143,12 +109,4 @@ export const FAQS: FAQItem[] = [
     question: "孩子幾歲可以去紐西蘭讀書？",
     answer: "紐西蘭 5 歲當天即可入學 (Year 1)，不須等到開學日。小學為 Year 1-6，中學為 Year 9-13。"
   }
-];
-
-export const SOP_STEPS = [
-  { title: "需求諮詢", desc: "深度訪談，了解學員特質與目標" },
-  { title: "精準配對", desc: "根據預算與偏好推薦最適合校園" },
-  { title: "文件代辦", desc: "全程協助成績單、自傳與簽證申請" },
-  { title: "行前特訓", desc: "獨家 LPP 語言與心理適應指導" },
-  { title: "落地安置", desc: "奧克蘭辦公室接機、宿舍安置與守護" }
 ];

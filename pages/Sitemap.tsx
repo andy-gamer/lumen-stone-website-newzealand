@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Home, GraduationCap, 
-  ArrowRight, Star, HelpCircle, Info, MessageSquare, Search, MessageCircle
+  ArrowRight, HelpCircle, Info, MessageSquare, Search, MessageCircle, Globe, Users
 } from 'lucide-react';
 
 const Sitemap: React.FC = () => {
@@ -16,7 +16,7 @@ const Sitemap: React.FC = () => {
       icon: <Home className="text-brand-accent" size={24} />,
       links: [
         { name: "品牌首頁", path: "/", desc: "探索點石的核心理念與最新動態" },
-        { name: "品牌故事", path: "/about", desc: "了解我們的教育初心" },
+        { name: "關於點石", path: "/about", desc: "了解我們的教育初心" },
         { name: "顧問團隊", path: "/team", desc: "遇見您的留學規劃師" },
       ]
     },
@@ -35,20 +35,22 @@ const Sitemap: React.FC = () => {
       title: "遊學行 Programs",
       icon: <GraduationCap className="text-brand-accent" size={24} />,
       links: [
-        { name: "所有方案清單", path: "/programs", desc: "瀏覽點石精選的全球優質行程" },
-        { name: "長期學位留學", path: "/programs?type=Study Abroad", desc: "國中小及大學升學規劃" },
-        { name: "微留學插班體驗", path: "/programs?type=Micro Study", desc: "短期插班，體驗當地校園生活" },
-        { name: "LPP 語言暖身課程", path: "/lpp", desc: "獨家行前語言特訓服務" },
+        { name: "所有方案清單", path: "/programs", desc: "瀏覽點石精選的優質行程" },
+        { name: "長期留學", path: "/programs?type=長期留學", desc: "國中小學及正式學位升學規劃" },
+        { name: "短期遊學", path: "/programs?type=短期遊學", desc: "寒暑假營隊與短期主題體驗" },
+        { name: "微留學插班體驗", path: "/programs?type=微留學", desc: "2-8週全真插班，體驗當地生活" },
+        { name: "LPP 語言暖身課程", path: "/lpp", desc: "獨家行前口說特訓服務" },
       ]
     },
     {
       id: "04",
-      title: "學員與聯繫",
+      title: "服務與聯繫",
       icon: <MessageSquare className="text-brand-accent" size={24} />,
       links: [
         { name: "學員見證", path: "/success", desc: "來自學員與家長的真實分享" },
         { name: "預約諮詢", path: "/booking", desc: "安排一對一免費面談時間" },
         { name: "聯絡我們", path: "/contact", desc: "辦公室資訊與即時客服聯絡" },
+        { name: "法律聲明", path: "/legal", desc: "隱私權政策與服務條款" },
       ]
     }
   ];
@@ -120,9 +122,9 @@ const Sitemap: React.FC = () => {
              </div>
              <div className="p-10 bg-white rounded-[40px] border border-brand-border hover:shadow-zen transition-all">
                 <Info className="text-brand-accent mb-6" size={32} />
-                <h4 className="text-xl font-serif font-bold text-brand-ink mb-4">法律聲明</h4>
+                <h4 className="text-xl font-serif font-bold text-brand-ink mb-4">常見問題</h4>
                 <p className="text-brand-sub text-sm leading-relaxed mb-6">了解點石的隱私權政策與服務條款，我們妥善守護您的資料。</p>
-                <Link to="/legal" className="text-brand-accent text-xs font-bold tracking-widest uppercase hover:underline">閱讀條款</Link>
+                <Link to="/faq" className="text-brand-accent text-xs font-bold tracking-widest uppercase hover:underline">查看 FAQ</Link>
              </div>
           </div>
 
