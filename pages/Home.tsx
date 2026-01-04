@@ -45,23 +45,23 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-cream via-transparent to-transparent"></div>
               </div>
             ) : (
-              <div className="h-32 bg-brand-primary/10"></div>
+              <div className="h-24 bg-brand-primary/10"></div>
             )}
             <div className={`p-8 md:p-16 ${item.image ? '-mt-20' : ''} relative z-10`}>
-               <div className="flex items-center gap-4 mb-8">
+               <div className="flex items-center gap-4 mb-6">
                   <span className="px-3 py-1 bg-brand-primary text-white text-[9px] font-black uppercase tracking-widest rounded-md">
                     {item.category}
                   </span>
                   <span className="text-brand-accent font-black text-[10px] tracking-widest">{item.date}</span>
                </div>
-               <h2 className="text-2xl md:text-4xl font-serif font-black text-brand-ink leading-tight mb-6">
+               <h2 className="text-2xl md:text-3xl font-serif font-black text-brand-ink leading-tight mb-6">
                   {item.title}
                </h2>
-               <div className="prose prose-stone max-w-none text-brand-sub text-base leading-loose font-light whitespace-pre-line">
+               <div className="prose prose-stone max-w-none text-brand-sub text-sm md:text-base leading-relaxed font-light whitespace-pre-line">
                   {item.content || item.summary}
                </div>
-               <div className="mt-10 pt-6 border-t border-brand-border flex flex-col md:flex-row gap-6 items-center justify-between">
-                  <Link to="/booking" onClick={onClose} className="w-full md:w-auto px-8 py-3 bg-brand-primary text-white rounded-lg font-black text-[12px] uppercase tracking-[0.1em] hover:bg-brand-ink transition-all flex items-center justify-center gap-3 shadow-xl">
+               <div className="mt-8 pt-6 border-t border-brand-border flex flex-col md:flex-row gap-6 items-center justify-between">
+                  <Link to="/booking" onClick={onClose} className="w-full md:w-auto px-8 py-3 bg-brand-primary text-white rounded-lg font-black text-[11px] uppercase tracking-[0.1em] hover:bg-brand-ink transition-all flex items-center justify-center gap-3 shadow-xl">
                      預約顧問諮詢 <ArrowRight size={16} />
                   </Link>
                </div>
@@ -80,7 +80,6 @@ const Home: React.FC = () => {
       <section className="relative h-auto lg:min-h-[70vh] flex items-center pt-28 pb-12 md:pt-40 md:pb-12 overflow-hidden bg-brand-cream">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16">
-            
             <div className="w-full lg:w-[50%] relative animate-fade-in">
                <div className="relative aspect-[16/10] lg:aspect-[4/3] w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-heavy group">
                   <img 
@@ -94,7 +93,6 @@ const Home: React.FC = () => {
                   <GraduationCap size={28} />
                </div>
             </div>
-
             <div className="w-full lg:w-[50%] z-10 space-y-8 animate-fade-in text-center lg:text-left">
               <div className="space-y-6">
                 <div className="flex items-center justify-center lg:justify-start gap-3">
@@ -118,13 +116,12 @@ const Home: React.FC = () => {
                 </Link>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* EARLY BIRD BANNER - 黃色醒目區塊 */}
-      <section className="container mx-auto px-6 lg:px-12 mb-20">
+      {/* EARLY BIRD BANNER */}
+      <section className="container mx-auto px-6 lg:px-12 mb-16">
          <div className="early-bird-shimmer relative rounded-2xl md:rounded-[40px] p-4 md:p-6 shadow-heavy overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border border-brand-gold/30">
             <div className="flex items-center gap-4 md:gap-6 relative z-10">
                <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-full bg-brand-ink text-brand-gold flex items-center justify-center shadow-lg">
@@ -140,74 +137,68 @@ const Home: React.FC = () => {
                   </h2>
                </div>
             </div>
-
             <Link to="/guide" className="shrink-0 w-full md:w-auto px-8 py-3 bg-brand-ink text-white rounded-full font-black text-[11px] uppercase tracking-[0.2em] shadow-md hover:scale-105 transition-all flex items-center justify-center gap-3 group">
                立即填寫問卷 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={14} />
             </Link>
          </div>
       </section>
 
-      {/* LATEST NEWS SECTION */}
-      <section className="py-24 md:py-32 bg-brand-cream border-t border-brand-border overflow-hidden">
+      {/* LATEST NEWS SECTION - 縮小版面與間距 */}
+      <section className="py-12 md:py-20 bg-brand-cream border-t border-brand-border overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12">
-           <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
-              <div className="space-y-4 text-center md:text-left">
-                 <span className="text-brand-primary font-black tracking-[0.4em] uppercase text-[10px] block">Insights & Updates</span>
-                 <h2 className="text-4xl md:text-6xl font-serif font-black text-brand-ink tracking-tighter">最新消息</h2>
+           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+              <div className="space-y-2 text-center md:text-left">
+                 <span className="text-brand-primary font-black tracking-[0.4em] uppercase text-[9px] block">Insights & Updates</span>
+                 <h2 className="text-3xl md:text-5xl font-serif font-black text-brand-ink tracking-tighter">最新消息</h2>
               </div>
               
               <div className={`flex items-center justify-center gap-4 ${news.length <= 1 ? 'hidden' : ''}`}>
                  <button 
                   onClick={() => handleNewsScroll('left')}
-                  className="w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all z-10"
+                  className="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all z-10"
                  >
-                    <ChevronLeft size={20} />
+                    <ChevronLeft size={18} />
                  </button>
                  <button 
                   onClick={() => handleNewsScroll('right')}
-                  className="w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all z-10"
+                  className="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg hover:bg-brand-ink active:scale-90 transition-all z-10"
                  >
-                    <ChevronRight size={20} />
+                    <ChevronRight size={18} />
                  </button>
               </div>
            </div>
            
            <div 
             ref={newsRef}
-            className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible scrollbar-hide snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-6"
+            className={`flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible scrollbar-hide snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4 ${news.length === 1 ? 'md:justify-center' : ''}`}
            >
               {news.map((item, idx) => (
                 <div 
                   key={item.id} 
                   onClick={() => setSelectedNews(item)} 
-                  className={`min-w-[85vw] md:min-w-0 snap-center group cursor-pointer bg-white rounded-2xl p-8 shadow-zen border border-brand-border/40 hover:border-brand-primary/30 transition-all duration-300 flex flex-col justify-between ${news.length === 1 ? 'md:col-span-1 max-w-md' : ''}`}
+                  className={`min-w-[85vw] md:min-w-0 snap-center group cursor-pointer bg-white rounded-2xl p-6 shadow-zen border border-brand-border/40 hover:border-brand-primary/30 transition-all duration-300 flex flex-col justify-between ${news.length === 1 ? 'md:col-span-1 max-w-sm mx-auto' : ''}`}
                 >
                    <div>
-                     {item.image && (
-                       <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-8">
-                          <img src={item.image} className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt={item.title} />
-                       </div>
-                     )}
-                     <div className="space-y-4">
-                        <div className="flex items-center gap-4 text-brand-accent font-black text-[10px] uppercase tracking-[0.2em]">
+                     <div className="space-y-3">
+                        <div className="flex items-center gap-4 text-brand-accent font-black text-[9px] uppercase tracking-[0.2em]">
                            <span>{item.date}</span>
-                           <div className="h-[1px] flex-grow bg-brand-border/60"></div>
+                           <div className="h-[1px] flex-grow bg-brand-border/40"></div>
                         </div>
                         <div className="flex items-center gap-2">
-                           <span className="bg-brand-primary text-white text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded">
+                           <span className="bg-brand-primary text-white text-[7px] font-black uppercase tracking-widest px-2 py-0.5 rounded">
                               {item.category}
                            </span>
                         </div>
-                        <h3 className="text-xl font-serif font-black text-brand-ink group-hover:text-brand-primary transition-colors leading-tight line-clamp-2">
+                        <h3 className="text-lg font-serif font-black text-brand-ink group-hover:text-brand-primary transition-colors leading-tight line-clamp-2">
                            {item.title}
                         </h3>
-                        <p className="text-brand-sub text-sm font-light leading-relaxed line-clamp-3 opacity-80">
+                        <p className="text-brand-sub text-[13px] font-light leading-relaxed line-clamp-3 opacity-80">
                            {item.summary}
                         </p>
                      </div>
                    </div>
-                   <div className="pt-6 flex items-center gap-2 text-brand-primary font-black text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                      閱讀完整內容 <ArrowRight size={14} />
+                   <div className="pt-4 flex items-center gap-2 text-brand-primary font-black text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                      閱讀完整內容 <ArrowRight size={12} />
                    </div>
                 </div>
               ))}
@@ -215,7 +206,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. ADVANTAGE SECTION (其餘區塊保持不變...) */}
+      {/* 2. ADVANTAGE SECTION */}
       <section className="py-24 md:py-32 bg-brand-primary text-brand-cream relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-accent/20 rounded-full blur-[120px] -z-0"></div>
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
