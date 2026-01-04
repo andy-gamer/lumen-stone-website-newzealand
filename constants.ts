@@ -4,252 +4,160 @@ import { Program, ProgramType, TeamMember, Testimonial, FAQItem, NewsItem, Artic
 export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "n1",
+    date: "2024.06.01",
+    category: "公告",
+    title: "點石遊學官方網站正式上線！",
+    summary: "歡迎關注我們的 LINE 官方帳號 (@647loexf)，獲取即時一對一諮詢服務。",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+    content: "點石遊學國際官方網站正式與大家見面了！為了提供更即時的服務，我們同步開通了 LINE 官方帳號，歡迎點擊下方連結 or 搜尋 ID: @647loexf 加入我們。"
+  },
+  {
+    id: "n2",
     date: "2024.05.20",
     category: "講座",
     title: "2024 紐西蘭公立中小學微留學說明會",
     summary: "想了解孩子如何無縫銜接紐西蘭教育？資深顧問將分享最新插班名額。",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80",
-    content: "這是一場針對台灣家長特別設計的說明會。我們邀請到了來自紐西蘭奧克蘭教育局的代表，線上分享當地學校的學伴制度 (Buddy System) 以及插班生如何快速融入課程。現場也會由點石顧問展示如何申請家長陪讀簽證，並解答所有關於住宿與交通的疑慮。\n\n活動時間：2024年6月15日 (六) 14:00-16:00\n地點：台北 101 大樓 37 樓會議室"
-  },
-  {
-    id: "n2",
-    date: "2024.05.15",
-    category: "公告",
-    title: "奧克蘭大學 2024 秋季入學申請截止提醒",
-    summary: "提醒有意申請八大名校的同學，請於本月底前提交完整文件以利作業。",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
-    content: "奧克蘭大學作為紐西蘭排名第一的高等學府，今年的商學院與工學院申請競爭非常激烈。請所有正在準備申請文件的同學注意，最後截止日期為本月底。若您的雅思成績尚未達標，可與點石顧問聯繫，了解是否符合條件先申請『條件式入學』並銜接 LPP 課程。"
-  },
-  {
-    id: "n3",
-    date: "2024.05.10",
-    category: "優惠",
-    title: "早鳥專案：冬令營現折 NT$ 5,000",
-    summary: "提早規劃孩子的寒假旅程，享受點石專屬早鳥優惠，名額有限。",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
-    content: "為了鼓勵家長提早進行長期教育規劃，點石特別推出 2024 冬令營早鳥優惠。只要在 6 月 30 日前完成報名與繳訂，即可享有每位學員折抵新台幣 5,000 元的優惠。此專案適用於所有紐西蘭南島與北島的微留學插班方案。"
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80"
   }
 ];
 
 export const ARTICLES: Article[] = [
   {
     id: "art1",
-    title: "留學、遊學、微留學？一表看懂你的孩子適合哪一種",
-    summary: "許多家長在諮詢時的第一個問題就是：『這三者到底有什麼差別？』點石為您整理了詳盡的學制對照與預算分析。",
+    title: "為什麼 ACG 集團能維持 100% 的 A-Level 通過率？",
+    summary: "深入解析劍橋 CIE 體系在紐西蘭的教學優勢與頂尖大學銜接實錄。",
     category: "趨勢分析",
-    tags: ["教育規劃", "懶人包", "學制對照"],
+    tags: ["ACG", "CIE", "大學銜接"],
     publishDate: "2024.05.12",
     readTime: "5 min",
     image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&q=80",
-    content: "許多家長在諮詢時的第一個問題就是：『這三者到底有什麼差別？』\n\n**留學** 通常指長期獲取學位，目標是當地的學歷認證與長期的學術發展；**遊學** 則偏重語言能力的密集提升與文化探索，時長約 1-3 個月；而我們主打的 **微留學**，則是讓孩子在短時間內（2-8週）直接進入當地班級插班，體驗最真實的學伴制度與生活節奏...\n\n選擇的關鍵在於孩子的適應力與家庭的長期預算規劃..."
-  },
-  {
-    id: "art2",
-    title: "學員心得：在基督城的那四週，我學會了如何獨自探險",
-    summary: "『剛下飛機時，我甚至不敢對海關開口。』15 歲的阿翰分享他在南島花園城市基督城的奇幻成長之旅。",
-    category: "學員心得",
-    tags: ["基督城", "青少年遊學", "自主成長"],
-    publishDate: "2024.05.05",
-    readTime: "8 min",
-    image: "https://images.unsplash.com/photo-1510172951991-856a654063f9?w=800&q=80",
-    content: "『剛下飛機時，我甚至不敢對海關開口。』15 歲的阿翰回憶起這段旅程的開始。\n\n透過點石安排的 LPP 課程，阿翰在出發前雖然已經做了心理建設，但實際抵達基督城時，異國的空氣與完全不同的學制仍讓他感到震撼。然而，透過當地 Buddy（學伴）的帶領，他從不敢點餐，到最後能與宿霧家庭討論當地的環保政策..."
-  },
-  {
-    id: "art3",
-    title: "紐西蘭 NCEA 系統完全解析：為什麼它能培養出最具創造力的學生？",
-    summary: "不同於台灣的一試定生死，紐西蘭的 NCEA 系統更強調平時的學習產出。這篇文章將帶您深入了解評分邏輯。",
-    category: "攻略",
-    tags: ["NCEA", "紐西蘭教育", "升學指引"],
-    publishDate: "2024.04.28",
-    readTime: "6 min",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80",
-    content: "不同於台灣的一試定生死，紐西蘭的 NCEA (National Certificate of Educational Achievement) 系統更強調平時的學習產出與實作評量。這篇文章將帶您深入了解 Level 1 到 Level 3 的評分邏輯，以及它如何銜接全球頂尖大學..."
+    content: "ACG 學術教育集團是紐西蘭最大的優質私立教育機構..."
   }
 ];
 
 export const PROGRAMS: Program[] = [
   {
-    id: "nz1",
-    title: "奧克蘭公立小學微留學 (Year 1-6)",
+    id: "nz-northcote",
+    title: "Northcote College 諾思科特中學",
     country: "New Zealand",
-    city: "Auckland",
-    ageRange: "5-11 歲",
-    duration: "4-8 週",
-    price: "NT$ 85,000起",
-    priceRangeNumeric: 85000,
-    tags: ["純淨校園", "學伴制度", "家長陪讀"],
+    city: "奧克蘭北岸 (North Shore)",
+    ageRange: "13-18 歲 (Year 9-13)",
+    duration: "1 year+",
+    price: "洽詢顧問",
+    priceRangeNumeric: 400000,
+    tags: ["1877年建校", "3%超低華人比例", "純淨英語語境"],
+    type: ProgramType.STUDY_ABROAD,
+    language: "English",
+    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&q=80",
+    description: "創立於 1877 年，奧克蘭北岸歷史最悠久的公立中學。以極低的華人留學生比例（僅 3%）著稱。擁有 147 年悠久歷史，校風穩健傳統，特別在藝術、音樂與商科領域擁有極高聲譽。",
+    highlights: ["147 年傳統公立名校", "全校僅 3% 華人比例，強化語言沉浸", "專業學伴制度 (Buddy System) 領航", "美國排名第二芝加哥藝術學院獎學金錄取案例"],
+    subjects: ["藝術/音樂", "商科/經濟"]
+  },
+  {
+    id: "nz-acg-group",
+    title: "ACG Schools 頂尖私立學術集團",
+    country: "New Zealand",
+    city: "奧克蘭 / 陶朗加",
+    ageRange: "5-18 歲 (Year 1-13)",
+    duration: "1 year+",
+    price: "洽詢顧問",
+    priceRangeNumeric: 900000,
+    tags: ["100% A-Level通過率", "劍橋CIE系統", "全球百大名校跳板"],
+    type: ProgramType.STUDY_ABROAD,
+    language: "English",
+    image: "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?w=1200&q=80",
+    description: "紐西蘭最大的優質私立教育集團。旗下包含 Parnell、Strathallan、Sunderland 與 Tauranga 校區。採用劍橋大學國際考試系統 (CIE)，A-Level 通過率維持 100%，並多次榮獲劍橋國際卓越獎項。",
+    highlights: ["100% A-Level 考取通過率", "劍橋 CIE 全球第一/紐西蘭第一成就獎", "小學至高中一站式精進教育", "高達 $75,000 的創始人獎學金計劃"],
+    subjects: ["科學/數位", "商科/經濟"]
+  },
+  {
+    id: "nz-western-springs",
+    title: "Western Springs College 西泉中學",
+    country: "New Zealand",
+    city: "奧克蘭中區 (Central)",
+    ageRange: "13-17 歲 (Year 9-13)",
+    duration: "1 academic year",
+    price: "洽詢顧問",
+    priceRangeNumeric: 450000,
+    tags: ["無校服自由校風", "NCEA卓越成績", "獲獎現代建築"],
+    type: ProgramType.STUDY_ABROAD,
+    language: "English",
+    image: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=1200&q=80",
+    description: "奧克蘭享譽盛名的頂尖公立中學。以自由開放的校風著稱，學生無需穿著校服。NCEA 統考成績連續多年位居全國前列，擁有現代化開放式教學空間與專業的藝術傳媒教室。",
+    highlights: ["全國 NCEA 指標性優異公立校", "獨特『無校服』傳統，尊重學生自主性", "資深華人教育主任 Joanne Qiao 親自駐校", "全方位現代化課程：電影、傳媒、設計、數位技術"],
+    subjects: ["傳媒/設計", "藝術/音樂", "科學/數位"]
+  },
+  {
+    id: "nz-long-bay",
+    title: "Long Bay College 朗貝中學",
+    country: "New Zealand",
+    city: "奧克蘭北岸海灣區",
+    ageRange: "13-18 歲 (Year 9-13)",
+    duration: "1 semester",
+    price: "洽詢顧問",
+    priceRangeNumeric: 380000,
+    tags: ["海灣環境", "獨家海洋運動", "Care Create Excel"],
+    type: ProgramType.STUDY_ABROAD,
+    language: "English",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+    description: "位於奧克蘭最美海灣區，鄰近自然保護區。校訓 Care, Create, Excel 體現在其卓越的藝術與戶外教育中。提供獨特的帆船、立槳 (SUP)、衝浪等海洋探險課程。",
+    highlights: ["鄰近海灘的頂級自然校園環境", "頂尖攝影、視覺設計與表演藝術中心", "豐富的戶外運動：帆船、皮划艇、山地車", "專業國際生安置團隊，極致的生活關懷"],
+    subjects: ["傳媒/設計", "藝術/音樂", "戶外教育"]
+  },
+  {
+    id: "nz-micro-study",
+    title: "紐西蘭全真課堂微留學體驗營",
+    country: "New Zealand",
+    city: "奧克蘭 / 基督城",
+    ageRange: "5-18 歲 (Year 1-13)",
+    duration: "2 weeks - 8 weeks",
+    price: "洽詢顧問",
+    priceRangeNumeric: 150000,
+    tags: ["正式學籍插班", "學伴制度", "親子共讀"],
     type: ProgramType.MICRO_STUDY,
     language: "English",
-    image: "https://images.unsplash.com/photo-1578530332818-6ba472e67b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1578530332818-6ba472e67b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-    ],
-    description: "體驗紐西蘭最純淨的啟發式教育，孩子將直接進入當地公立小學班級，與Kiwi同學共同學習、玩耍，快速建立英語自信。",
-    highlights: ["100%當地學生比例", "專屬Buddy學伴帶領", "戶外探險課程", "家長友善陪讀環境"]
-  },
-  {
-    id: "nz2",
-    title: "皇后鎮極限冒險英語營 (Year 9-13)",
-    country: "New Zealand",
-    city: "Queenstown",
-    ageRange: "13-18 歲",
-    duration: "2-4 週",
-    price: "NT$ 115,000起",
-    priceRangeNumeric: 115000,
-    tags: ["戶外體育", "自然景觀", "密集英語"],
-    type: ProgramType.LANGUAGE_SCHOOL,
-    language: "English",
-    image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1589802829985-817e51171b92?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-    ],
-    description: "在世界冒險之都皇后鎮，早上進行密集英語訓練，下午挑戰高空彈跳、噴射快艇與冰川健行。",
-    highlights: ["世界級壯麗風景", "跨國友誼交流", "冒險運動主題", "口說能力大幅提升"]
-  },
-  {
-    id: "nz3",
-    title: "基督城中學升學長期計畫 (NCEA課程)",
-    country: "New Zealand",
-    city: "Christchurch",
-    ageRange: "13-17 歲",
-    duration: "1-3 學年",
-    price: "NT$ 450,000起/年",
-    priceRangeNumeric: 450000,
-    tags: ["學術升學", "NCEA系統", "花園城市"],
-    type: ProgramType.STUDY_ABROAD,
-    language: "English",
-    image: "https://images.unsplash.com/photo-1507699622177-38889b58527d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1507699622177-38889b58527d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-    ],
-    description: "基督城擁有悠久的英式教育傳統，我們精選多所學術表現優異的高中，協助學生銜接紐西蘭 NCEA 系統，目標直指八大名校。",
-    highlights: ["完善國際生照顧體系", "優質寄宿家庭安排", "學科選擇多元", "受全球認可學歷"]
-  },
-  {
-    id: "nz4",
-    title: "奧克蘭大學學士/碩士銜接課程",
-    country: "New Zealand",
-    city: "Auckland",
-    ageRange: "18 歲以上",
-    duration: "1-4 年",
-    price: "NT$ 650,000起/年",
-    priceRangeNumeric: 650000,
-    tags: ["全球百大", "職涯規劃", "技術移民"],
-    type: ProgramType.STUDY_ABROAD,
-    language: "English",
-    image: "https://images.unsplash.com/photo-1498243639652-fca49f3f40d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1498243639652-fca49f3f40d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-    ],
-    description: "協助申請紐西蘭第一學府：奧克蘭大學。針對成績未達標者，提供快捷預科與大一銜接課程，畢業後可獲 3 年工作簽證。",
-    highlights: ["八大名校專業諮詢", "PSW 工作簽證指導", "高含金量學歷", "就業力分析"]
-  },
-  {
-    id: "nz5",
-    title: "威靈頓設計與電影藝術學院遊學",
-    country: "New Zealand",
-    city: "Wellington",
-    ageRange: "16 歲以上",
-    duration: "12-24 週",
-    price: "NT$ 220,000起",
-    priceRangeNumeric: 220000,
-    tags: ["藝術設計", "電影特效", "創意首都"],
-    type: ProgramType.LANGUAGE_SCHOOL,
-    language: "English",
-    image: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-    ],
-    description: "在魔戒特效家鄉——威靈頓，學習英語並體驗世界頂尖的數位媒體與影視設計氛圍。",
-    highlights: ["參訪 Weta Workshop", "結合設計工作坊", "濃厚藝術人文息", "城市便利生活"]
-  },
-  {
-    id: "nz6",
-    title: "羅托路亞毛利文化親子遊學",
-    country: "New Zealand",
-    city: "Rotorua",
-    ageRange: "5-15 歲 & 家長",
-    duration: "2-4 週",
-    price: "NT$ 180,000起",
-    priceRangeNumeric: 180000,
-    tags: ["文化體驗", "溫泉地熱", "親子共學"],
-    type: ProgramType.PARENT_CHILD,
-    language: "English",
-    image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-    ],
-    description: "家長與孩子共同探索毛利文化之鄉。孩子入讀當地學校，家長參加成人英文班或體驗豐富的地熱溫泉與原住民文化之旅。",
-    highlights: ["傳統毛利舞蹈體驗", "大自然地理教室", "親子友善住宿", "放鬆舒壓環境"]
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80",
+    description: "孩子直接進入紐西蘭公立學校班級，與當地同學同步上課。體驗正式海外學籍與成績單。課程包含特邀奧運冠軍指導的水上救生訓練，並為陪讀家長提供興趣或語言課程。",
+    highlights: ["領取官方結業成績單，建立海外正式學籍", "一對一學伴制度 (Buddy)，快速融入生活", "獨家水上安全培訓課程 (Olympic Coach)", "家長可同步安排高爾夫、烘焙或語言課程"],
+    subjects: ["全真插班", "戶外教育"]
   }
 ];
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "t1",
-    name: "Sarah Lin",
-    role: "紐西蘭資深顧問",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+    name: "Joanne Qiao",
+    role: "資深教育顧問 (駐紐)",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
     languages: ["中文", "English"],
-    experience: "12年紐西蘭留學代辦經驗",
-    specialty: "中小學微留學、NCEA學制規劃"
-  },
-  {
-    id: "t2",
-    name: "James Cook",
-    role: "奧克蘭辦公室負責人",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-    languages: ["English"],
-    experience: "當地安置服務8年",
-    specialty: "住宿家庭媒合、當地生活支援"
+    experience: "20年紐西蘭教育管理經驗",
+    specialty: "精通中新教育系統、公立/私校申請策略"
   }
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: "tes1",
-    name: "王小明",
-    ageCountry: "14歲 / 奧克蘭中學",
-    programType: "High School",
-    content: "紐西蘭的老師非常注重個人特質，我不再需要為了考試而讀書。這裡的 NCEA 系統讓我選到自己喜歡的攝影與設計課。顧問Sarah姊姊幫我選的學校校園超美，簡直像在電影裡生活！",
-    image: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-  },
-  {
-    id: "tes2",
-    name: "陳媽媽",
-    ageCountry: "基督城親子遊學",
-    programType: "Parent-Child",
-    content: "基督城真的是花園城市，孩子在小學裡每天都很開心。我們在那裡認識了當地的Kiwi家庭，週末還一起去滑雪。這段回憶對孩子一生的影響非常大，特別感謝點石團隊的細心安排。",
-    image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+    name: "Angela Li",
+    ageCountry: "17歲 / Northcote College",
+    programType: "長期留學",
+    content: "在 Northcote 的四年是我人生最棒的決定。老師非常支持我的創意，讓我拿到了芝加哥藝術學院的獎學金！",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80"
   }
 ];
 
 export const FAQS: FAQItem[] = [
   {
-    category: "簽證",
-    question: "去紐西蘭遊學需要辦簽證嗎？",
-    answer: "持台灣護照進入紐西蘭可享有 90 天免簽證待遇。若就讀課程超過 3 個月，則需申請正式學生簽證。我們顧問會全程協助辦理。"
-  },
-  {
     category: "學制",
-    question: "什麼是 NCEA？與 IB 有什麼不同？",
-    answer: "NCEA 是紐西蘭國家教育成績證書，是紐西蘭高中生的主要學歷。它強調平時表現與多元發展。許多紐西蘭高中也同時提供 IB 課程，適合有計畫申請英美名校的學生。"
+    question: "孩子幾歲可以去紐西蘭讀書？",
+    answer: "紐西蘭 5 歲當天即可入學 (Year 1)，不須等到開學日。小學為 Year 1-6，中學為 Year 9-13。"
   }
 ];
 
 export const SOP_STEPS = [
-  { title: "專業諮詢", desc: "了解學生興趣與特質" },
-  { title: "學校篩選", desc: "精選適合的 NZ 校園" },
-  { title: "送件申請", desc: "協助準備申請文件" },
-  { title: "簽證保險", desc: "一站式行政代辦" },
-  { title: "行前輔導", desc: "紐西蘭生活大補帖" },
-  { title: "抵達安置", desc: "當地辦公室接機與安置" }
+  { title: "需求諮詢", desc: "深度訪談，了解學員特質與目標" },
+  { title: "精準配對", desc: "根據預算與偏好推薦最適合校園" },
+  { title: "文件代辦", desc: "全程協助成績單、自傳與簽證申請" },
+  { title: "行前特訓", desc: "獨家 LPP 語言與心理適應指導" },
+  { title: "落地安置", desc: "奧克蘭辦公室接機、宿舍安置與守護" }
 ];

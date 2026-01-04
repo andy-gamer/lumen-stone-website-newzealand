@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ArrowRight, Globe, BookOpen, Plane, Check, Star, GraduationCap, Clock, Search, FileText, MessageCircle, ChevronLeft, ChevronRight, ArrowUpRight, Users, X, ExternalLink, ShieldCheck, Sun, Award
+  ArrowRight, Globe, BookOpen, Plane, Check, Star, GraduationCap, Clock, Search, FileText, MessageCircle, ChevronLeft, ChevronRight, ArrowUpRight, Users, X, ExternalLink, ShieldCheck, Sun, Award, Sparkles, Tag
 } from 'lucide-react';
 import { DataService } from '../services/db';
 import { NewsItem } from '../types';
@@ -73,7 +73,7 @@ const Home: React.FC = () => {
       {selectedNews && <NewsModal item={selectedNews} onClose={() => setSelectedNews(null)} />}
 
       {/* 1. HERO SECTION */}
-      <section className="relative h-auto lg:min-h-[70vh] flex items-center pt-28 pb-12 md:pt-40 md:pb-20 overflow-hidden bg-brand-cream">
+      <section className="relative h-auto lg:min-h-[70vh] flex items-center pt-28 pb-12 md:pt-40 md:pb-12 overflow-hidden bg-brand-cream">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16">
             
@@ -102,7 +102,7 @@ const Home: React.FC = () => {
                   看見<span className="italic text-brand-primary">世界的寬廣</span>
                 </h1>
                 <p className="text-brand-sub text-[16px] md:text-lg font-light leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  我們不只是留學代辦，更是教育的策展人。透過點石精選的紐西蘭校園，讓學習不再侷限於課本。
+                  我們不只是留學代辦，更是教育的策展人。透過點石精選的各國校園，讓學習不再侷限於課本。
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 pt-2">
@@ -117,6 +117,30 @@ const Home: React.FC = () => {
 
           </div>
         </div>
+      </section>
+
+      {/* EARLY BIRD BANNER - 縮小後的醒目區塊 */}
+      <section className="container mx-auto px-6 lg:px-12 mb-20">
+         <div className="early-bird-shimmer relative rounded-2xl md:rounded-[40px] p-4 md:p-6 shadow-heavy overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border border-brand-gold/30">
+            <div className="flex items-center gap-4 md:gap-6 relative z-10">
+               <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-full bg-brand-ink text-brand-gold flex items-center justify-center shadow-lg">
+                  <Sparkles size={24} />
+               </div>
+               <div className="text-left">
+                  <div className="flex items-center gap-2 mb-1">
+                     <span className="bg-brand-ink text-white text-[7px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded">Special</span>
+                     <span className="text-brand-ink font-black text-[9px] uppercase tracking-widest">2024-25 早鳥計畫</span>
+                  </div>
+                  <h2 className="text-sm md:text-base font-serif font-black text-brand-ink leading-tight">
+                    完成選課指南問卷，立即領取 <span className="text-brand-primary">「名額保留」</span> 與早鳥專屬優惠！
+                  </h2>
+               </div>
+            </div>
+
+            <Link to="/guide" className="shrink-0 w-full md:w-auto px-8 py-3 bg-brand-ink text-white rounded-full font-black text-[11px] uppercase tracking-[0.2em] shadow-md hover:scale-105 transition-all flex items-center justify-center gap-3 group">
+               立即填寫問卷 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={14} />
+            </Link>
+         </div>
       </section>
 
       {/* 2. ADVANTAGE SECTION */}

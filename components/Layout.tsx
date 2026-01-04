@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageCircle } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -22,6 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   const logoUrl = "https://pub-eab9e45abd56499794188fcd886beee3.r2.dev/logo/logo.png";
+  const lineUrl = "https://line.me/ti/p/@647loexf";
 
   const navbarClasses = scrolled 
     ? 'bg-brand-cream/95 backdrop-blur-xl text-brand-ink shadow-sm h-14 md:h-16' 
@@ -72,16 +73,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Link to="/programs" className="block px-6 py-2 text-[11px] font-bold tracking-wide hover:bg-brand-cream hover:text-brand-accent transition-colors">所有方案</Link>
                   <div className="h-[1px] bg-brand-border mx-4 my-1 opacity-50"></div>
                   <Link to="/programs?type=Study Abroad" className="block px-6 py-2 text-[11px] font-bold tracking-wide hover:bg-brand-cream hover:text-brand-accent transition-colors">長期留學</Link>
-                  <Link to="/programs?type=Language School" className="block px-6 py-2 text-[11px] font-bold tracking-wide hover:bg-brand-cream hover:text-brand-accent transition-colors">密集遊學</Link>
                   <Link to="/programs?type=Micro Study" className="block px-6 py-2 text-[11px] font-bold tracking-wide hover:bg-brand-cream hover:text-brand-accent transition-colors">微留學體驗</Link>
                 </div>
               </div>
 
               <Link to="/articles" className="text-[12px] tracking-widest font-black transition-all hover:text-brand-accent text-brand-ink/70">文章導覽</Link>
 
-              <Link to="/booking" className="px-6 py-2.5 bg-brand-primary text-white text-[11px] font-black tracking-[0.1em] uppercase rounded-md hover:bg-brand-ink transition-all shadow-md">
-                Contact
-              </Link>
+              <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-brand-primary text-white text-[11px] font-black tracking-[0.1em] uppercase rounded-md hover:bg-[#06C755] transition-all shadow-md flex items-center gap-2">
+                <MessageCircle size={14} /> LINE 客服
+              </a>
             </div>
 
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-brand-ink">
@@ -98,13 +98,28 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div className="h-[1px] w-12 bg-brand-border"></div>
               <Link to="/programs" onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif font-black text-brand-ink">課程列表</Link>
               <Link to="/articles" onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif font-black text-brand-ink">文章導覽</Link>
-              <Link to="/booking" onClick={() => setIsMenuOpen(false)} className="px-10 py-3 bg-brand-primary text-white rounded-lg font-black text-sm tracking-widest shadow-xl">CONTACT</Link>
+              <a href={lineUrl} onClick={() => setIsMenuOpen(false)} className="px-10 py-3 bg-[#06C755] text-white rounded-lg font-black text-sm tracking-widest shadow-xl flex items-center gap-2 uppercase">
+                <MessageCircle size={18} /> LINE CONSULT
+              </a>
             </div>
           </div>
         )}
       </nav>
 
       <main className="flex-grow">{children}</main>
+
+      {/* Floating LINE Button */}
+      <a 
+        href={lineUrl} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-8 right-8 z-[60] w-14 h-14 bg-[#06C755] text-white rounded-full shadow-heavy flex items-center justify-center hover:scale-110 transition-transform animate-bounce-slow group"
+      >
+        <MessageCircle size={30} />
+        <span className="absolute right-full mr-4 bg-white text-brand-ink px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-brand-border">
+          即時諮詢 @647loexf
+        </span>
+      </a>
 
       <footer className="py-16 bg-brand-ink text-white/50">
         <div className="container mx-auto px-6 lg:px-12">
@@ -133,9 +148,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h4 className="text-brand-secondary text-[10px] tracking-[0.4em] uppercase font-black mb-5">Contact</h4>
               <ul className="space-y-2.5 text-[12px] font-medium">
-                <li className="flex items-center gap-2 font-light">台北市信義區信義路五段</li>
-                <li className="flex items-center gap-2 font-light">info@lumenstone.edu</li>
-                <li className="flex items-center gap-2 font-light">02-2345-6789</li>
+                <li className="flex items-center gap-2 font-light">320桃園市中壢區慈惠三街106號3樓</li>
+                <li className="flex items-center gap-2 font-light">info@lumenstone-global.com</li>
+                <li className="flex items-center gap-2 font-light text-[#06C755] font-bold">LINE ID: @647loexf</li>
               </ul>
             </div>
           </div>

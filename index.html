@@ -15,6 +15,7 @@
                 primary: '#1B2E21', // 深森林綠
                 secondary: '#E5D8C6', // 奶油金
                 accent: '#8B7355', // 古銅棕
+                gold: '#FFD700', // 醒目早鳥金黃色
                 cream: '#F9F7F2', // 主背景色
                 ink: '#1A1A1A', // 主文字色
                 sub: '#666666', // 次要文字
@@ -65,6 +66,17 @@
         50% { transform: translateY(-15px); }
       }
       .float-animation { animation: float 6s ease-in-out infinite; }
+      
+      .early-bird-shimmer {
+        background: linear-gradient(90deg, #FFD700 0%, #FFF3B0 50%, #FFD700 100%);
+        background-size: 200% 100%;
+        animation: shimmer 3s infinite linear;
+      }
+      
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
     </style>
   <script type="importmap">
 {

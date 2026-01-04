@@ -44,16 +44,8 @@ export const About: React.FC = () => (
                 </p>
                 <p>
                   不同於傳統代辦僅著重於行政手續，我們更重視「教育」的本質。
-                  透過點石獨家精選的紐西蘭校園，我們確保每一位學員都能在最純淨的環境中獲得啟發。
+                  透過點石獨家精選的各國校園，我們確保每一位學員都能在最純淨的環境中獲得啟發。
                 </p>
-             </div>
-             
-             <div className="bg-white p-10 border-l-8 border-brand-primary shadow-zen rounded-r-3xl">
-               <h3 className="text-2xl font-serif font-black text-brand-ink mb-4">點石書屋</h3>
-               <p className="text-brand-sub font-light text-lg">
-                 我們在台北辦公室設有小型圖書館「點石書屋」，收藏了上千本原文童書與旅遊文學。
-                 歡迎家長與孩子隨時來訪，在書香中規劃未來的旅程。
-               </p>
              </div>
           </div>
        </div>
@@ -177,13 +169,6 @@ export const FAQ: React.FC = () => {
               </div>
             ))}
          </div>
-         
-         <div className="text-center mt-20">
-            <p className="text-brand-sub text-lg mb-6">找不到您的問題嗎？</p>
-            <a href="/contact" className="inline-flex items-center gap-4 text-brand-primary font-black border-b-2 border-brand-primary pb-2 hover:opacity-70 transition-all text-lg uppercase tracking-widest">
-               直接聯繫我們 <ArrowRight size={24} />
-            </a>
-         </div>
       </div>
     </div>
   );
@@ -204,16 +189,6 @@ export const Media: React.FC = () => (
           <a href="#" className="flex items-center justify-center gap-4 bg-white border-2 border-brand-border text-brand-ink px-12 py-5 rounded-xl font-black hover:border-brand-primary hover:text-brand-primary transition-all tracking-[0.2em] text-[13px] uppercase shadow-sm">
             <Facebook size={20} /> FACEBOOK
           </a>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[1,2,3,4].map(i => (
-            <div key={i} className="group relative overflow-hidden aspect-square rounded-3xl shadow-zen cursor-pointer">
-               <img src={`https://picsum.photos/seed/social${i}/600/600`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0" alt="Social Media" />
-               <div className="absolute inset-0 bg-brand-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
-                  <Instagram size={48} />
-               </div>
-            </div>
-          ))}
         </div>
      </div>
   </div>
@@ -237,8 +212,8 @@ export const Contact: React.FC = () => (
                   <div className="flex items-start gap-6">
                      <MapPin className="text-brand-secondary shrink-0 mt-1" size={28} />
                      <div>
-                        <p className="font-black text-xl mb-2">台北總部</p>
-                        <p className="text-white/60 text-base leading-relaxed">台北市信義區信義路五段7號<br/>(台北101對面)</p>
+                        <p className="font-black text-xl mb-2">點石遊學總部</p>
+                        <p className="text-white/60 text-base leading-relaxed">320桃園市中壢區慈惠三街106號3樓</p>
                      </div>
                   </div>
                   <div className="flex items-center gap-6">
@@ -247,48 +222,42 @@ export const Contact: React.FC = () => (
                   </div>
                   <div className="flex items-center gap-6">
                      <Mail className="text-brand-secondary shrink-0" size={28} />
-                     <p className="text-xl font-medium tracking-wider">info@lumenstone.edu</p>
+                     <p className="text-xl font-medium tracking-wider text-brand-secondary">info@lumenstone-global.com</p>
                   </div>
                </div>
-            </div>
-
-            <div className="relative z-10 mt-20 p-8 bg-white/5 rounded-3xl border border-white/10">
-               <p className="text-[11px] text-brand-secondary uppercase tracking-[0.4em] font-black mb-4">Office Hours</p>
-               <p className="text-base text-white/80">週一至週五: 10:00 - 19:00</p>
-               <p className="text-base text-white/80">週六: 13:00 - 18:00 (預約制)</p>
             </div>
          </div>
 
          {/* Form Side */}
          <div className="p-10 md:p-16 lg:p-20 lg:w-3/5 order-1 lg:order-2">
-           <h3 className="text-3xl md:text-4xl font-serif font-black text-brand-ink mb-10 tracking-tighter">留言給我們</h3>
+           <h3 className="text-3xl md:text-4xl font-serif font-black text-brand-ink mb-10 tracking-tighter">留言諮詢</h3>
            <form 
               className="space-y-10"
               onSubmit={async (e) => {
                   e.preventDefault();
                   await DataService.submitContact({ timestamp: new Date() });
-                  alert("訊息已發送，我們將盡快與您聯繫。");
+                  alert("諮詢需求已收到，我們會盡快回覆至您的信箱。");
               }}
            >
              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-3">
-                   <label className="text-sm font-black text-brand-ink/50 uppercase tracking-[0.2em]">您的姓名 Name *</label>
-                   <input required type="text" className="w-full border-b-2 border-brand-border py-4 focus:border-brand-primary outline-none bg-transparent transition-all text-lg placeholder:text-brand-ink/20" placeholder="王小明" />
+                   <label className="text-xs font-black text-brand-ink/40 uppercase tracking-[0.2em]">姓名 Name *</label>
+                   <input required type="text" className="w-full border-b border-brand-border py-4 focus:border-brand-primary outline-none bg-transparent transition-all text-lg placeholder:text-brand-ink/20" placeholder="王小明" />
                 </div>
                 <div className="space-y-3">
-                   <label className="text-sm font-black text-brand-ink/50 uppercase tracking-[0.2em]">聯絡電話 Phone *</label>
-                   <input required type="tel" className="w-full border-b-2 border-brand-border py-4 focus:border-brand-primary outline-none bg-transparent transition-all text-lg placeholder:text-brand-ink/20" placeholder="0912-345-678" />
+                   <label className="text-xs font-black text-brand-ink/40 uppercase tracking-[0.2em]">電話 Phone *</label>
+                   <input required type="tel" className="w-full border-b border-brand-border py-4 focus:border-brand-primary outline-none bg-transparent transition-all text-lg placeholder:text-brand-ink/20" placeholder="0912-345-678" />
                 </div>
              </div>
              <div className="space-y-3">
-                <label className="text-sm font-black text-brand-ink/50 uppercase tracking-[0.2em]">電子信箱 Email *</label>
-                <input required type="email" className="w-full border-b-2 border-brand-border py-4 focus:border-brand-primary outline-none bg-transparent transition-all text-lg placeholder:text-brand-ink/20" placeholder="example@email.com" />
+                <label className="text-xs font-black text-brand-ink/40 uppercase tracking-[0.2em]">電子信箱 Email *</label>
+                <input required type="email" className="w-full border-b border-brand-border py-4 focus:border-brand-primary outline-none bg-transparent transition-all text-lg placeholder:text-brand-ink/20" placeholder="example@email.com" />
              </div>
              <div className="space-y-3">
-                <label className="text-sm font-black text-brand-ink/50 uppercase tracking-[0.2em]">想詢問的內容 Message</label>
-                <textarea rows={4} className="w-full border-2 border-brand-border rounded-2xl p-6 focus:border-brand-primary outline-none bg-brand-cream/30 transition-all text-lg resize-none placeholder:text-brand-ink/20" placeholder="請描述您的需求或想問的問題..."></textarea>
+                <label className="text-xs font-black text-brand-ink/40 uppercase tracking-[0.2em]">想了解的國家或課程需求</label>
+                <textarea rows={4} className="w-full border border-brand-border rounded-2xl p-6 focus:border-brand-primary outline-none bg-brand-cream/30 transition-all text-lg resize-none placeholder:text-brand-ink/20" placeholder="請描述您的需求..."></textarea>
              </div>
-             <button type="submit" className="w-full py-6 bg-brand-primary text-white font-black rounded-xl hover:bg-brand-ink transition-all tracking-[0.4em] text-[15px] shadow-heavy flex items-center justify-center gap-4 group">
+             <button type="submit" className="w-full py-6 bg-brand-primary text-white font-black rounded-xl hover:bg-brand-ink transition-all tracking-[0.4em] text-[13px] shadow-heavy flex items-center justify-center gap-4 group">
                發送諮詢訊息 <Send size={20} className="group-hover:translate-x-2 transition-transform" />
              </button>
            </form>
@@ -304,12 +273,8 @@ export const Legal: React.FC = () => (
      <PageHeader title="條款與聲明" subtitle="Legal" />
      <div className="container mx-auto px-6 lg:px-12 py-24 max-w-4xl text-brand-sub font-light leading-loose text-justify space-y-16">
         <section className="bg-white p-12 rounded-[40px] shadow-zen border border-brand-border">
-           <h2 className="text-2xl md:text-3xl font-black text-brand-ink mb-8 font-serif tracking-tight">隱私權政策</h2>
-           <p className="text-lg md:text-xl">Lumen Stone (以下簡稱本公司) 非常重視您的隱私權。我們僅會蒐集為提供遊學諮詢服務所必須之個人資料（包括但不限於姓名、電話、電子郵件等），絕不會將您的資料販售給第三方。所有的資料傳輸皆經過加密處理，並存儲於安全的伺服器中。</p>
-        </section>
-        <section className="bg-white p-12 rounded-[40px] shadow-zen border border-brand-border">
-           <h2 className="text-2xl md:text-3xl font-black text-brand-ink mb-8 font-serif tracking-tight">服務條款</h2>
-           <p className="text-lg md:text-xl">使用本網站即代表您同意本公司的服務條款。網站上的所有行程價格僅供參考，實際費用可能因匯率、季節及學校政策而有所變動，最終價格以正式簽約文件為準。本公司保留隨時修改網站內容之權利，恕不另行通知。</p>
+           <h2 className="text-2xl font-black text-brand-ink mb-8 font-serif tracking-tight">隱私權政策</h2>
+           <p className="text-lg">Lumen Stone (以下簡稱本公司) 非常重視您的隱私權。我們僅會蒐集為提供遊學諮詢服務所必須之個人資料。所有的資料傳輸皆經過加密處理，並存儲於安全的伺服器中。</p>
         </section>
      </div>
   </div>

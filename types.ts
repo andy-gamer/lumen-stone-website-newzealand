@@ -15,6 +15,7 @@ export interface Program {
   description: string;
   highlights: string[];
   language: string;
+  subjects?: string[];
 }
 
 export enum ProgramType {

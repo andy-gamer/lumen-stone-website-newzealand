@@ -15,50 +15,50 @@ const Guide: React.FC = () => {
   const questions = [
     {
       id: 1,
-      question: "這次出國的主要目的是？",
+      question: "您這次出國留/遊學的主要目的是？",
       sub: "不同的目的將導向不同的簽證與方案建議",
       icon: <BookOpen className="text-brand-accent" size={24} />,
       options: [
-        { title: "拿正式學位 (升學)", desc: "預計入讀紐西蘭公立中小學或大學" },
-        { title: "提升英文實力 (進修)", desc: "短期或長期的語言能力強化" },
-        { title: "體驗當地生活 (度假)", desc: "半日學習配合半日戶外探險" },
-        { title: "親子共同學習 (家庭)", desc: "孩子插班上課，家長一同陪讀體驗" }
+        { title: "拿正式學位 (長期升學)", desc: "預計入讀國外公立中小學或大學" },
+        { title: "提升語言實力 (短期進修)", desc: "1-6個月密集英語或第二外語強化" },
+        { title: "親子共同學習 (親子陪讀)", desc: "孩子進入校園，家長同步體驗異國生活" },
+        { title: "技職/證照探索 (職涯發展)", desc: "包含烘焙、設計、運動等專業證照課程" }
       ]
     },
     {
       id: 2,
-      question: "預計停留的時間長短？",
-      sub: "時間決定了您適合「留學」還是「遊學」",
-      icon: <Plane className="text-brand-accent" size={24} />,
+      question: "心中偏好哪個國家或地區？",
+      sub: "如果您尚未決定，我們也能根據需求為您推薦",
+      icon: <MapPin className="text-brand-accent" size={24} />,
       options: [
-        { title: "超過半年 (長期規劃)", desc: "適合深度文化融入與學術發展" },
-        { title: "1 - 3 個月 (精實體驗)", desc: "適合寒暑假或職場空檔充電" },
-        { title: "2 - 4 週 (短期快充)", desc: "快速感受異國校園氛圍" },
-        { title: "尚未決定", desc: "想根據方案推薦來決定時間" }
+        { title: "紐西蘭/澳洲 (純淨自然)", desc: "南半球友善環境，學制與台灣接軌度高" },
+        { title: "英國/愛爾蘭 (英倫經典)", desc: "深厚學術歷史與正統英式英語發源地" },
+        { title: "美國/加拿大 (多元發展)", desc: "頂尖名校林立，最具競爭力的學術舞台" },
+        { title: "菲律賓/日本 (亞洲鄰國)", desc: "高CP值密集訓練或獨特的文化體驗" }
       ]
     },
     {
       id: 3,
-      question: "對環境的主要偏好？",
-      sub: "紐西蘭南島與北島有截然不同的生活節奏",
-      icon: <MapPin className="text-brand-accent" size={24} />,
+      question: "預計停留的時間長短？",
+      sub: "時間長度將影響簽證申請的類別",
+      icon: <Plane className="text-brand-accent" size={24} />,
       options: [
-        { title: "城市便利 (奧克蘭)", desc: "多元文化、資源豐富的北島大城" },
-        { title: "花園靜謐 (基督城)", desc: "南島學術氣息濃厚、風景宜人" },
-        { title: "冒險戶外 (皇后鎮)", desc: "適合熱愛大自然與極限運動的你" },
-        { title: "藝術人文 (威靈頓)", desc: "紐西蘭首都，電影與設計之鄉" }
+        { title: "2-4 週 (精華體驗)", desc: "適合寒暑假或職場空檔快速充電" },
+        { title: "1-3 個月 (精實進修)", desc: "能獲得明顯的語言或文化適應提升" },
+        { title: "超過半年 (深度生活)", desc: "完整的學期或學年，真正融入異國" },
+        { title: "尚未決定", desc: "想根據預算與課程再做最後考量" }
       ]
     },
     {
       id: 4,
-      question: "目前最擔心的部分是？",
-      sub: "讓我們知道如何提供更精確的協助",
+      question: "最在意的諮詢重點是？",
+      sub: "我們會根據您的優先順序指派最專業的顧問",
       icon: <ClipboardList className="text-brand-accent" size={24} />,
       options: [
-        { title: "語言程度跟不上", desc: "希望能有額外的 ESL 支援" },
-        { title: "當地住宿安排", desc: "高品質寄宿家庭或學生公寓" },
-        { title: "簽證申請流程", desc: "需要完整的一站式代辦服務" },
-        { title: "預算控管", desc: "希望找到性價比最高的選擇" }
+        { title: "校園環境與安全性", desc: "安全第一，舒適的硬體與在地照護" },
+        { title: "住宿安排 (寄宿或宿舍)", desc: "高品質的在地生活體驗與文化對接" },
+        { title: "簽證與文件代辦服務", desc: "繁雜手續全代勞，提高核發率" },
+        { title: "CP值與預算控管", desc: "在有限預算內尋找最高品質的校園" }
       ]
     }
   ];
@@ -76,41 +76,27 @@ const Guide: React.FC = () => {
 
   const getRecommendation = () => {
     const mainGoal = answers[0];
-    const duration = answers[1];
+    const region = answers[1];
     
-    if (mainGoal?.includes("學位") || duration?.includes("超過半年")) return {
-      title: "紐西蘭長期學術留學",
-      desc: "根據您的目標，建議從公立中學銜接課程開始。我們將協助您對接基督城或奧克蘭的優質公立學校，並進行學分預估。",
-      type: "Study Abroad",
-      cta: "查看中學方案"
-    };
-    if (mainGoal?.includes("家庭")) return {
-      title: "家長陪讀與微留學體驗",
-      desc: "適合帶著孩子一同出發。我們會安排孩子入讀當地小學插班 (Year 1-6)，並為您安排合適的陪讀住所或短期英語課程。",
-      type: "Micro Study",
-      cta: "探索微留學"
-    };
-    if (mainGoal?.includes("進修")) return {
-      title: "專業語言學校進修方案",
-      desc: "奧克蘭或皇后鎮的語言中心提供高密度的口說訓練。建議選擇 8-12 週的課程，能獲得最明顯的進步感。",
-      type: "Language School",
-      cta: "查看語言學校"
-    };
+    let title = "您的專屬全球學習藍圖";
+    let desc = `根據您對「${mainGoal}」的規劃以及對「${region}」的偏向，點石顧問已準備好相關地區的最新名額資訊。`;
+    let type = region?.includes("紐西蘭") ? "Study Abroad" : "Language School";
+
     return {
-      title: "短期文化體驗遊學",
-      desc: "2-4 週的精緻體驗最適合您。在皇后鎮享受冒險之餘，同時在全英文環境中重拾社交自信。",
-      type: "Language School",
-      cta: "瀏覽體驗方案"
+      title,
+      desc,
+      type,
+      results: answers
     };
   };
 
-  const recommendation = getRecommendation();
+  const rec = getRecommendation();
 
   return (
     <div className="min-h-screen bg-brand-cream font-sans pt-24">
       <section className="py-20 flex items-center">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="bg-white p-12 md:p-24 rounded-xl shadow-heavy border border-brand-border relative overflow-hidden">
+          <div className="bg-white p-8 md:p-20 rounded-3xl shadow-heavy border border-brand-border relative overflow-hidden">
             
             <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
                 <Compass size={200} className="text-brand-accent animate-spin-slow" />
@@ -118,44 +104,36 @@ const Guide: React.FC = () => {
 
             {step < questions.length ? (
               <div className="animate-fade-in relative z-10">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-10 mb-20">
-                    <div className="flex items-center gap-6">
-                        <div className="w-16 h-16 rounded-xl bg-brand-cream text-brand-accent flex items-center justify-center font-serif text-2xl font-black shadow-sm border border-brand-border">
+                  <div className="flex items-center gap-4 mb-12">
+                        <div className="w-12 h-12 rounded-xl bg-brand-cream text-brand-accent flex items-center justify-center font-serif text-lg font-black shadow-sm border border-brand-border">
                           {step + 1}
                         </div>
-                        <div>
-                          <span className="text-brand-accent font-black text-[10px] tracking-[0.4em] uppercase block mb-1">Interactive Quiz</span>
-                          <h3 className="text-brand-ink font-serif font-black text-xl">選課指南 {step + 1} / {questions.length}</h3>
-                        </div>
-                    </div>
+                        <h3 className="text-brand-ink font-serif font-black text-base uppercase tracking-widest">Step {step + 1} / {questions.length}</h3>
                   </div>
 
-                  <div className="mb-16">
-                    <h2 className="text-4xl md:text-6xl font-serif font-black text-brand-ink mb-8 leading-tight tracking-tighter">
+                  <div className="mb-12">
+                    <h2 className="text-2xl md:text-4xl font-serif font-black text-brand-ink mb-4 leading-tight">
                         {questions[step].question}
                     </h2>
-                    <p className="text-brand-sub font-light text-xl leading-relaxed">
+                    <p className="text-brand-sub font-light text-base md:text-lg">
                         {questions[step].sub}
                     </p>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {questions[step].options.map((opt, oIdx) => (
                         <button 
                           key={oIdx} 
                           onClick={() => handleSelect(opt.title)} 
-                          className={`text-left p-10 rounded-xl border transition-all duration-500 group flex flex-col justify-between h-full relative overflow-hidden ${answers[step] === opt.title ? 'bg-brand-ink border-brand-ink text-white shadow-xl -translate-y-2' : 'bg-white border-brand-border hover:border-brand-accent/50 hover:shadow-md'}`}
+                          className={`text-left p-6 rounded-2xl border transition-all duration-500 group flex flex-col justify-between h-full relative overflow-hidden ${answers[step] === opt.title ? 'bg-brand-primary border-brand-primary text-white shadow-xl' : 'bg-white border-brand-border hover:border-brand-accent/50 hover:shadow-md'}`}
                         >
                           <div className="relative z-10">
-                              <span className={`text-xl font-serif font-black block mb-2 ${answers[step] === opt.title ? 'text-brand-secondary' : 'text-brand-ink'}`}>
+                              <span className={`text-base font-serif font-black block mb-2 ${answers[step] === opt.title ? 'text-brand-secondary' : 'text-brand-ink'}`}>
                                   {opt.title}
                               </span>
-                              <p className={`text-sm font-light leading-loose ${answers[step] === opt.title ? 'text-white/70' : 'text-brand-sub'}`}>
+                              <p className={`text-xs font-light leading-relaxed ${answers[step] === opt.title ? 'text-white/70' : 'text-brand-sub'}`}>
                                   {opt.desc}
                               </p>
-                          </div>
-                          <div className={`mt-8 self-end transition-all ${answers[step] === opt.title ? 'text-brand-secondary scale-125' : 'text-brand-ink/10 group-hover:text-brand-accent/30'}`}>
-                              <CheckCircle size={28} />
                           </div>
                         </button>
                     ))}
@@ -163,40 +141,33 @@ const Guide: React.FC = () => {
               </div>
             ) : (
               <div className="text-center animate-fade-in relative z-10 py-10">
-                  <div className="inline-block p-10 rounded-full bg-brand-cream text-brand-accent mb-12 shadow-sm border border-brand-border">
-                    <Sparkles size={60} className="animate-pulse" />
+                  <div className="inline-block p-8 rounded-full bg-brand-cream text-brand-accent mb-8 shadow-sm border border-brand-border">
+                    <Sparkles size={40} className="animate-pulse" />
                   </div>
-                  <h2 className="text-5xl md:text-7xl font-serif font-black text-brand-ink mb-10 tracking-tighter">為您量身打造的建議</h2>
-                  <div className="max-w-xl mx-auto mb-16">
-                    <div className="bg-brand-cream p-12 rounded-xl border border-brand-border relative shadow-sm">
-                        <h3 className="text-3xl font-serif font-black text-brand-ink mb-6">{recommendation.title}</h3>
-                        <p className="text-brand-sub text-lg leading-loose font-light italic">
-                          {recommendation.desc}
+                  <h2 className="text-3xl md:text-5xl font-serif font-black text-brand-ink mb-8 tracking-tighter">問卷分析完成</h2>
+                  <div className="max-w-xl mx-auto mb-12">
+                    <div className="bg-brand-cream p-8 rounded-2xl border border-brand-border relative shadow-sm text-left">
+                        <h3 className="text-xl font-serif font-black text-brand-ink mb-4">{rec.title}</h3>
+                        <p className="text-brand-sub text-base leading-relaxed font-light italic">
+                          {rec.desc}
                         </p>
                     </div>
                   </div>
                   
-                  <div className="flex flex-col md:flex-row gap-6 justify-center">
+                  <div className="flex flex-col md:flex-row gap-4 justify-center">
                     <button 
-                      onClick={() => navigate('/booking', { state: { interestedProgram: recommendation.title } })} 
-                      className="px-14 py-6 bg-brand-ink text-white rounded-lg font-black shadow-heavy hover:bg-brand-accent transition-all flex items-center justify-center gap-4 group uppercase text-[10px] tracking-widest"
+                      onClick={() => navigate('/booking', { state: { surveyResults: answers } })} 
+                      className="px-10 py-4 bg-brand-primary text-white rounded-lg font-black shadow-heavy hover:bg-brand-ink transition-all flex items-center justify-center gap-4 group uppercase text-[10px] tracking-widest"
                     >
-                        立即預約諮詢 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                        送出問卷並預約諮詢 <ArrowRight size={18} />
                     </button>
                     <button 
-                      onClick={() => navigate(`/programs?type=${recommendation.type}`)} 
-                      className="px-14 py-6 bg-white border border-brand-ink/10 text-brand-ink rounded-lg font-black hover:bg-brand-ink hover:text-white transition-all uppercase text-[10px] tracking-widest"
+                      onClick={() => { setStep(0); setAnswers({}); }} 
+                      className="px-10 py-4 bg-white border border-brand-border text-brand-ink rounded-lg font-black hover:bg-brand-cream transition-all uppercase text-[10px] tracking-widest"
                     >
-                        {recommendation.cta}
+                        重新測驗
                     </button>
                   </div>
-                  
-                  <button 
-                    onClick={() => { setStep(0); setAnswers({}); }} 
-                    className="mt-16 text-brand-sub flex items-center gap-3 mx-auto hover:text-brand-accent transition-colors text-[10px] font-black uppercase tracking-[0.4em]"
-                  >
-                    <RefreshCcw size={16}/> 重新測驗
-                  </button>
               </div>
             )}
           </div>
