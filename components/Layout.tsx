@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, MessageCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageCircle, ArrowRight } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -80,7 +80,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link to="/articles" className="text-[12px] tracking-widest font-black transition-all hover:text-brand-accent text-brand-ink/70">文章導覽</Link>
 
               <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-brand-primary text-white text-[11px] font-black tracking-[0.1em] uppercase rounded-md hover:bg-[#06C755] transition-all shadow-md flex items-center gap-2">
-                <MessageCircle size={14} /> LINE 客服
+                <MessageCircle size={14} /> 加入 LINE 帳號
               </a>
             </div>
 
@@ -99,7 +99,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link to="/programs" onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif font-black text-brand-ink">課程列表</Link>
               <Link to="/articles" onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif font-black text-brand-ink">文章導覽</Link>
               <a href={lineUrl} onClick={() => setIsMenuOpen(false)} className="px-10 py-3 bg-[#06C755] text-white rounded-lg font-black text-sm tracking-widest shadow-xl flex items-center gap-2 uppercase">
-                <MessageCircle size={18} /> LINE CONSULT
+                <MessageCircle size={18} /> 加入 LINE 帳號
               </a>
             </div>
           </div>
@@ -117,12 +117,28 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       >
         <MessageCircle size={30} />
         <span className="absolute right-full mr-4 bg-white text-brand-ink px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-brand-border">
-          即時諮詢 @647loexf
+          加入 LINE 帳號 @647loexf
         </span>
       </a>
 
-      <footer className="py-16 bg-brand-ink text-white/50">
-        <div className="container mx-auto px-6 lg:px-12">
+      <footer className="bg-brand-ink text-white/50">
+        {/* Footer CTA Section */}
+        <div className="bg-brand-secondary py-16">
+          <div className="container mx-auto px-6 lg:px-12 text-center">
+            <h3 className="text-2xl md:text-4xl font-serif font-black text-brand-primary mb-6">準備好開啟孩子的教育藍圖了嗎？</h3>
+            <p className="text-brand-primary/70 mb-10 max-w-2xl mx-auto font-light leading-relaxed">專業顧問將根據孩子的學業狀況與性格特質，量身打造最適合的紐西蘭留遊學路徑。</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link to="/booking" className="px-10 py-4 bg-brand-primary text-white rounded-xl font-black text-[12px] tracking-[0.2em] uppercase hover:bg-brand-ink transition-all shadow-xl flex items-center justify-center gap-3">
+                預約一對一諮詢 <ArrowRight size={18} />
+              </Link>
+              <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="px-10 py-4 bg-[#06C755] text-white rounded-xl font-black text-[12px] tracking-[0.2em] uppercase hover:opacity-90 transition-all shadow-xl flex items-center justify-center gap-3">
+                <MessageCircle size={18} /> 加入 LINE 帳號
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="py-20 container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-14">
             <div className="md:col-span-2 space-y-5">
                <div className="flex items-center gap-3">
@@ -142,14 +158,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <li><Link to="/articles" className="hover:text-white transition-colors">文章導覽</Link></li>
                 <li><Link to="/guide" className="hover:text-white transition-colors">選課指南</Link></li>
                 <li><Link to="/programs" className="hover:text-white transition-colors">課程列表</Link></li>
-                <li><Link to="/about" className="hover:text-white transition-colors">品牌故事</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">聯絡我們</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-brand-secondary text-[10px] tracking-[0.4em] uppercase font-black mb-5">Contact</h4>
               <ul className="space-y-2.5 text-[12px] font-medium">
                 <li className="flex items-center gap-2 font-light">320桃園市中壢區慈惠三街106號3樓</li>
-                <li className="flex items-center gap-2 font-light">info@lumenstone-global.com</li>
+                <li className="flex items-center gap-2 font-light text-brand-secondary">info@lumenstone-global.com</li>
                 <li className="flex items-center gap-2 font-light text-[#06C755] font-bold">LINE ID: @647loexf</li>
               </ul>
             </div>

@@ -1,11 +1,14 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Home, GraduationCap, 
-  ArrowRight, Star, HelpCircle, Info, MessageSquare, Search
+  ArrowRight, Star, HelpCircle, Info, MessageSquare, Search, MessageCircle
 } from 'lucide-react';
 
 const Sitemap: React.FC = () => {
+  const lineUrl = "https://line.me/ti/p/@647loexf";
+
   const sections = [
     {
       id: "01",
@@ -24,7 +27,7 @@ const Sitemap: React.FC = () => {
       links: [
         { name: "互動式選課指南", path: "/guide", desc: "3分鐘快速分析最適合方案" },
         { name: "常見問題 FAQ", path: "/faq", desc: "簽證、保險與生活大小事" },
-        { name: "紐西蘭百科", path: "/nz-au", desc: "深入了解紐西蘭學制與 NCEA" },
+        { name: "紐西蘭百科", path: "/education", desc: "深入了解紐西蘭學制與 NCEA" },
       ]
     },
     {
@@ -110,10 +113,10 @@ const Sitemap: React.FC = () => {
                 <Link to="/guide" className="text-brand-accent text-xs font-bold tracking-widest uppercase hover:underline">啟動選課指南</Link>
              </div>
              <div className="p-10 bg-brand-ink rounded-[40px] shadow-heavy md:translate-y-[-20px] text-white">
-                <Star className="text-brand-secondary mb-6" size={32} fill="currentColor" />
-                <h4 className="text-xl font-serif font-bold text-white mb-4">立即預約</h4>
-                <p className="text-white/60 text-sm leading-relaxed mb-6">點擊下方按鈕，安排與資深顧問的一對一免費諮詢時間。</p>
-                <Link to="/booking" className="inline-block px-8 py-3 bg-brand-secondary text-brand-ink rounded-full text-xs font-black tracking-widest uppercase hover:bg-white transition-all">Book Now</Link>
+                <MessageCircle className="text-brand-secondary mb-6" size={32} />
+                <h4 className="text-xl font-serif font-bold text-white mb-4">即時諮詢</h4>
+                <p className="text-white/60 text-sm leading-relaxed mb-6">點擊下方按鈕，加入 LINE 帳號與資深顧問進行一對一免費諮詢。</p>
+                <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 bg-brand-secondary text-brand-ink rounded-full text-xs font-black tracking-widest uppercase hover:bg-white transition-all">加入 LINE 帳號</a>
              </div>
              <div className="p-10 bg-white rounded-[40px] border border-brand-border hover:shadow-zen transition-all">
                 <Info className="text-brand-accent mb-6" size={32} />

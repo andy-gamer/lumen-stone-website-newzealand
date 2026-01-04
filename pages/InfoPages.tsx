@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Instagram, Facebook, MapPin, Mail, Phone, ChevronDown, ChevronUp, ArrowRight, Quote, Send, Star } from 'lucide-react';
+import { Instagram, Facebook, MapPin, Mail, Phone, ChevronDown, ChevronUp, ArrowRight, Quote, Send, Star, MessageCircle } from 'lucide-react';
 import { DataService } from '../services/db';
 import { TeamMember, Testimonial, FAQItem } from '../types';
 
@@ -55,7 +55,7 @@ export const About: React.FC = () => (
 
 /* --- Team Page --- */
 export const Team: React.FC = () => {
-    const [members, setMembers] = useState<TeamMember[]>([]);
+    const [members, setMembers] = useState<TeamMember[]>(member => []);
     
     useEffect(() => {
         DataService.getTeamMembers().then(setMembers);
@@ -224,6 +224,13 @@ export const Contact: React.FC = () => (
                      <Mail className="text-brand-secondary shrink-0" size={28} />
                      <p className="text-xl font-medium tracking-wider text-brand-secondary">info@lumenstone-global.com</p>
                   </div>
+               </div>
+               
+               <div className="mt-20 pt-10 border-t border-white/10">
+                  <h4 className="text-brand-secondary font-black text-xs uppercase tracking-[0.3em] mb-6">即時諮詢</h4>
+                  <a href="https://line.me/ti/p/@647loexf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-[#06C755] text-white px-8 py-4 rounded-xl font-black text-[12px] uppercase tracking-widest hover:scale-105 transition-transform">
+                     <MessageCircle size={20} /> 加入 LINE 帳號
+                  </a>
                </div>
             </div>
          </div>
